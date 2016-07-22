@@ -14,7 +14,7 @@ sudo tar -xpf linaro-jessie-alip-*.tar.gz
 echo Copy overlay to rootfs
 sudo cp -rf packages $TARGET_ROOTFS_DIR/
 sudo cp -rf overlay/* $TARGET_ROOTFS_DIR/
-sudo cp -rf develop $TARGET_ROOTFS_DIR/
+# sudo cp -rf develop $TARGET_ROOTFS_DIR/
 # sudo cp -rf 3288/* $TARGET_ROOTFS_DIR/
 
 echo Change root.....................
@@ -50,9 +50,9 @@ cp /libs/vdpau_drv_video.so /usr/lib/arm-linux-gnueabihf/dri/vdpau_drv_video.so
 cp /libs/libgstvaapi.so libgstvaapi_parse.so /usr/lib/arm-linux-gnueabihf/gstreamer-1.0/
 cp -r /libs/gstvaapi/* /usr/lib/arm-linux-gnueabihf/
 
-# rm -rf /var/lib/apt/lists/*
-# rm -rf /packages
-# rm -rf /libs
+rm -rf /var/lib/apt/lists/*
+rm -rf /packages
+rm -rf /libs
 
 # for develop
 ln -s /usr/bin/Xorg /usr/bin/X
