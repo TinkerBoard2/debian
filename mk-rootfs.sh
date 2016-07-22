@@ -14,6 +14,7 @@ sudo tar -xpf linaro-jessie-alip-*.tar.gz
 echo Copy overlay to rootfs
 sudo cp -rf packages $TARGET_ROOTFS_DIR/
 sudo cp -rf overlay/* $TARGET_ROOTFS_DIR/
+sudo cp -rf develop $TARGET_ROOTFS_DIR/
 # sudo cp -rf 3288/* $TARGET_ROOTFS_DIR/
 
 echo Change root.....................
@@ -32,14 +33,14 @@ dpkg -i  /packages/libmali-rk32881_1.4-3_armhf.deb
 dpkg -i  /packages/libmali-rk3288-dev_1.4-3_armhf.deb
 dpkg -i  /packages/xserver-common_1.18.21-2_all.deb 
 dpkg -i  /packages/xserver-xorg-core_1.18.21-2_armhf.deb
-dpkg -i  /packages/libdrm-rockchip1_2.4.68-2_armhf.deb
-dpkg -i  /packages/libdrm2_2.4.68-2_armhf.deb
 apt-get install -y gstreamer1.0-vaapi gstreamer1.0-tools libvdpau1 libva1 \
 	 libva-wayland1 gstreamer1.0-alsa gstreamer1.0-plugins-good 	\
 	 gstreamer1.0-plugins-bad libdbus-1-dev alsa-utils vdpau-va-driver
 
 dpkg -i  /packages/libva-rockchip1_0.20-1_armhf.deb
-dpkg -i  /packages/rockchip-vdpau-drivers_0.20-1_armhf.deb
+dpkg -i  /packages/libdrm/*
+
+apt-get install -f -y
 
 # Prepare VDPAU VAAPI enviorment
 cp /libs/test.mp4 /usr/local/
@@ -53,8 +54,10 @@ cp -r /libs/gstvaapi/* /usr/lib/arm-linux-gnueabihf/
 # rm -rf /packages
 # rm -rf /libs
 
+# for develop
 ln -s /usr/bin/Xorg /usr/bin/X
-apt-get install bash-completion
+apt-get install -y bash-completion
+apt-get install -y sshfs -t testing
 setcap CAP_SYS_ADMIN+ep /usr/bin/gst-launch-1.0
 
 EOF
