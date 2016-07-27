@@ -14,12 +14,13 @@ sudo tar -xpf linaro-jessie-alip-*.tar.gz
 echo Copy overlay to rootfs
 sudo cp -rf packages $TARGET_ROOTFS_DIR/
 sudo cp -rf overlay/* $TARGET_ROOTFS_DIR/
-# sudo cp -rf develop $TARGET_ROOTFS_DIR/
-# sudo cp -rf 3288/* $TARGET_ROOTFS_DIR/
+if [ "$1" == "develop" ]
+	sudo cp -rf develop/* $TARGET_ROOTFS_DIR/
 
 echo Change root.....................
 sudo cp /usr/bin/qemu-arm-static $TARGET_ROOTFS_DIR/usr/bin/
 sudo mount -o bind /dev $TARGET_ROOTFS_DIR/dev
+
 # setup rk enviorment
 cat << EOF | sudo chroot $TARGET_ROOTFS_DIR
 chmod o+x /usr/lib/dbus-1.0/dbus-daemon-launch-helper
@@ -55,10 +56,9 @@ rm -rf /packages
 rm -rf /libs
 
 # for develop
-ln -s /usr/bin/Xorg /usr/bin/X
 apt-get install -y bash-completion
 apt-get install -y sshfs -t testing
-setcap CAP_SYS_ADMIN+ep /usr/bin/gst-launch-1.0
+#setcap CAP_SYS_ADMIN+ep /usr/bin/gst-launch-1.0
 
 EOF
 
