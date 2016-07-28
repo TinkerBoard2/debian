@@ -5,7 +5,7 @@ export TARGET_ROOTFS_DIR="binary"
 
 if [ ! -e linaro-jessie-alip-*.tar.gz ]; then 
 	echo Download linaro rootfs
-	wget https://releases.linaro.org/debian/images/alip-armhf/latest/linaro-jessie-alip-20160620-25.tar.gz
+	wget https://releases.linaro.org/debian/images/alip-armhf/16.07/linaro-jessie-alip-20160722-27.tar.gz
 fi
 
 echo Extract image
