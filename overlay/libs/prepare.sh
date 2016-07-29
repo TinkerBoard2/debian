@@ -11,7 +11,7 @@ apt-get install -y gstreamer1.0-vaapi gstreamer1.0-tools libvdpau1 libva1 \
 # rm /etc/init/tiny*
 # rm /usr/sbin/tiny*
 cp librkdec-h264d.so /usr/lib/arm-linux-gnueabihf/
-cp /libs/libvdpau_rockchip.so.1 /usr/lib/arm-linux-gnueabihf/vdpau/libvdpau_rockchip.so.1
+cp libvdpau_rockchip.so.1 /usr/lib/arm-linux-gnueabihf/vdpau/libvdpau_rockchip.so.1
 
 cp vdpau_drv_video.so /usr/lib/arm-linux-gnueabihf/dri/vdpau_drv_video.so
 

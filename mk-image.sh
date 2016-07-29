@@ -38,4 +38,6 @@ sudo umount ${MOUNTPOINT}
 
 echo Rootfs Image: ${ROOTFSIMAGE}
 
-e2fsck -f ${ROOTFSIMAGE}
+e2fsck -p -f ${ROOTFSIMAGE}
+
+resize2fs -M ${ROOTFSIMAGE}
