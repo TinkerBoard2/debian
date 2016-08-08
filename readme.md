@@ -1,4 +1,4 @@
-apt-get install qemu-user-static
+`apt-get install qemu-user-static`
 
 `./mk-rootfs.sh` to build rk-debian rootfs
 

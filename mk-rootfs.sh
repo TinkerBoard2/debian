@@ -13,7 +13,8 @@ sudo tar -xpf linaro-jessie-alip-*.tar.gz
 
 echo Copy overlay to rootfs
 sudo cp -rf packages $TARGET_ROOTFS_DIR/
-sudo cp -rf overlay/* $TARGET_ROOTFS_DIR/
+sudo cp -rf overlay-develop/* $TARGET_ROOTFS_DIR/
+sudo cp -rf overlay-firmware/* $TARGET_ROOTFS_DIR/
 if [ "$1" == "develop" ] ; then
 	sudo cp -rf develop/* $TARGET_ROOTFS_DIR/
 fi
@@ -58,13 +59,14 @@ cp /libs/vdpau_drv_video.so /usr/lib/arm-linux-gnueabihf/dri/vdpau_drv_video.so
 cp /libs/libgstvaapi.so /libs/libgstvaapi_parse.so /usr/lib/arm-linux-gnueabihf/gstreamer-1.0/
 cp -rf /libs/gstvaapi/* /usr/lib/arm-linux-gnueabihf/
 
+# optimize
+
 # for develop
 apt-get install -y sshfs openssh-server -t testing 
 
 rm -rf /var/lib/apt/lists/*
 rm -rf /libs
 #rm -rf /packages
-
 EOF
 
 sudo umount $TARGET_ROOTFS_DIR/dev
