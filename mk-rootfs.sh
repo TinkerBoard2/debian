@@ -13,6 +13,7 @@ sudo tar -xpf linaro-jessie-alip-*.tar.gz
 
 echo Copy overlay to rootfs
 sudo cp -rf packages $TARGET_ROOTFS_DIR/
+sudo cp -rf overlay/* $TARGET_ROOTFS_DIR/
 sudo cp -rf overlay-firmware/* $TARGET_ROOTFS_DIR/
 
 echo Change root.....................
