@@ -1,0 +1,9 @@
+[Desktop Entry]
+Type=Application
+Name=render-overlay-full
+Exec=env DISPLAY=:0.0 LIBVA_DRIVER_NAME=vdpau  VDPAU_DRIVER=rockchip OVERLAY=1 OVERLAY_FULLSCREEN=1 gst-launch-1.0  -v playbin uri=file://%f
+Categories=Other;
+MimeType=video/mp4
+Terminal=true
+X-KeepTerminal=false
+NoDisplay=true
