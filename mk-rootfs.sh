@@ -62,6 +62,9 @@ if [ "$1" == "develop" ] ; then
 	apt-get install -y sshfs openssh-server -t testing 
 fi
 
+chmod +x /etc/init.d/rockchip.sh 
+ln -s /etc/init.d/rockchip.sh /etc/rcS.d/S11rockchip.sh
+
 rm -rf /var/lib/apt/lists/*
 rm -rf /libs
 #rm -rf /packages
