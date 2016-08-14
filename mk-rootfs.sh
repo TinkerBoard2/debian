@@ -14,13 +14,13 @@ echo "Extract image"
 sudo tar -xpf linaro-jessie-alip-*.tar.gz
 
 echo "Copy overlay to rootfs"
+sudo mkdir $TARGET_ROOTFS_DIR/packages
 sudo cp -rf packages/$ARCH/* $TARGET_ROOTFS_DIR/packages
 sudo cp -rf overlay/* $TARGET_ROOTFS_DIR/
 sudo cp -rf overlay-firmware/* $TARGET_ROOTFS_DIR/
 
 if [ "$VERSION" == "debug" ] ; then
 	sudo cp -rf overlay-debug/* $TARGET_ROOTFS_DIR/
-	apt-get install -y sshfs openssh-server -t testing 
 fi
 
 echo "Change root....................."
@@ -33,7 +33,7 @@ chmod o+x /usr/lib/dbus-1.0/dbus-daemon-launch-helper
 apt-get update
 
 # xserver
-apt-get install -y libgcrypt20  libdbus-1-3 -t testing libdbus-1-dev
+apt-get install -y libgcrypt20  libdbus-1-3  libdbus-1-dev -t testing
 apt-get remove -y xserver-xorg
 apt-get install -y -t testing xserver-xorg-core 
 apt-get install -y -t testing xserver-xorg-input-evdev
@@ -62,12 +62,12 @@ cp /libs/vdpau_drv_video.so /usr/lib/arm-linux-gnueabihf/dri/vdpau_drv_video.so
 cp /libs/libgstvaapi.so /libs/libgstvaapi_parse.so /usr/lib/arm-linux-gnueabihf/gstreamer-1.0/
 cp -rf /libs/gstvaapi/* /usr/lib/arm-linux-gnueabihf/
 
+if [ "$VERSION" == "debug" ] ; then
+	apt-get install -y sshfs openssh-server -t testing 
+fi
+
 chmod +x /etc/init.d/rockchip.sh 
 ln -s /etc/init.d/rockchip.sh /etc/rcS.d/S11rockchip.sh
-
-if [ "$VERSION" == "debug" ] ; then
-	sudo cp -rf overlay-debug/* $TARGET_ROOTFS_DIR/
-fi
 
 rm -rf /var/lib/apt/lists/*
 rm -rf /libs
