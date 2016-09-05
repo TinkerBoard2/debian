@@ -27,12 +27,11 @@ echo "Change root....................."
 sudo cp /usr/bin/qemu-arm-static $TARGET_ROOTFS_DIR/usr/bin/
 sudo mount -o bind /dev $TARGET_ROOTFS_DIR/dev
 
-# setup rk enviorment
 cat << EOF | sudo chroot $TARGET_ROOTFS_DIR
 chmod o+x /usr/lib/dbus-1.0/dbus-daemon-launch-helper
 apt-get update
 
-# xserver
+#---------------Xserver-------------- 
 apt-get install -y libgcrypt20  libdbus-1-3  libdbus-1-dev -t testing
 apt-get remove -y xserver-xorg
 apt-get install -y -t testing xserver-xorg-core 
@@ -42,33 +41,28 @@ apt-get install -y -t testing libepoxy0
 dpkg -i  /packages/xserver-common_*_all.deb 
 dpkg -i  /packages/xserver-xorg-core_*_armhf.deb
 
-# drm
+#---------------LIBDRM-------------- 
 dpkg -i  /packages/libdrm/*
 
-# video 
-apt-get install -y gstreamer1.0-vaapi gstreamer1.0-tools libvdpau1 libva1 \
+#---------------Video-Vaapi-------------- 
+apt-get install -y  -t testing gstreamer1.0-vaapi gstreamer1.0-tools libvdpau1 libva1 \
 	 libva-wayland1 gstreamer1.0-alsa gstreamer1.0-plugins-good 	\
-	 gstreamer1.0-plugins-bad libdbus-1-dev alsa-utils vdpau-va-driver
-dpkg -i  /packages/libva-rockchip1_*_armhf.deb
-dpkg -i  /packages/rockchip-vdpau-drivers_*_armhf.deb
-
+	 gstreamer1.0-plugins-bad alsa-utils vdpau-va-driver gstreamer1.0-x
+dpkg -i  /packages/video/gstreamer1.0-vaapi_1.8.3-1_armhf.deb
+dpkg -i  /packages/video/libva-rockchip*_armhf.deb
+# dpkg -i  /packages/video/rockchip-vdpau-drivers_*_armhf.deb
 apt-get install -f -y
 
-# Prepare VDPAU VAAPI enviorment
-cp /libs/test.mp4 /usr/local/
-cp /libs/test_* /usr/local/bin/
-cp /libs/statistics.sh /usr/local/bin/
-cp /libs/vdpau_drv_video.so /usr/lib/arm-linux-gnueabihf/dri/vdpau_drv_video.so
-cp /libs/libgstvaapi.so /libs/libgstvaapi_parse.so /usr/lib/arm-linux-gnueabihf/gstreamer-1.0/
-cp -rf /libs/gstvaapi/* /usr/lib/arm-linux-gnueabihf/
-
+#---------------Debug-------------- 
 if [ "$VERSION" == "debug" ] ; then
 	apt-get install -y sshfs openssh-server -t testing 
 fi
 
+#---------------Custom Script-------------- 
 chmod +x /etc/init.d/rockchip.sh 
 ln -s /etc/init.d/rockchip.sh /etc/rcS.d/S11rockchip.sh
 
+#---------------Clean-------------- 
 rm -rf /var/lib/apt/lists/*
 rm -rf /libs
 
