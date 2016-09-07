@@ -62,6 +62,11 @@ fi
 chmod +x /etc/init.d/rockchip.sh 
 ln -s /etc/init.d/rockchip.sh /etc/rcS.d/S11rockchip.sh
 
+#---------------ChromeBook-------------- 
+if [ "$TARGET_CHROMEBOOK" == "yes" ] ; then
+	apt-get install -y xserver-xorg-input-synaptics
+fi
+
 #---------------Clean-------------- 
 rm -rf /var/lib/apt/lists/*
 rm -rf /libs
