@@ -59,18 +59,16 @@ fi
 chmod +x /etc/init.d/rockchip.sh 
 ln -s /etc/init.d/rockchip.sh /etc/rcS.d/S11rockchip.sh
 
+apt-get remove -y chromium
+apt-get install -y iceweasel
+apt-get install -f
+
 #---------------Demo-------------- 
 if [ "$VERSION" == "demo" ] ; then
 	apt-get install -y xserver-xorg-input-synaptics -t testing
 	apt-get install -y cheese fswebcam bash-completion 
 	# apt-get install -y libreoffice -t testing
 fi
-
-# apt-get install -y libgl1-mesa-dri
-# apt-get remove -y chromium
-# apt-get install -y firefox
-# apt-get install -f
-#ln -s /usr/lib/arm-linux-gnueabihf/dri/rockchip_dri.so /usr/lib/arm-linux-gnueabihf/dri/swrast_dri.so
 
 #---------------Clean-------------- 
 rm -rf /var/lib/apt/lists/*
