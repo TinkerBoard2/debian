@@ -3,7 +3,10 @@
 # Directory contains the target rootfs
 export TARGET_ROOTFS_DIR="binary"
 export ARCH="armhf"
-export VERSION="debug"
+
+# none or debug(adb,sshfs) or demo(more apps)
+export VERSION="demo"
+
 
 if [ ! -e linaro-jessie-alip-*.tar.gz ]; then 
 	echo Download linaro rootfs
@@ -19,7 +22,7 @@ sudo cp -rf packages/$ARCH/* $TARGET_ROOTFS_DIR/packages
 sudo cp -rf overlay/* $TARGET_ROOTFS_DIR/
 sudo cp -rf overlay-firmware/* $TARGET_ROOTFS_DIR/
 
-if [ "$VERSION" == "debug" ] ; then
+if [ "$VERSION" == "debug" || "$VERSION" == "demo" ] ; then
 	sudo cp -rf overlay-debug/* $TARGET_ROOTFS_DIR/
 fi
 
@@ -54,7 +57,7 @@ dpkg -i  /packages/video/libva-rockchip*_armhf.deb
 apt-get install -f -y
 
 #---------------Debug-------------- 
-if [ "$VERSION" == "debug" ] ; then
+if [ "$VERSION" == "debug" || "$VERSION" == "demo" ] ; then
 	apt-get install -y sshfs openssh-server -t testing 
 fi
 
@@ -62,9 +65,11 @@ fi
 chmod +x /etc/init.d/rockchip.sh 
 ln -s /etc/init.d/rockchip.sh /etc/rcS.d/S11rockchip.sh
 
-#---------------ChromeBook-------------- 
-if [ "$TARGET_CHROMEBOOK" == "yes" ] ; then
-	apt-get install -y xserver-xorg-input-synaptics
+#---------------Demo-------------- 
+if [ "$VERSION" == "debug" || "$VERSION" == "demo" ] ; then
+	apt-get install -y xserver-xorg-input-synaptics bash-completion 
+	apt-get install -y cheese fswebcam
+	apt-get install -y libreoffice -t testing
 fi
 
 #---------------Clean-------------- 
@@ -74,4 +79,3 @@ rm -rf /libs
 EOF
 
 sudo umount $TARGET_ROOTFS_DIR/dev
-
