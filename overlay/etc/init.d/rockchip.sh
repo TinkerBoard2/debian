@@ -32,7 +32,7 @@ then
 fi
 
 # read mac-address from efuse
-if [ "$BOARDNAME" == "rk3288-miniarm" ]; then
-    MAC=`xxd -s 16 -l 6 -g 1 /sys/bus/nvmem/devices/rockchip-efuse0/nvmem | awk '{print $2$3$4$5$6$7 }'`
-    ifconfig eth0 hw ether $MAC
-fi
+# if [ "$BOARDNAME" == "rk3288-miniarm" ]; then
+#     MAC=`xxd -s 16 -l 6 -g 1 /sys/bus/nvmem/devices/rockchip-efuse0/nvmem | awk '{print $2$3$4$5$6$7 }'`
+#     ifconfig eth0 hw ether $MAC
+# fi
