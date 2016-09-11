@@ -4,9 +4,8 @@
 export TARGET_ROOTFS_DIR="binary"
 export ARCH="armhf"
 
-# none or debug(adb,sshfs) or demo(more apps)
+# none or debug(adb,ssh) or demo(more apps)
 export VERSION="demo"
-
 
 if [ ! -e linaro-jessie-alip-*.tar.gz ]; then 
 	echo Download linaro rootfs
@@ -17,14 +16,9 @@ echo "Extract image"
 sudo tar -xpf linaro-jessie-alip-*.tar.gz
 
 echo "Copy overlay to rootfs"
-sudo mkdir $TARGET_ROOTFS_DIR/packages
+sudo mkdir -p $TARGET_ROOTFS_DIR/packages
 sudo cp -rf packages/$ARCH/* $TARGET_ROOTFS_DIR/packages
 sudo cp -rf overlay/* $TARGET_ROOTFS_DIR/
-sudo cp -rf overlay-firmware/* $TARGET_ROOTFS_DIR/
-
-if [ "$VERSION" == "debug" || "$VERSION" == "demo" ] ; then
-	sudo cp -rf overlay-debug/* $TARGET_ROOTFS_DIR/
-fi
 
 echo "Change root....................."
 sudo cp /usr/bin/qemu-arm-static $TARGET_ROOTFS_DIR/usr/bin/
@@ -48,16 +42,16 @@ dpkg -i  /packages/xserver-xorg-core_*_armhf.deb
 dpkg -i  /packages/libdrm/*
 
 #---------------Video-Vaapi-------------- 
-apt-get install -y  -t testing gstreamer1.0-vaapi gstreamer1.0-tools libvdpau1 libva1 \
+apt-get install -y -t testing gstreamer1.0-vaapi gstreamer1.0-tools libvdpau1 libva1 \
 	 libva-wayland1 gstreamer1.0-alsa gstreamer1.0-plugins-good 	\
 	 gstreamer1.0-plugins-bad alsa-utils vdpau-va-driver gstreamer1.0-x
-dpkg -i  /packages/video/gstreamer1.0-vaapi_1.8.3-1_armhf.deb
+#dpkg -i --force-depends /packages/video/gstreamer1.0-vaapi_*_armhf.deb
 dpkg -i  /packages/video/libva-rockchip*_armhf.deb
 # dpkg -i  /packages/video/rockchip-vdpau-drivers_*_armhf.deb
 apt-get install -f -y
 
 #---------------Debug-------------- 
-if [ "$VERSION" == "debug" || "$VERSION" == "demo" ] ; then
+if [ "$VERSION" == "debug" ] || [ "$VERSION" == "demo" ] ; then
 	apt-get install -y sshfs openssh-server -t testing 
 fi
 
@@ -66,7 +60,7 @@ chmod +x /etc/init.d/rockchip.sh
 ln -s /etc/init.d/rockchip.sh /etc/rcS.d/S11rockchip.sh
 
 #---------------Demo-------------- 
-if [ "$VERSION" == "debug" || "$VERSION" == "demo" ] ; then
+if [ "$VERSION" == "demo" ] ; then
 	apt-get install -y xserver-xorg-input-synaptics bash-completion 
 	apt-get install -y cheese fswebcam
 	apt-get install -y libreoffice -t testing
@@ -77,5 +71,15 @@ rm -rf /var/lib/apt/lists/*
 rm -rf /libs
 
 EOF
+
+sudo cp -rf overlay-firmware/* $TARGET_ROOTFS_DIR/
+
+if [ "$VERSION" == "debug" ] || [ "$VERSION" == "demo" ] ; then
+	sudo cp -rf overlay-debug/* $TARGET_ROOTFS_DIR/
+fi
+if [ "$VERSION" == "demo" ] ; then
+	sudo cp -rf overlay-demo/* $TARGET_ROOTFS_DIR/
+fi
+
 
 sudo umount $TARGET_ROOTFS_DIR/dev
