@@ -45,7 +45,7 @@ dpkg -i  /packages/libdrm/*
 apt-get install -y -t testing gstreamer1.0-vaapi gstreamer1.0-tools libvdpau1 libva1 \
 	 libva-wayland1 gstreamer1.0-alsa gstreamer1.0-plugins-good 	\
 	 gstreamer1.0-plugins-bad alsa-utils vdpau-va-driver gstreamer1.0-x
-#dpkg -i --force-depends /packages/video/gstreamer1.0-vaapi_*_armhf.deb
+dpkg -i  /packages/video/gstreamer1.0-vaapi_*_armhf.deb
 dpkg -i  /packages/video/libva-rockchip*_armhf.deb
 # dpkg -i  /packages/video/rockchip-vdpau-drivers_*_armhf.deb
 apt-get install -f -y
