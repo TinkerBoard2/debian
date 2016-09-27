@@ -1,4 +1,13 @@
-#!/bin/bash
+#!/bin/bash -e
+### BEGIN INIT INFO
+# Provides:          rockchip
+# Required-Start:  
+# Required-Stop    
+# Default-Start:
+# Default-Stop:
+# Short-Description: 
+# Description:       Setup rockchip platform environment
+### END INIT INFO
 
 function link_mali() {
 if [ "$1" == "rk3288" ];
