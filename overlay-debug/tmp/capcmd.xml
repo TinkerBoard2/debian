@@ -1,0 +1,61 @@
+<?xml version="1.0" ?>
+<TuneTask>
+<Capture  format="CamSys_Fmt_Raw_12b"  number="10" enable="0">
+		<Resolution width="1920" height="1080"></Resolution>
+    <Exposure mode="manual">       
+        <Mec integration_time="1" gain="1" integration_time_step="10" gain_step="2" min_raw="6" max_raw="210" threshold="100" ae_around="false" number="0" ></Mec>         
+    </Exposure>	    
+    <Wdr mode="disable"></Wdr>
+    <Cac mode="disable"></Cac>
+    <Gamma mode="disable"></Gamma>
+    <Lsc mode="disable"></Lsc>
+    <Dpcc mode="disable"></Dpcc>
+    <Bls mode="disable"></Bls>
+    <Adpf mode="disable"></Adpf>
+    <Avs mode="disable"></Avs>
+    <Af	mode="dissable"></Af>
+</Capture>
+<Capture  format="CamSys_Fmt_Raw_12b"  number="10" enable="0">
+		<Resolution width="3280" height="2464"></Resolution>
+    <Exposure mode="manual">       
+        <Mec integration_time="1" gain="1" integration_time_step="10" gain_step="2" min_raw="6" max_raw="210" threshold="100" ae_around="false" number="0" ></Mec>         
+    </Exposure>	    
+    <Wdr mode="disable"></Wdr>
+    <Cac mode="disable"></Cac>
+    <Gamma mode="disable"></Gamma>
+    <Lsc mode="disable"></Lsc>
+    <Dpcc mode="disable"></Dpcc>
+    <Bls mode="disable"></Bls>
+    <Adpf mode="disable"></Adpf>
+    <Avs mode="disable"></Avs>
+    <Af	mode="dissable"></Af>
+</Capture>
+<Capture  format="CamSys_Fmt_Yuv422_8b"  number="10"  enable="0">
+		<Resolution width="1920" height="1080"></Resolution>
+    <Exposure mode="auto"> </Exposure>	
+    <WhiteBalance mode="auto"></WhiteBalance>
+    <Wdr mode="enable"></Wdr>
+    <Cac mode="enable"></Cac>
+    <Gamma mode="enable"></Gamma>
+    <Lsc mode="enable"></Lsc>
+    <Dpcc mode="enable"></Dpcc>
+    <Bls mode="enable"></Bls>
+    <Adpf mode="enable"></Adpf>
+    <Avs mode="enable"></Avs> 
+    <Af	mode="enable"></Af>      
+</Capture>
+<Capture  format="CamSys_Fmt_Yuv422_8b"  number="5"  enable="1">
+		<Resolution width="3280" height="2464"></Resolution>
+    <Exposure mode="auto"> </Exposure>	
+    <WhiteBalance mode="auto"></WhiteBalance>
+    <Wdr mode="enable"></Wdr>
+    <Cac mode="enable"></Cac>
+    <Gamma mode="enable"></Gamma>
+    <Lsc mode="enable"></Lsc>
+    <Dpcc mode="enable"></Dpcc>
+    <Bls mode="enable"></Bls>
+    <Adpf mode="enable"></Adpf>
+    <Avs mode="enable"></Avs> 
+    <Af	mode="enable"></Af>      
+</Capture>
+</TuneTask>
