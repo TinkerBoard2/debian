@@ -10,4 +10,13 @@ This repo contains rockchip rootfs build script. It will download linaro release
 
 
 ## others
-Since a lot of peoples want to get other distributions, such as ubuntu, so i write mk-rootfs-ubuntu.sh to help.But please notice this script is not well maintenance and the rootfs built by this script can be easily broken because the script don't use package manager to install packages, it just unpack packages.
+
+#### packages-rebuild
+`./rebuild-packages.sh` is the script help to rebuild rockchip supplied packages.
+To rebuild the packages, the environment must be set up properly.
+I recommend to chroot to a clean Stretch Debian.
+
+#### build-ubuntu
+
+Since a lot of peoples want to get other distributions, such as ubuntu, so i write `mk-rootfs-ubuntu.sh` to help.But please notice this script is not well maintenance and the rootfs built by this script can be easily broken because the script don't use package manager to install packages, it just unpack packages.
+
