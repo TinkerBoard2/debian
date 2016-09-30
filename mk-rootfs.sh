@@ -20,9 +20,12 @@ sudo tar -xpf linaro-stretch-alip-*.tar.gz
 echo -e "\033[36m Copy overlay to rootfs \033[0m"
 sudo mkdir -p $TARGET_ROOTFS_DIR/packages
 sudo cp -rf packages/$ARCH/* $TARGET_ROOTFS_DIR/packages
+# some configs
 sudo cp -rf overlay/* $TARGET_ROOTFS_DIR/
+# bt,wifi,audio firmware
 sudo cp -rf overlay-firmware/* $TARGET_ROOTFS_DIR/
 if [ "$VERSION" == "debug" ] || [ "$VERSION" == "demo" ] ; then
+	# adb, video, camera  test file
 	sudo cp -rf overlay-debug/* $TARGET_ROOTFS_DIR/
 fi
 if [ "$VERSION" == "demo" ] ; then
