@@ -2,7 +2,7 @@
 ### BEGIN INIT INFO
 # Provides:          rockchip
 # Required-Start:  
-# Required-Stop    
+# Required-Stop: 
 # Default-Start:
 # Default-Stop:
 # Short-Description: 

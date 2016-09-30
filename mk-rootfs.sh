@@ -9,7 +9,7 @@ VERSION="debug"
 if [ ! -e linaro-stretch-alip-*.tar.gz ]; then 
 	echo Download linaro rootfs
 	echo "linaro didn't have a official stretch release, so we can't download it."
-	echo "For the moment, you'd  better download image directly from our google drive."
+	echo "For the moment, you'd  better download prebuilt image directly from our google drive."
 	exit
 	# wget http://snapshots.linaro.org/debian/images/stretch/blend-armhf/1/linaro-stretch-alip-20160921-1.tar.gz
 fi
