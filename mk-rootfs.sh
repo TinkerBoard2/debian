@@ -7,11 +7,7 @@ ARCH="armhf"
 VERSION="debug"
 
 if [ ! -e linaro-stretch-alip-*.tar.gz ]; then 
-	echo Download linaro rootfs
-	echo "linaro didn't have a official stretch release, so we can't download it."
-	echo "For the moment, you'd  better download prebuilt image directly from our google drive."
-	exit
-	# wget http://snapshots.linaro.org/debian/images/stretch/blend-armhf/1/linaro-stretch-alip-20160921-1.tar.gz
+	echo "\033[36m Run mk-base-debian.sh first \033[0m"
 fi
 
 echo -e "\033[36m Extract image \033[0m"
@@ -72,10 +68,6 @@ fi
 #---------------Custom Script-------------- 
 chmod +x /etc/init.d/rockchip.sh 
 ln -s /etc/init.d/rockchip.sh /etc/rcS.d/S11rockchip.sh
-
-apt-get remove -y chromium
-apt-get install -y iceweasel
-apt-get install -f -y
 
 #---------------Demo-------------- 
 if [ "$VERSION" == "demo" ] ; then

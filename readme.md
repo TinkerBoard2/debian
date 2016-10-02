@@ -1,12 +1,23 @@
 ## usage
-This repo contains rockchip rootfs build script. It will download linaro releases and set up enviroment for our chip based on the download releases.
+This repo contains rockchip rootfs build script.
 
 
-`apt-get install qemu-user-static` to installing the build tools because we will chroot to this base rootfs.
+Building base debian system by ubuntu-build-service from linaro.
 
-`./mk-rootfs.sh` to build rk-debian rootfs
+	mk-base-debian.sh
 
-`./mk-image.sh` to create the ext4 image(linaro-rootfs.img).
+
+Installing the build tools because we will chroot to this base rootfs.
+
+	apt-get install qemu-user-static
+
+Building rk-debian rootfs
+
+	./mk-rootfs.sh
+
+Creating the ext4 image(linaro-rootfs.img)
+
+	./mk-image.sh
 
 
 ## others
