@@ -65,7 +65,7 @@ fi
 
 #---------------Custom Script-------------- 
 chmod +x /etc/init.d/rockchip.sh 
-ln -s /etc/init.d/rockchip.sh /etc/rcS.d/S11rockchip.sh
+systemctl enable rockchip.service
 
 #---------------Demo-------------- 
 if [ "$VERSION" == "demo" ] ; then
