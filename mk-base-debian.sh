@@ -1,8 +1,10 @@
 #!/bin/bash -e
 
-cd ubuntu-build-service/stretch-blend-armhf
+if [ -e linaro-stretch-alip-*.tar.gz ]; then 
+	rm linaro-stretch-alip-*.tar.gz
+fi
 
-sudo apt-get install qemu-user-static live-build linaro-image-tools
+cd ubuntu-build-service/stretch-blend-armhf
 
 make clean
 

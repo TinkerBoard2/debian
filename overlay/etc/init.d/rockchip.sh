@@ -32,16 +32,13 @@ BOARDNAME=${COMPATIBLE%%rockchip,*}
 if [ ! -e "/usr/local/first_boot_flag" ] ;
 then
     echo "It's the first time booting."
-    echo "The rootfs will be configured, according to your chip."
+    echo "The rootfs will be configured."
     touch /usr/local/first_boot_flag
 
     link_mali ${CHIPNAME}
     setcap CAP_SYS_ADMIN+ep /usr/bin/gst-launch-1.0
     rm -rf /packages
 fi
-
-# set env var
-export LIBVA_DRIVER_NAME="rockchip"
 
 # read mac-address from efuse
 # if [ "$BOARDNAME" == "rk3288-miniarm" ]; then

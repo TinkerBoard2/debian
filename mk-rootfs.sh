@@ -37,13 +37,11 @@ cat << EOF | sudo chroot $TARGET_ROOTFS_DIR
 chmod o+x /usr/lib/dbus-1.0/dbus-daemon-launch-helper
 apt-get update
 
-apt-get install -y systemd-sysv
-
 #---------------Xserver-------------- 
 echo -e "\033[36m Setup Xserver.................... \033[0m"
 dpkg -i  /packages/xserver-common_*_all.deb 
 dpkg -i  /packages/xserver-xorg-core_*_armhf.deb
-apt-get  remove xserver-xorg-video-fbdev  xserver-xorg
+apt-get  remove -y xserver-xorg-video-fbdev  xserver-xorg
 apt-get install -f -y
 
 #---------------libdrm-------------- 
