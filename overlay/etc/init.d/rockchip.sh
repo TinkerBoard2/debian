@@ -38,6 +38,8 @@ then
     link_mali ${CHIPNAME}
     setcap CAP_SYS_ADMIN+ep /usr/bin/gst-launch-1.0
     rm -rf /packages
+
+    systemctl restart lightdm.service
 fi
 
 # read mac-address from efuse

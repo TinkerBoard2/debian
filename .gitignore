@@ -16,3 +16,4 @@ linaro-stretch-alip-*.tar.gz
 linaro-rootfs.img
 release
 build
+.lock

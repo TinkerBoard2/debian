@@ -4,7 +4,8 @@ This repo contains rockchip rootfs build script.
 
 Building base debian system by ubuntu-build-service from linaro.
 
-	sudo apt-get install qemu-user-static live-build linaro-image-tools
+	dpkg -i ubuntu-build-service/packages
+	sudo apt-get install -f
 	mk-base-debian.sh
 
 Building rk-debian rootfs
@@ -25,5 +26,5 @@ I recommend to chroot to a clean Stretch Debian.
 
 #### build-ubuntu
 
-Since a lot of peoples want to get other distributions, such as ubuntu, so i write `mk-rootfs-ubuntu.sh` to help.But please notice this script is not well maintenance and the rootfs built by this script can be easily broken because the script don't use package manager to install packages, it just unpack packages.
+Since a lot of peoples want to get other distributions, such as ubuntu, so i write `mk-rootfs-ubuntu.sh` to help, but please notice this script isn't get well maintenance and the rootfs built by this script can be easily broken because the script don't use package manager to install packages, it just unpack packages.
 

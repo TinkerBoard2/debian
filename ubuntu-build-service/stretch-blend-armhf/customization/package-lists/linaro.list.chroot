@@ -157,5 +157,6 @@ xserver-xorg-video-modesetting
 xterm
 zip
 lxde-common
-systemd-sysv
 desktop-base
+systemd-sysv
+
