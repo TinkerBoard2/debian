@@ -28,3 +28,6 @@ I recommend to chroot to a clean Stretch Debian.
 
 Since a lot of peoples want to get other distributions, such as ubuntu, so i write `mk-rootfs-ubuntu.sh` to help, but please notice this script isn't get well maintenance and the rootfs built by this script can be easily broken because the script don't use package manager to install packages, it just unpack packages.
 
+
+## version
+release-20161007
