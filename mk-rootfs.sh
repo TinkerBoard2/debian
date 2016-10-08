@@ -37,6 +37,11 @@ cat << EOF | sudo chroot $TARGET_ROOTFS_DIR
 chmod o+x /usr/lib/dbus-1.0/dbus-daemon-launch-helper
 apt-get update
 
+#---------------Work around debian bugs-------------- 
+apt-get remove -y network-manager blueman
+dpkg -i  /packages/bug-downgrade/*
+systemctl enable NetworkManager.service
+
 #---------------Xserver-------------- 
 echo -e "\033[36m Setup Xserver.................... \033[0m"
 dpkg -i  /packages/xserver-common_*_all.deb 
