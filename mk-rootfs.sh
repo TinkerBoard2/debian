@@ -41,6 +41,7 @@ apt-get update
 apt-get remove -y network-manager blueman
 dpkg -i  /packages/bug-downgrade/*
 systemctl enable NetworkManager.service
+systemctl disable NetworkManager-wait-online.service
 
 #---------------Xserver-------------- 
 echo -e "\033[36m Setup Xserver.................... \033[0m"
