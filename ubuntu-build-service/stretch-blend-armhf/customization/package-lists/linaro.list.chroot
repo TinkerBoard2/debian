@@ -13,7 +13,6 @@ apt
 apt-utils
 babeltrace
 bc
-blueman
 bluez
 btrfs-tools
 build-essential
@@ -98,7 +97,7 @@ mutrace
 net-tools
 netbase
 netcat-openbsd
-network-manager-gnome
+wicd
 nodejs-legacy
 npm
 ntpdate
