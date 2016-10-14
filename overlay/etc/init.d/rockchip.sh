@@ -12,14 +12,14 @@
 function link_mali() {
 if [ "$1" == "rk3288" ];
 then
-    dpkg -i  /packages/libmali/libmali-rk-midgard0_1.4-5_armhf.deb
-    dpkg -i  /packages/libmali/libmali-rk-dev_1.4-5_armhf.deb
+    dpkg -i  /packages/libmali/libmali-rk-midgard0_*_armhf.deb
+    dpkg -i  /packages/libmali/libmali-rk-dev_*_armhf.deb
 elif [[  "$1" == "rk3399"  ]]; then
-    dpkg -i  /packages/libmali/libmali-rk-midgard-4th0_1.4-7_armhf.deb
-    dpkg -i  /packages/libmali/libmali-rk-dev_1.4-5_armhf.deb
+    dpkg -i  /packages/libmali/libmali-rk-midgard-4th0_*_armhf.deb
+    dpkg -i  /packages/libmali/libmali-rk-dev_*_armhf.deb
 else
-    dpkg -i  /packages/libmali/libmali-rk-utgard0_1.4-5_armhf.deb  
-    dpkg -i  /packages/libmali/libmali-rk-dev_1.4-5_armhf.deb
+    dpkg -i  /packages/libmali/libmali-rk-utgard0_*_armhf.deb  
+    dpkg -i  /packages/libmali/libmali-rk-dev_*_armhf.deb
 fi
 }
 
