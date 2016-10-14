@@ -24,7 +24,14 @@ fi
 }
 
 COMPATIBLE=$(cat /proc/device-tree/compatible)
-CHIPNAME=${COMPATIBLE##*rockchip,}
+if [[ $COMPATIBLE =~ "rk3288" ]];
+then
+    CHIPNAME="rk3288"
+elif [[ $COMPATIBLE =~ "rk3399" ]]; then
+    CHIPNAME="rk3399"
+else
+    CHIPNAME="rk3036"
+fi
 COMPATIBLE=${COMPATIBLE#rockchip,}
 BOARDNAME=${COMPATIBLE%%rockchip,*}
 
