@@ -30,4 +30,4 @@ Since a lot of peoples want to get other distributions, such as ubuntu, so i wri
 
 
 ## version
-release-20161007
+release-20161015
