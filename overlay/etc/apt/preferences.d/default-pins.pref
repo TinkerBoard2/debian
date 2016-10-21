@@ -1,7 +1,0 @@
-Package: *
-Pin: release a=jessie-backports
-Pin-Priority: 500
-
-Package: *
-Pin: release a=testing
-Pin-Priority: 50
