@@ -4,7 +4,7 @@ This repo contains rockchip rootfs build script.
 Building base debian system by ubuntu-build-service from linaro.
 	
 	sudo apt-get install binfmt-support qemu-user-static
-	dpkg -i ubuntu-build-service/packages
+	sudo dpkg -i ubuntu-build-service/packages/*
 	sudo apt-get install -f
 	mk-base-debian.sh
 
