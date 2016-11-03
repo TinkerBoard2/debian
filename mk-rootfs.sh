@@ -24,9 +24,6 @@ if [ "$VERSION" == "debug" ] || [ "$VERSION" == "demo" ] ; then
 	# adb, video, camera  test file
 	sudo cp -rf overlay-debug/* $TARGET_ROOTFS_DIR/
 fi
-if [ "$VERSION" == "demo" ] ; then
-	sudo cp -rf overlay-demo/* $TARGET_ROOTFS_DIR/
-fi
 
 echo -e "\033[36m Change root.....................\033[0m"
 sudo cp /usr/bin/qemu-arm-static $TARGET_ROOTFS_DIR/usr/bin/
