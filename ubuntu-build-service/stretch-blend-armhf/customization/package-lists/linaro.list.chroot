@@ -153,6 +153,7 @@ xserver-xorg
 xserver-xorg-input-evdev
 xserver-xorg-video-fbdev
 xserver-xorg-video-modesetting
+xscreensaver
 xterm
 zip
 lxde-common
