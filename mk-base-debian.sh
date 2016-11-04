@@ -12,6 +12,8 @@ make clean
 
 make
 
-sudo chmod 0666 linaro-stretch-alip-*.tar.gz
+if [ -e linaro-stretch-alip-*.tar.gz ]; then 
+	sudo chmod 0666 linaro-stretch-alip-*.tar.gz
+	mv linaro-stretch-alip-*.tar.gz ../../
+fi
 
-mv linaro-stretch-alip-*.tar.gz ../../
