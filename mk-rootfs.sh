@@ -57,18 +57,13 @@ apt-get install -f -y
 
 #---------------Debug-------------- 
 if [ "$VERSION" == "debug" ] || [ "$VERSION" == "demo" ] ; then
-	apt-get install -y sshfs openssh-server bash-completion 
+	apt-get install -y sshfs openssh-server bash-completion
+	apt-get install -y xserver-xorg-input-synaptics
 fi
 
 #---------------Custom Script-------------- 
 chmod +x /etc/init.d/rockchip.sh 
 systemctl enable rockchip.service
-
-#---------------Demo-------------- 
-if [ "$VERSION" == "demo" ] ; then
-	apt-get install -y xserver-xorg-input-synaptics
-	apt-get install -y cheese fswebcam
-fi
 
 #---------------Clean-------------- 
 rm -rf /var/lib/apt/lists/*
