@@ -2,9 +2,13 @@
 
 # Directory contains the target rootfs
 TARGET_ROOTFS_DIR="binary"
-ARCH="armhf"
-# none or debug(adb,ssh) or demo(more apps)
-VERSION="debug"
+
+if [ ! $ARCH ]; then  
+       ARCH='armhf'  
+fi 
+if [ ! $VERSION ]; then  
+       VERSION="debug"
+fi 
 
 if [ ! -e linaro-stretch-alip-*.tar.gz ]; then 
 	echo "\033[36m Run mk-base-debian.sh first \033[0m"
@@ -37,7 +41,7 @@ apt-get update
 #---------------Xserver-------------- 
 echo -e "\033[36m Setup Xserver.................... \033[0m"
 dpkg -i  /packages/xserver-common_*_all.deb 
-dpkg -i  /packages/xserver-xorg-core_*_armhf.deb
+dpkg -i  /packages/xserver-xorg-core_*.deb
 apt-get  remove -y xserver-xorg-video-fbdev  xserver-xorg
 apt-get install -f -y
 
@@ -51,8 +55,8 @@ echo -e "\033[36m Setup vaapi.................... \033[0m"
 apt-get install -y gstreamer1.0-vaapi gstreamer1.0-tools libvdpau1 libva1 \
 	 libva-wayland1 gstreamer1.0-alsa gstreamer1.0-plugins-good 	\
 	 gstreamer1.0-plugins-bad alsa-utils vdpau-va-driver gstreamer1.0-x
-dpkg -i  /packages/video/gstreamer1.0-vaapi_*_armhf.deb
-dpkg -i  /packages/video/libva-rockchip*_armhf.deb
+dpkg -i  /packages/video/gstreamer1.0-vaapi_*.deb
+dpkg -i  /packages/video/libva-rockchip*.deb
 apt-get install -f -y
 
 #---------------Debug-------------- 
