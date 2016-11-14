@@ -1,4 +1,4 @@
-#AP6212_NVRAM_V1.0_20140603
+#AP6452_NVRAM_V1.1_20150915
 # 2.4 GHz, 20 MHz BW mode
 
 # The following parameter values are just placeholders, need to be updated.
@@ -22,21 +22,23 @@ pa0itssit=0x20
 extpagain2g=0
 
 #PA parameters for 2.4GHz, measured at CHIP OUTPUT
-pa2ga0=-168,7161,-820
+pa2ga0=-189,5883,-691
 AvVmid_c0=0x0,0xc8
 cckpwroffset0=5
 
 # PPR params
-maxp2ga0=90
+maxp2ga0=82
 txpwrbckof=6
 cckbw202gpo=0x5555
 legofdmbw202gpo=0x77777777
-mcsbw202gpo=0xaaaaaaaa
+mcsbw202gpo=0x99999999
+
 
 # OFDM IIR :
-ofdmdigfilttype=7
+ofdmdigfilttype=18
+ofdmdigfilttypebe=18
 # PAPD mode:
-papdmode=2
+papdmode=1
 
 il0macaddr=00:90:4c:c5:12:38
 wl0id=0x431b
@@ -51,4 +53,3 @@ deadman_to=0xffffffff
 muxenab=0x10
 # CLDO PWM voltage settings - 0x4 - 1.1 volt
 #cldo_pwm=0x4
-
