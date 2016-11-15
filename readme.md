@@ -6,11 +6,11 @@ Building base debian system by ubuntu-build-service from linaro.
 	sudo apt-get install binfmt-support qemu-user-static
 	sudo dpkg -i ubuntu-build-service/packages/*
 	sudo apt-get install -f
-	mk-base-debian.sh
+	ARCH=armhf ./mk-base-debian.sh
 
 Building rk-debian rootfs
 
-	./mk-rootfs.sh
+	ARCH=armhf ./mk-rootfs.sh
 
 Creating the ext4 image(linaro-rootfs.img)
 
