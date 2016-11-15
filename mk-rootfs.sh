@@ -40,8 +40,8 @@ apt-get update
 
 #---------------Xserver-------------- 
 echo -e "\033[36m Setup Xserver.................... \033[0m"
-dpkg -i  /packages/xserver-common_*_all.deb 
-dpkg -i  /packages/xserver-xorg-core_*.deb
+[ -e /packages/xserver/xserver-common_*_all.deb ] && dpkg -i  /packages/xserver/xserver-common_*_all.deb
+[ -e /packages/xserver/xserver-xorg-core_*_$ARCH.deb ] && dpkg -i  /packages/xserver/xserver-xorg-core_*_$ARCH.deb
 apt-get  remove -y xserver-xorg-video-fbdev  xserver-xorg
 apt-get install -f -y
 
@@ -55,8 +55,8 @@ echo -e "\033[36m Setup vaapi.................... \033[0m"
 apt-get install -y gstreamer1.0-vaapi gstreamer1.0-tools libvdpau1 libva1 \
 	 libva-wayland1 gstreamer1.0-alsa gstreamer1.0-plugins-good 	\
 	 gstreamer1.0-plugins-bad alsa-utils vdpau-va-driver gstreamer1.0-x
-dpkg -i  /packages/video/gstreamer1.0-vaapi_*.deb
-dpkg -i  /packages/video/libva-rockchip*.deb
+[ -e /packages/video/gstreamer1.0-vaapi_*.deb  ] && dpkg -i  /packages/video/gstreamer1.0-vaapi_*.deb
+[ -e /packages/video/libva-rockchip*.deb  ] && dpkg -i  /packages/video/libva-rockchip*.deb
 apt-get install -f -y
 
 #---------------Debug-------------- 
