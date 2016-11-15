@@ -4,10 +4,10 @@
 TARGET_ROOTFS_DIR="binary"
 
 if [ ! $ARCH ]; then  
-       ARCH='armhf'  
+	ARCH='armhf'  
 fi 
 if [ ! $VERSION ]; then  
-       VERSION="debug"
+	VERSION="debug"
 fi 
 
 if [ ! -e linaro-stretch-alip-*.tar.gz ]; then 
