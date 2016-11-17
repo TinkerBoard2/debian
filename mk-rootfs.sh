@@ -24,9 +24,14 @@ sudo cp -rf packages/$ARCH/* $TARGET_ROOTFS_DIR/packages
 sudo cp -rf overlay/* $TARGET_ROOTFS_DIR/
 # bt,wifi,audio firmware
 sudo cp -rf overlay-firmware/* $TARGET_ROOTFS_DIR/
-if [ "$VERSION" == "debug" ] || [ "$VERSION" == "demo" ] ; then
+if [ "$VERSION" == "debug" ] || [ "$VERSION" == "jenkins" ] ; then
 	# adb, video, camera  test file
 	sudo cp -rf overlay-debug/* $TARGET_ROOTFS_DIR/
+fi
+
+if  [ "$VERSION" == "jenkins" ] ; then
+	# network
+	sudo cp -b /etc/resolv.conf  $TARGET_ROOTFS_DIR/etc/resolv.conf
 fi
 
 echo -e "\033[36m Change root.....................\033[0m"
@@ -60,7 +65,7 @@ apt-get install -y gstreamer1.0-vaapi gstreamer1.0-tools libvdpau1 libva1 \
 apt-get install -f -y
 
 #---------------Debug-------------- 
-if [ "$VERSION" == "debug" ] || [ "$VERSION" == "demo" ] ; then
+if [ "$VERSION" == "debug" ] || [ "$VERSION" == "jenkins" ] ; then
 	apt-get install -y sshfs openssh-server bash-completion
 	apt-get install -y xserver-xorg-input-synaptics
 fi
