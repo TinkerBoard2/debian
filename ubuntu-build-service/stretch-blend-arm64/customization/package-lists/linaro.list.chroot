@@ -100,6 +100,7 @@ netcat-openbsd
 wicd
 nodejs-legacy
 npm
+ntp
 ntpdate
 obconf
 obexftp
