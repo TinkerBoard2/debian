@@ -43,6 +43,9 @@ cat << EOF | sudo chroot $TARGET_ROOTFS_DIR
 chmod o+x /usr/lib/dbus-1.0/dbus-daemon-launch-helper
 apt-get update
 
+#---------------conflict workaround --------------
+dpkg -i  /packages/workaround/*
+
 #---------------Xserver-------------- 
 echo -e "\033[36m Setup Xserver.................... \033[0m"
 [ -e /packages/xserver/xserver-common_*_all.deb ] && dpkg -i  /packages/xserver/xserver-common_*_all.deb
