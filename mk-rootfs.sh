@@ -86,7 +86,6 @@ if [ "$VERSION" == "debug" ] || [ "$VERSION" == "jenkins" ] ; then
 fi
 
 #---------------Custom Script-------------- 
-chmod +x /etc/init.d/rockchip.sh 
 systemctl enable rockchip.service
 
 #---------------Clean-------------- 
