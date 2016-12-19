@@ -1,14 +1,18 @@
 #!/bin/bash -e
 
-if [ ! $ARCH ]; then  
-       ARCH='armhf'  
+if [ ! $ARCH ]; then
+       ARCH='armhf'
 fi 
 
-if [ -e linaro-stretch-alip-*.tar.gz ]; then 
+if [ ! $TARGET ]; then
+       TARGET='desktop'
+fi
+
+if [ -e linaro-stretch-alip-*.tar.gz ]; then
 	rm linaro-stretch-alip-*.tar.gz
 fi
 
-cd ubuntu-build-service/stretch-blend-$ARCH
+cd ubuntu-build-service/stretch-$TARGET-$ARCH
 
 make clean
 

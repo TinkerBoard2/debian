@@ -46,19 +46,19 @@ apt-get update
 #---------------conflict workaround --------------
 dpkg -i  /packages/workaround/*
 
-#---------------Xserver-------------- 
+#---------------Xserver--------------
 echo -e "\033[36m Setup Xserver.................... \033[0m"
 [ -e /packages/xserver/xserver-common_*_all.deb ] && dpkg -i  /packages/xserver/xserver-common_*_all.deb
 [ -e /packages/xserver/xserver-xorg-core_*_$ARCH.deb ] && dpkg -i  /packages/xserver/xserver-xorg-core_*_$ARCH.deb
 apt-get  remove -y xserver-xorg-video-fbdev  xserver-xorg
 apt-get install -f -y
 
-#---------------libdrm-------------- 
+#---------------libdrm--------------
 echo -e "\033[36m Setup libdrm.................... \033[0m"
 dpkg -i  /packages/libdrm/*
 apt-get install -f -y
 
-#---------------Video-Vaapi-------------- 
+#---------------Video--------------
 echo -e "\033[36m Setup vaapi.................... \033[0m"
 apt-get install -y gstreamer1.0-vaapi gstreamer1.0-tools libvdpau1 libva1 \
 	 libva-wayland1 gstreamer1.0-alsa gstreamer1.0-plugins-good 	\
@@ -66,10 +66,18 @@ apt-get install -y gstreamer1.0-vaapi gstreamer1.0-tools libvdpau1 libva1 \
 # [ -e /packages/video/gstreamer1.0-vaapi_*.deb  ] && dpkg -i  /packages/video/gstreamer1.0-vaapi_*.deb
 # [ -e /packages/video/libva-rockchip*.deb  ] && dpkg -i  /packages/video/libva-rockchip*.deb
 
-dpkg -i  /packages/video/qt/*
 dpkg -i  /packages/video/mpp/*
 [ -e /packages/video/gstreamer1.0-rockchip*.deb  ] && dpkg -i  /packages/video/gstreamer1.0-rockchip*.deb
 apt-get install -f -y
+
+#---------------Qt-Video--------------
+dpkg -l | grep lxde
+if [ "$?" -eq 0 ]; then
+	# if target is base, we won't install qt
+	dpkg -i  /packages/video/qt/*
+else
+	echo 1
+fi
 
 #---------------Debug-------------- 
 if [ "$VERSION" == "debug" ] || [ "$VERSION" == "jenkins" ] ; then

@@ -1,12 +1,16 @@
-## usage
-This repo contains rockchip rootfs build script.
+## introduction
+This is RockChip Debian SDK's rootfs build script.  
+It will build a Debian Stretch rootfs for you.  
 
-Building base debian system by ubuntu-build-service from linaro.
+
+## usage
+Building base debian system by ubuntu-build-service from linaro.  
+(If you don't need a complete desktop environment, then use TARGET=base and lxde won't be installed )
 	
 	sudo apt-get install binfmt-support qemu-user-static
 	sudo dpkg -i ubuntu-build-service/packages/*
 	sudo apt-get install -f
-	ARCH=armhf ./mk-base-debian.sh
+	TARGET=desktop ARCH=armhf ./mk-base-debian.sh
 
 Building rk-debian rootfs
 
@@ -15,18 +19,6 @@ Building rk-debian rootfs
 Creating the ext4 image(linaro-rootfs.img)
 
 	./mk-image.sh
-
-
-## others
-
-#### packages-rebuild
-`./rebuild-packages.sh` is the script help to rebuild rockchip supplied packages.
-To rebuild the packages, the environment must be set up properly.
-I recommend to chroot to a clean Stretch Debian.
-
-#### build-ubuntu
-
-Since a lot of peoples want to get other distributions, such as ubuntu, so i write `mk-rootfs-ubuntu.sh` to help, but please notice this script isn't get well maintenance and the rootfs built by this script can be easily broken because the script don't use package manager to install packages, it just unpack packages.
 
 
 ## version
