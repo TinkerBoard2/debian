@@ -66,9 +66,9 @@ apt-get install -f -y
 
 #---------------Video--------------
 echo -e "\033[36m Setup vaapi.................... \033[0m"
-apt-get install -y gstreamer1.0-vaapi gstreamer1.0-tools libvdpau1 libva1 \
-	 libva-wayland1 gstreamer1.0-alsa gstreamer1.0-plugins-good 	\
-	 gstreamer1.0-plugins-bad alsa-utils vdpau-va-driver gstreamer1.0-x
+apt-get install -y gstreamer1.0-plugins-base gstreamer1.0-tools gstreamer1.0-alsa \
+	gstreamer1.0-plugins-good  gstreamer1.0-plugins-bad alsa-utils gstreamer1.0-x \
+	libgstreamer1.0-dev libgstreamer-plugins-base1.0-dev libgstreamer-plugins-bad1.0-dev
 # [ -e /packages/video/gstreamer1.0-vaapi_*.deb  ] && dpkg -i  /packages/video/gstreamer1.0-vaapi_*.deb
 # [ -e /packages/video/libva-rockchip*.deb  ] && dpkg -i  /packages/video/libva-rockchip*.deb
 
