@@ -82,7 +82,6 @@ fi
 #---------------Debug-------------- 
 if [ "$VERSION" == "debug" ] || [ "$VERSION" == "jenkins" ] ; then
 	apt-get install -y sshfs openssh-server bash-completion
-	apt-get install -y xserver-xorg-input-synaptics
 fi
 
 #---------------Custom Script-------------- 
