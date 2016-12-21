@@ -81,6 +81,7 @@ dpkg -l | grep lxde
 if [ "$?" -eq 0 ]; then
 	# if target is base, we won't install qt
 	dpkg -i  /packages/video/qt/*
+	apt-get install -f -y
 else
 	echo 1
 fi
