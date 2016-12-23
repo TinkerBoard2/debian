@@ -50,13 +50,14 @@ chmod o+x /usr/lib/dbus-1.0/dbus-daemon-launch-helper
 apt-get update
 
 #---------------conflict workaround --------------
+apt-get  remove -y xserver-xorg-video-fbdev  xserver-xorg
+apt-get install -y libxfont1
 dpkg -i  /packages/workaround/*
 
 #---------------Xserver--------------
 echo -e "\033[36m Setup Xserver.................... \033[0m"
 [ -e /packages/xserver/xserver-common_*_all.deb ] && dpkg -i  /packages/xserver/xserver-common_*_all.deb
 [ -e /packages/xserver/xserver-xorg-core_*_$ARCH.deb ] && dpkg -i  /packages/xserver/xserver-xorg-core_*_$ARCH.deb
-apt-get  remove -y xserver-xorg-video-fbdev  xserver-xorg
 apt-get install -f -y
 
 #---------------libdrm--------------
