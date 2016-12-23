@@ -1,6 +1,6 @@
 #!/bin/bash -e
 ### BEGIN INIT INFO
-# Provides:          rockchip
+# Provides:          adbd
 # Required-Start:  
 # Required-Stop: 
 # Default-Start:
