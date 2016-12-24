@@ -18,7 +18,7 @@ btrfs-tools
 build-essential
 bzip2
 ca-certificates
-iceweasel
+chromium
 console-setup
 cpufrequtils
 crda
