@@ -97,7 +97,7 @@ mutrace
 net-tools
 netbase
 netcat-openbsd
-wicd
+network-manager-gnome
 #nodejs-legacy
 #npm
 #ntp
