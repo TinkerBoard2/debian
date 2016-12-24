@@ -1,7 +1,8 @@
 ## introduction
 This is RockChip Debian SDK's rootfs build script.  
-It will build a Debian Stretch rootfs for you.  
+It will build a Debian Stretch rootfs for you. 
 
+(Please note that Debian pakcages are updated frequently and I can't guarantee the build scripts would work all the time. It's better for you to just download the prebuit image in online drive.)
 
 ## usage
 Building base debian system by ubuntu-build-service from linaro.  
@@ -22,4 +23,24 @@ Creating the ext4 image(linaro-rootfs.img)
 
 
 ## version
-release-20161015
+release-20161224-alpha
+
+### ChangLog
+* New vpu stack
+
+	* support h264/h265 up to 4k decode  
+	* support gstreamer  
+	* support qt  
+
+* fix some network bugs for stretch
+* back to chromium and enable gpu acceleration
+* xserver is updated to 1.18.4
+* reduce size by delete some useless build tools and languages
+
+
+## Next
+
+* xserver rga acceleration
+* video encode support 
+* wayland support (The debian is our x11 sdk, we will use yocto as wayland sdk)
+
