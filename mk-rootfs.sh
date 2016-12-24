@@ -56,6 +56,7 @@ apt-get  remove -y xserver-xorg-video-fbdev  xserver-xorg xserver-xorg-video-ati
 
 apt-get install -y libxfont1
 dpkg -i  /packages/workaround/*
+rm /lib/systemd/system/wpa_supplicant@.service
 
 #---------------Xserver--------------
 echo -e "\033[36m Setup Xserver.................... \033[0m"
