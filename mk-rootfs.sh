@@ -97,6 +97,7 @@ fi
 
 #---------------Custom Script-------------- 
 systemctl enable rockchip.service
+systemctl disable systemd-networkd-wait-online.service
 
 #---------------Clean-------------- 
 rm -rf /var/lib/apt/lists/*
