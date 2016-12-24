@@ -50,7 +50,10 @@ chmod o+x /usr/lib/dbus-1.0/dbus-daemon-launch-helper
 apt-get update
 
 #---------------conflict workaround --------------
-apt-get  remove -y xserver-xorg-video-fbdev  xserver-xorg
+apt-get  remove -y xserver-xorg-video-fbdev  xserver-xorg xserver-xorg-video-ati \
+	xserver-xorg-video-amdgpu xserver-xorg-video-nouveau xserver-xorg-video-radeon \
+	xserver-xorg-video-vesa libdrm-amdgpu1 libdrm-radeon1 libxfont2
+
 apt-get install -y libxfont1
 dpkg -i  /packages/workaround/*
 
@@ -69,7 +72,7 @@ apt-get install -f -y
 echo -e "\033[36m Setup vaapi.................... \033[0m"
 apt-get install -y gstreamer1.0-plugins-base gstreamer1.0-tools gstreamer1.0-alsa \
 	gstreamer1.0-plugins-good  gstreamer1.0-plugins-bad alsa-utils gstreamer1.0-x \
-	libgstreamer1.0-dev libgstreamer-plugins-base1.0-dev libgstreamer-plugins-bad1.0-dev
+	gstreamer1.0-pulseaudio
 # [ -e /packages/video/gstreamer1.0-vaapi_*.deb  ] && dpkg -i  /packages/video/gstreamer1.0-vaapi_*.deb
 # [ -e /packages/video/libva-rockchip*.deb  ] && dpkg -i  /packages/video/libva-rockchip*.deb
 
