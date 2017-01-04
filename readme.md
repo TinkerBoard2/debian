@@ -1,4 +1,4 @@
-## introduction
+## Introduction
 This is RockChip Debian SDK's rootfs build script.  
 It will build a Debian Stretch rootfs for you. 
 
