@@ -23,7 +23,7 @@ Creating the ext4 image(linaro-rootfs.img)
 
 
 ## version
-release-20161224-alpha
+release-20170109-beta
 
 ### ChangLog
 * New vpu stack
