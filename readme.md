@@ -23,7 +23,7 @@ Creating the ext4 image(linaro-rootfs.img)
 
 
 ## version
-release-20170109-beta
+release-20170109-beta-1
 
 ### ChangLog
 * New vpu stack
@@ -35,6 +35,7 @@ release-20170109-beta
 * fix some network bugs for stretch
 * back to chromium and enable gpu acceleration
 * xserver is updated to 1.18.4
+* mali is updated to r13p0
 * reduce size by delete some useless build tools and languages
 
 
@@ -42,5 +43,5 @@ release-20170109-beta
 
 * xserver rga acceleration
 * video encode support 
-* wayland support (The debian is our x11 sdk, we will use yocto as wayland sdk)
+* wayland support
 
