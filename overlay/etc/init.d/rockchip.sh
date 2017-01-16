@@ -9,14 +9,17 @@
 # Description:       Setup rockchip platform environment
 ### END INIT INFO
 
+PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 function link_mali() {
 if [ "$1" == "rk3288" ];
 then
     dpkg -i  /packages/libmali/libmali-rk-midgard-r13p0-r0p0_*.deb
     dpkg -i  /packages/libmali/libmali-rk-dev_*.deb
 elif [[  "$1" == "rk3399"  ]]; then
-    dpkg -i  /packages/libmali/libmali-rk-midgard-4th0_*.deb
+    dpkg -i  /packages/libmali/lib*mali-rk-midgard-4th-r13p0_*.deb
     dpkg -i  /packages/libmali/libmali-rk-dev_*.deb
+    dpkg -i  /packages/video/mpp/librockchip-rk3399-vpu0_*.deb
+    dpkg -i  /packages/video/mpp/librockchip-rk3399-mpp1_*.deb
 else
     dpkg -i  /packages/libmali/libmali-rk-utgard0_*.deb  
     dpkg -i  /packages/libmali/libmali-rk-dev_*.deb
@@ -40,9 +43,9 @@ if [ ! -e "/usr/local/first_boot_flag" ] ;
 then
     echo "It's the first time booting."
     echo "The rootfs will be configured."
-    touch /usr/local/first_boot_flag
 
     link_mali ${CHIPNAME}
+    touch /usr/local/first_boot_flag
     setcap CAP_SYS_ADMIN+ep /usr/bin/gst-launch-1.0
     rm -rf /packages
 
