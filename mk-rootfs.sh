@@ -50,11 +50,11 @@ chmod o+x /usr/lib/dbus-1.0/dbus-daemon-launch-helper
 apt-get update
 
 #---------------conflict workaround --------------
-apt-get  remove -y xserver-xorg-video-fbdev  xserver-xorg xserver-xorg-video-ati \
+apt-get remove -y xserver-xorg-video-fbdev  xserver-xorg xserver-xorg-video-ati \
 	xserver-xorg-video-amdgpu xserver-xorg-video-nouveau xserver-xorg-video-radeon \
 	xserver-xorg-video-vesa libdrm-amdgpu1 libdrm-radeon1 libxfont2
 
-apt-get install -y libxfont1
+apt-get install -y libxfont1 libinput-bin libinput10 libwacom-common libwacom2
 dpkg -i  /packages/workaround/*
 rm /lib/systemd/system/wpa_supplicant@.service
 
