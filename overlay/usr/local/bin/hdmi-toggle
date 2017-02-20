@@ -34,7 +34,7 @@ fi
 # The external display is connected
 if [ "$EXTERNAL_DISPLAY" != "" ]; then
 	# Set the display settings
-	sleep 8
+	xrandr
 	xrandr  --output HDMI-1 --auto
 else
 	# Restore to single display
