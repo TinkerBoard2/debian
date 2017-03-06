@@ -66,8 +66,8 @@ apt-get install -f -y
 
 #---------------libdrm--------------
 echo -e "\033[36m Setup libdrm.................... \033[0m"
-# dpkg -i  /packages/libdrm/*
-# apt-get install -f -y
+dpkg -i  /packages/libdrm/*
+apt-get install -f -y
 
 #---------------Video--------------
 echo -e "\033[36m Setup vaapi.................... \033[0m"
