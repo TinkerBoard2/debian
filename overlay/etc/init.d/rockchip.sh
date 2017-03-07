@@ -13,7 +13,7 @@ PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 function link_mali() {
 if [ "$1" == "rk3288" ];
 then
-    dpkg -i  /packages/libmali/libmali-rk-midgard-r13p0-r0p0_*.deb
+    dpkg -i  /packages/libmali/libmali-rk-midgard-r9p0-r0p0_*.deb
     dpkg -i  /packages/libmali/libmali-rk-dev_*.deb
 elif [[  "$1" == "rk3399"  ]]; then
     dpkg -i  /packages/libmali/lib*mali-rk-midgard-4th-r13p0_*.deb
