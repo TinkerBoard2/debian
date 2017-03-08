@@ -23,25 +23,4 @@ Creating the ext4 image(linaro-rootfs.img)
 
 
 ## version
-release-20170109-beta-2
-
-### ChangLog
-* New vpu stack
-
-	* support h264/h265 up to 4k decode  
-	* support gstreamer  
-	* support qt  
-
-* fix some network bugs for stretch
-* back to chromium and enable gpu acceleration
-* xserver is updated to 1.18.4
-* mali is updated to r13p0
-* reduce size by delete some useless build tools and languages
-
-
-## Next
-
-* xserver rga acceleration
-* video encode support 
-* wayland support
-
+release-20170308-alpha-1
