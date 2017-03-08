@@ -18,8 +18,6 @@ then
 elif [[  "$1" == "rk3399"  ]]; then
     dpkg -i  /packages/libmali/lib*mali-rk-midgard-4th-r13p0_*.deb
     dpkg -i  /packages/libmali/libmali-rk-dev_*.deb
-    dpkg -i  /packages/video/mpp/librockchip-rk3399-vpu0_*.deb
-    dpkg -i  /packages/video/mpp/librockchip-rk3399-mpp1_*.deb
 else
     dpkg -i  /packages/libmali/libmali-rk-utgard0_*.deb  
     dpkg -i  /packages/libmali/libmali-rk-dev_*.deb
