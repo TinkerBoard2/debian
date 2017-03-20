@@ -9,4 +9,4 @@ export CHROMIUM_FLAGS="$CHROMIUM_FLAGS --ignore-gpu-blacklist"
 # Disable background networking
 export CHROMIUM_FLAGS="$CHROMIUM_FLAGS --disable-background-networking"
 
-export CHROMIUM_FLAGS="$CHROMIUM_FLAGS --use-gl=egl"
+export CHROMIUM_FLAGS="$CHROMIUM_FLAGS --use-gl=egl --enable-remote-extensions"
