@@ -15,6 +15,9 @@ if [ "$1" == "rk3288" ];
 then
     dpkg -i  /packages/libmali/libmali-rk-midgard-r9p0-r0p0_*.deb
     dpkg -i  /packages/libmali/libmali-rk-dev_*.deb
+elif [[  "$1" == "rk3328"  ]]; then
+    dpkg -i  /packages/libmali/lib32mali-rk-utgard-2th-r7p0_*.deb
+    dpkg -i  /packages/libmali/libmali-rk-dev_*.deb
 elif [[  "$1" == "rk3399"  ]]; then
     dpkg -i  /packages/libmali/lib*mali-rk-midgard-4th-r13p0_*.deb
     dpkg -i  /packages/libmali/libmali-rk-dev_*.deb
@@ -28,6 +31,8 @@ COMPATIBLE=$(cat /proc/device-tree/compatible)
 if [[ $COMPATIBLE =~ "rk3288" ]];
 then
     CHIPNAME="rk3288"
+elif [[ $COMPATIBLE =~ "rk3328" ]]; then
+    CHIPNAME="rk3328"
 elif [[ $COMPATIBLE =~ "rk3399" ]]; then
     CHIPNAME="rk3399"
 else
