@@ -5,7 +5,7 @@ It will build a Debian Stretch rootfs for you.
 (Please note that Debian pakcages are updated frequently and I can't guarantee the build scripts would work all the time. It's better for you to just download the prebuit image in online drive.)
 
 (MALI X11 might not be supported in the future, debian also will be abandoned. if you are doing serious development, it is recommended to use yocto
-Http://rockchip.wikidot.com/yocto-user-guide)
+http://opensource.rock-chips.com/wiki_Yocto.)
 
 ## usage
 Building base debian system by ubuntu-build-service from linaro.  
@@ -26,4 +26,4 @@ Creating the ext4 image(linaro-rootfs.img)
 
 
 ## version
-release-20170308-alpha-1
+release-20170308-beta-2
