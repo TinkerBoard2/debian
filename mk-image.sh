@@ -3,6 +3,7 @@
 TARGET_ROOTFS_DIR=./binary
 MOUNTPOINT=./rootfs
 ROOTFSIMAGE=linaro-rootfs.img
+OUT=../out
 
 echo Making rootfs for ${BOARD} board!
 
@@ -40,3 +41,7 @@ echo Rootfs Image: ${ROOTFSIMAGE}
 
 e2fsck -p -f ${ROOTFSIMAGE}
 resize2fs -M ${ROOTFSIMAGE}
+
+[ ! -d ${OUT} ] && mkdir ${OUT}
+cp $ROOTFSIMAGE ${OUT}
+
