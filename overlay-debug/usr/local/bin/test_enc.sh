@@ -5,7 +5,7 @@ export DISPLAY=:0.0
 
 echo "message: output to /home/linaro/2k.h264!"
 
-gst-launch-1.0 videotestsrc ! video/x-raw,format=NV12,width=1920,height= 1080,framerate=30/1 ! queue ! mpph264enc ! filesink location=/home/linaro/2k.h264
+su linaro -c "gst-launch-1.0 videotestsrc ! video/x-raw,format=NV12,width=1920,height= 1080,framerate=30/1 ! queue ! mpph264enc ! filesink location=/home/linaro/2k.h264"
 
 echo "message: playing encoded video!"
 
