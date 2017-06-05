@@ -64,11 +64,6 @@ echo -e "\033[36m Setup Xserver.................... \033[0m"
 [ -e /packages/xserver/xserver-xorg-core_*_$ARCH.deb ] && dpkg -i  /packages/xserver/xserver-xorg-core_*_$ARCH.deb
 apt-get install -f -y
 
-#---------------libdrm--------------
-echo -e "\033[36m Setup libdrm.................... \033[0m"
-dpkg -i  /packages/libdrm/*
-apt-get install -f -y
-
 #---------------Video--------------
 echo -e "\033[36m Setup vaapi.................... \033[0m"
 apt-get install -y gstreamer1.0-plugins-base gstreamer1.0-tools gstreamer1.0-alsa \
