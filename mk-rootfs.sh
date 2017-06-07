@@ -50,12 +50,9 @@ chmod o+x /usr/lib/dbus-1.0/dbus-daemon-launch-helper
 apt-get update
 
 #---------------conflict workaround --------------
-apt-get remove -y xserver-xorg-video-fbdev  xserver-xorg xserver-xorg-video-ati \
-	xserver-xorg-video-amdgpu xserver-xorg-video-nouveau xserver-xorg-video-radeon \
-	xserver-xorg-video-vesa libdrm-amdgpu1 libdrm-radeon1 libxfont2
+apt-get remove -y xserver-xorg-input-evdev
 
-apt-get install -y libxfont1 libinput-bin libinput10 libwacom-common libwacom2 libunwind8
-dpkg -i  /packages/workaround/*
+apt-get install -y libxfont1 libinput-bin libinput10 libwacom-common libwacom2 libunwind8 xserver-xorg-input-libinput
 rm /lib/systemd/system/wpa_supplicant@.service
 
 #---------------Xserver--------------
@@ -65,12 +62,9 @@ echo -e "\033[36m Setup Xserver.................... \033[0m"
 apt-get install -f -y
 
 #---------------Video--------------
-echo -e "\033[36m Setup vaapi.................... \033[0m"
+echo -e "\033[36m Setup Video.................... \033[0m"
 apt-get install -y gstreamer1.0-plugins-base gstreamer1.0-tools gstreamer1.0-alsa \
 	gstreamer1.0-plugins-good  gstreamer1.0-plugins-bad alsa-utils
-
-# [ -e /packages/video/gstreamer1.0-vaapi_*.deb  ] && dpkg -i  /packages/video/gstreamer1.0-vaapi_*.deb
-# [ -e /packages/video/libva-rockchip*.deb  ] && dpkg -i  /packages/video/libva-rockchip*.deb
 
 [ -e /packages/video/mpp/librockchip-mpp1_*_armhf.deb  ] && dpkg -i  /packages/video/mpp/librockchip-mpp1_*_armhf.deb
 [ -e /packages/video/mpp/librockchip-mpp-dev_*_armhf.deb  ] && dpkg -i  /packages/video/mpp/librockchip-mpp-dev_*_armhf.deb
