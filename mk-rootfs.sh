@@ -76,7 +76,8 @@ apt-get install -f -y
 dpkg -l | grep lxde
 if [ "$?" -eq 0 ]; then
 	# if target is base, we won't install qt
-	apt-get install  -y libqt5opengl5 libqt5qml5 libqt5quick5 libqt5widgets5 libqt5gui5 libqt5core5a qml-module-qtquick2
+	apt-get install  -y libqt5opengl5 libqt5qml5 libqt5quick5 libqt5widgets5 libqt5gui5 libqt5core5a qml-module-qtquick2 \
+		libqt5multimedia5 libqt5multimedia5-plugins libqt5multimediaquick-p5
 	dpkg -i  /packages/video/qt/*
 	apt-get install -f -y
 else
