@@ -21,3 +21,6 @@ Creating the ext4 image(linaro-rootfs.img)
 
 	./mk-image.sh
 
+## Cross Compile for debian
+
+[Docker + Multiarch](http://opensource.rock-chips.com/wiki_Cross_Compile#Docker)
