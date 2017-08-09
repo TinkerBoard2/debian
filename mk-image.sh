@@ -5,7 +5,7 @@ MOUNTPOINT=./rootfs
 ROOTFSIMAGE=linaro-rootfs.img
 OUT=../out
 
-echo Making rootfs for ${BOARD} board!
+echo Making rootfs!
 
 if [ -e ${ROOTFSIMAGE} ]; then 
 	rm ${ROOTFSIMAGE}
