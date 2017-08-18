@@ -13,7 +13,13 @@ PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 function link_mali() {
 if [ "$1" == "rk3288" ];
 then
-    dpkg -i  /packages/libmali/libmali-rk-midgard-r9p0-r0p0_*.deb
+    GPU_VERSION=$(cat /sys/devices/platform/*gpu/gpuinfo)
+    if [[ $GPU_VERSION =~ "Mali-T76x MP4 r0p0 0x0750" ]];
+    then
+        dpkg -i  /packages/libmali/libmali-rk-midgard-r9p0-r0p0_*.deb
+    else
+        dpkg -i  /packages/libmali/libmali-rk-midgard-r9p0-r1p0_*.deb #3288w
+    fi
     dpkg -i  /packages/libmali/libmali-rk-dev_*.deb
 elif [[  "$1" == "rk3328"  ]]; then
     dpkg -i  /packages/libmali/lib32mali-rk-utgard-2th-r7p0_*.deb
