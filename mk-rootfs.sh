@@ -69,7 +69,7 @@ apt-get install -y gstreamer1.0-plugins-base gstreamer1.0-tools gstreamer1.0-als
 [ -e /packages/video/mpp/librockchip-mpp1_*_armhf.deb  ] && dpkg -i  /packages/video/mpp/librockchip-mpp1_*_armhf.deb
 [ -e /packages/video/mpp/librockchip-mpp-dev_*_armhf.deb  ] && dpkg -i  /packages/video/mpp/librockchip-mpp-dev_*_armhf.deb
 [ -e /packages/video/mpp/librockchip-vpu0_*_armhf.deb  ] && dpkg -i  /packages/video/mpp/librockchip-vpu0_*_armhf.deb
-[ -e /packages/video/gstreamer1.0-rockchip*.deb  ] && dpkg -i  /packages/video/gstreamer1.0-rockchip*.deb
+[ -e /packages/video/gstreamer  ] && dpkg -i  /packages/video/gstreamer/*.deb
 apt-get install -f -y
 
 #---------------Qt-Video--------------
