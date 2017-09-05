@@ -1,19 +1,19 @@
 ## Introduction
-This is RockChip Debian SDK's rootfs build script.  
-It will build a Debian Stretch rootfs for you. 
+A set of shell scripts that will build GNU/Linux distribution rootfs image
+for rockchip platform.
 
-(Please note that Debian pakcages are updated frequently and I can't guarantee the build scripts would work all the time. It's better for you to just download the prebuit image in online drive.)
+## Available Distro
+* Debian Stretch rootfs.
 
-## usage
-Building base debian system by ubuntu-build-service from linaro.  
-(If you don't need a complete desktop environment, then use TARGET=base and lxde won't be installed )
+## Usage
+Building a base debian system by ubuntu-build-service from linaro.
 	
 	sudo apt-get install binfmt-support qemu-user-static
 	sudo dpkg -i ubuntu-build-service/packages/*
 	sudo apt-get install -f
 	TARGET=desktop ARCH=armhf ./mk-base-debian.sh
 
-Building rk-debian rootfs
+Building the rk-debian rootfs
 
 	ARCH=armhf ./mk-rootfs.sh
 
@@ -21,6 +21,6 @@ Creating the ext4 image(linaro-rootfs.img)
 
 	./mk-image.sh
 
-## Cross Compile for debian
+## Cross Compile for ARM Debian
 
 [Docker + Multiarch](http://opensource.rock-chips.com/wiki_Cross_Compile#Docker)

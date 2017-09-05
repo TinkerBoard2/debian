@@ -81,7 +81,7 @@ if [ "$?" -eq 0 ]; then
 	dpkg -i  /packages/video/qt/*
 	apt-get install -f -y
 else
-	echo 1
+	echo "won't install qt"
 fi
 
 #---------------Debug-------------- 
