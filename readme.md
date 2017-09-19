@@ -27,4 +27,5 @@ Creating the ext4 image(linaro-rootfs.img)
 [Docker + Multiarch](http://opensource.rock-chips.com/wiki_Cross_Compile#Docker)
 
 ## Others
-NOTE: Run `apt-get upgrade` in Debian-10 will break things.
+* Run `apt-get upgrade` in Debian-10 will break things.
+* To test debian 10, you need add the following boot parameter to the kernel: `init=/bin/systemd`
