@@ -157,5 +157,5 @@ xserver-xorg-video-modesetting
 zip
 #lxde-common
 #desktop-base
-#systemd-sysv
+systemd-sysv
 gnome
