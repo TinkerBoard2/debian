@@ -53,7 +53,6 @@ apt-get update
 apt-get remove -y xserver-xorg-input-evdev
 
 apt-get install -y libxfont1 libinput-bin libinput10 libwacom-common libwacom2 libunwind8 xserver-xorg-input-libinput
-rm /lib/systemd/system/wpa_supplicant@.service
 
 #---------------Xserver--------------
 echo -e "\033[36m Setup Xserver.................... \033[0m"
@@ -93,6 +92,7 @@ fi
 systemctl enable rockchip.service
 systemctl mask systemd-networkd-wait-online.service
 systemctl mask NetworkManager-wait-online.service
+rm /lib/systemd/system/wpa_supplicant@.service
 
 #---------------Clean-------------- 
 rm -rf /var/lib/apt/lists/*
