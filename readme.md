@@ -28,4 +28,3 @@ Creating the ext4 image(linaro-rootfs.img)
 
 ## Others
 * Run `apt-get upgrade` in Debian-10 will break things.
-* To test debian 10, you need add the following boot parameter to the kernel: `init=/bin/systemd`

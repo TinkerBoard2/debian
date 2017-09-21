@@ -48,6 +48,8 @@ cat << EOF | sudo chroot $TARGET_ROOTFS_DIR
 
 apt-get update
 
+apt-get install -y systemd-sysv vi
+
 #---------------ForwardPort Linaro overlay -------------- 
 apt-get install -y e2fsprogs
 wget http://repo.linaro.org/ubuntu/linaro-overlay/pool/main/l/linaro-overlay/linaro-overlay-minimal_1112.10_all.deb
@@ -55,6 +57,29 @@ wget http://repo.linaro.org/ubuntu/linaro-overlay/pool/main/9/96boards-tools/96b
 dpkg -i *.deb
 rm -rf *.deb
 apt-get install -f -y
+
+#---------------TODO: USE DEB-------------- 
+#---------------Setup Graphics-------------- 
+apt-get install -y weston
+cd /usr/lib/arm-linux-gnueabihf
+wget https://github.com/rockchip-linux/libmali/raw/rockchip/lib/arm-linux-gnueabihf/libmali-midgard-r13p0-r0p0-wayland.so
+ln -s libmali-midgard-r13p0-r0p0-wayland.so libmali-midgard-r13p0-r0p0-wayland.so
+ln -sf libmali-midgard-r13p0-r0p0-wayland.so libEGL.so
+ln -sf libmali-midgard-r13p0-r0p0-wayland.so libEGL.so.1
+ln -sf libmali-midgard-r13p0-r0p0-wayland.so libEGL.so.1.0.0
+ln -sf libmali-midgard-r13p0-r0p0-wayland.so libGLESv2.so
+ln -sf libmali-midgard-r13p0-r0p0-wayland.so libGLESv2.so.2
+ln -sf libmali-midgard-r13p0-r0p0-wayland.so libGLESv2.so.2.0.0
+ln -sf libmali-midgard-r13p0-r0p0-wayland.so libMaliOpenCL.so
+ln -sf libmali-midgard-r13p0-r0p0-wayland.so libOpenCL.so
+ln -sf libmali-midgard-r13p0-r0p0-wayland.so libgbm.so
+ln -sf libmali-midgard-r13p0-r0p0-wayland.so libgbm.so.1
+ln -sf libmali-midgard-r13p0-r0p0-wayland.so libgbm.so.1.0.0
+ln -sf libmali-midgard-r13p0-r0p0-wayland.so libwayland-egl.so
+ln -sf libmali-midgard-r13p0-r0p0-wayland.so libwayland-egl.so.1
+ln -sf libmali-midgard-r13p0-r0p0-wayland.so libwayland-egl.so.1.0.0
+cd /
+
 
 #---------------Custom Script-------------- 
 systemctl mask systemd-networkd-wait-online.service
