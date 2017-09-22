@@ -25,6 +25,3 @@ Creating the ext4 image(linaro-rootfs.img)
 ## Cross Compile for ARM Debian
 
 [Docker + Multiarch](http://opensource.rock-chips.com/wiki_Cross_Compile#Docker)
-
-## Others
-* Run `apt-get upgrade` in Debian-10 will break things.
