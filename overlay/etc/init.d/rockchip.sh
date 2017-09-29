@@ -16,19 +16,19 @@ then
     GPU_VERSION=$(cat /sys/devices/platform/*gpu/gpuinfo)
     if [[ $GPU_VERSION =~ "Mali-T76x MP4 r1p0 0x0750" ]];
     then
-        dpkg -i  /packages/libmali/libmali-rk-midgard-r9p0-r1p0_*.deb #3288w
+        dpkg -i  /packages/libmali/libmali-rk-midgard-t76x-r9p0-r1p0_*.deb #3288w
     else
-        dpkg -i  /packages/libmali/libmali-rk-midgard-r9p0-r0p0_*.deb
+        dpkg -i  /packages/libmali/libmali-rk-midgard-t76x-r9p0-r0p0_*.deb
     fi
     dpkg -i  /packages/libmali/libmali-rk-dev_*.deb
 elif [[  "$1" == "rk3328"  ]]; then
-    dpkg -i  /packages/libmali/lib32mali-rk-utgard-2th-r7p0_*.deb
+    dpkg -i  /packages/libmali/libmali-rk-utgard-450-*.deb
     dpkg -i  /packages/libmali/libmali-rk-dev_*.deb
 elif [[  "$1" == "rk3399"  ]]; then
-    dpkg -i  /packages/libmali/lib*mali-rk-midgard-4th-r13p0_*.deb
+    dpkg -i  /packages/libmali/libmali-rk-midgard-t86x-*.deb
     dpkg -i  /packages/libmali/libmali-rk-dev_*.deb
-else
-    dpkg -i  /packages/libmali/libmali-rk-utgard0_*.deb  
+elif [[  "$1" == "rk3036"  ]]; then
+    dpkg -i  /packages/libmali/libmali-rk-utgard-400-*.deb
     dpkg -i  /packages/libmali/libmali-rk-dev_*.deb
 fi
 }
