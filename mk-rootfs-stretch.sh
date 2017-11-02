@@ -3,14 +3,14 @@
 # Directory contains the target rootfs
 TARGET_ROOTFS_DIR="binary"
 
-if [ ! $ARCH ]; then  
-	ARCH='armhf'  
-fi 
-if [ ! $VERSION ]; then  
+if [ ! $ARCH ]; then
+	ARCH='armhf'
+fi
+if [ ! $VERSION ]; then
 	VERSION="debug"
-fi 
+fi
 
-if [ ! -e linaro-stretch-alip-*.tar.gz ]; then 
+if [ ! -e linaro-stretch-alip-*.tar.gz ]; then
 	echo "\033[36m Run mk-base-debian.sh first \033[0m"
 fi
 
@@ -30,21 +30,21 @@ sudo cp -rf packages/$ARCH/* $TARGET_ROOTFS_DIR/packages
 sudo cp -rf overlay/* $TARGET_ROOTFS_DIR/
 # bt,wifi,audio firmware
 sudo cp -rf overlay-firmware/* $TARGET_ROOTFS_DIR/
-if [ "$VERSION" == "debug" ] || [ "$VERSION" == "jenkins" ] ; then
+if [ "$VERSION" == "debug" ] || [ "$VERSION" == "jenkins" ]; then
 	# adb, video, camera  test file
 	sudo cp -rf overlay-debug/* $TARGET_ROOTFS_DIR/
 fi
 
-if  [ "$VERSION" == "jenkins" ] ; then
+if [ "$VERSION" == "jenkins" ]; then
 	# network
-	sudo cp -b /etc/resolv.conf  $TARGET_ROOTFS_DIR/etc/resolv.conf
+	sudo cp -b /etc/resolv.conf $TARGET_ROOTFS_DIR/etc/resolv.conf
 fi
 
 echo -e "\033[36m Change root.....................\033[0m"
 sudo cp /usr/bin/qemu-arm-static $TARGET_ROOTFS_DIR/usr/bin/
 sudo mount -o bind /dev $TARGET_ROOTFS_DIR/dev
 
-cat << EOF | sudo chroot $TARGET_ROOTFS_DIR
+cat <<EOF | sudo chroot $TARGET_ROOTFS_DIR
 
 chmod o+x /usr/lib/dbus-1.0/dbus-daemon-launch-helper
 apt-get update
@@ -93,6 +93,10 @@ systemctl enable rockchip.service
 systemctl mask systemd-networkd-wait-online.service
 systemctl mask NetworkManager-wait-online.service
 rm /lib/systemd/system/wpa_supplicant@.service
+
+#---------------get accelerated back for chromium v61--------------
+ln -s /usr/lib/arm-linux-gnueabihf/libGLESv2.so /usr/lib/chromium/libGLESv2.so
+ln -s /usr/lib/arm-linux-gnueabihf/libEGL.so /usr/lib/chromium/libEGL.so
 
 #---------------Clean-------------- 
 rm -rf /var/lib/apt/lists/*
