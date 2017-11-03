@@ -56,8 +56,7 @@ apt-get install -y libxfont1 libinput-bin libinput10 libwacom-common libwacom2 l
 
 #---------------Xserver--------------
 echo -e "\033[36m Setup Xserver.................... \033[0m"
-[ -e /packages/xserver/xserver-common_*_all.deb ] && dpkg -i  /packages/xserver/xserver-common_*_all.deb
-[ -e /packages/xserver/xserver-xorg-core_*_$ARCH.deb ] && dpkg -i  /packages/xserver/xserver-xorg-core_*_$ARCH.deb
+dpkg -i  /packages/xserver/*
 apt-get install -f -y
 
 #---------------Video--------------
