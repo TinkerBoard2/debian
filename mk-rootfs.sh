@@ -1,7 +1,7 @@
 #!/bin/bash -e
 
-if [ ! $VERSION ]; then
-	VERSION='stretch'
+if [ ! $RELEASE ]; then
+	RELEASE='stretch'
 fi
 
-./mk-rootfs-$VERSION.sh
+./mk-rootfs-$RELEASE.sh
