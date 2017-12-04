@@ -14,11 +14,15 @@ Building a base debian system by ubuntu-build-service from linaro.
 	sudo apt-get install -f
 	RELEASE=stretch TARGET=desktop ARCH=armhf ./mk-base-debian.sh
 
-Building the rk-debian rootfs
+Building the rk-debian rootfs:
 
 	RELEASE=stretch ARCH=armhf ./mk-rootfs.sh
 
-Creating the ext4 image(linaro-rootfs.img)
+Building the rk-debain rootfs with debug:
+
+    VERSION=debug ARCH=armhf ./mk-rootfs-stretch.sh  && ./mk-image.sh
+
+Creating the ext4 image(linaro-rootfs.img):
 
 	./mk-image.sh
 
