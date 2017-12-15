@@ -4,7 +4,7 @@ for rockchip platform.
 
 ## Available Distro
 * Debian Stretch (X11)
-* Debian Buster (Wayland)
+* ~~Debian Buster (Wayland)~~
 
 ## Usage
 Building a base debian system by ubuntu-build-service from linaro.
@@ -29,3 +29,7 @@ Creating the ext4 image(linaro-rootfs.img):
 ## Cross Compile for ARM Debian
 
 [Docker + Multiarch](http://opensource.rock-chips.com/wiki_Cross_Compile#Docker)
+
+### Package Code Base
+
+Please apply [those patches](https://github.com/rockchip-linux/rk-rootfs-build/tree/master/packages-patches) to release code base before rebuilding!
