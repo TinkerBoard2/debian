@@ -10,10 +10,3 @@ su linaro -c ' \
      output-io-mode=dmabuf capture-io-mode=dmabuf ! \
     "video/x-raw,format=NV12, width=640,height=360,framerate=30/1" ! rkximagesink \
 '
-
-: '
-Video convert pipeline:
-gst-launch-1.0  filesrc location=/usr/local/test.mp4 ! qtdemux ! queue ! h264parse ! mppvideodec ! \
-   rgaconvert output-io-mode=dmabuf-import capture-io-mode=dmabuf vpu-stride=true ! \
-   "video/x-raw,format=NV12, width=1920,height=1080"  ! rkximagesink
-'
