@@ -7,6 +7,7 @@ Section "Device"
         Option          "DRI2_PAGE_FLIP"        "false"
         Option          "DRI2_WAIT_VSYNC"       "true"
         Option          "SWcursorLCD"           "false"
+        Option          "SWcursor"              "false"
 EndSection
 
 Section "Screen"
