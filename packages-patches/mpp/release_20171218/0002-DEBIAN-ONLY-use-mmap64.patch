@@ -1,7 +1,7 @@
-From 098b7666c5318a2e65f27e422e8fbc6d308e9c30 Mon Sep 17 00:00:00 2001
+From c90c891e89844efd0e0ecb8dce709d1c9c81d20e Mon Sep 17 00:00:00 2001
 From: Jacob Chen <jacob2.chen@rock-chips.com>
 Date: Mon, 18 Dec 2017 18:17:50 +0800
-Subject: [PATCH 2/3] DEBIAN-ONLY: use mmap64
+Subject: [PATCH 2/4] DEBIAN-ONLY: use mmap64
 
 ---
  osal/allocator/allocator_drm.c | 2 +-

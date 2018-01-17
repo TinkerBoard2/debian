@@ -1,15 +1,15 @@
-From fd7bb8064656d94fecf5defd027a3240a14d5bf9 Mon Sep 17 00:00:00 2001
+From 598cae30a6f1545a56e39d15eb3d6e76ffd64fef Mon Sep 17 00:00:00 2001
 From: Jacob Chen <jacob2.chen@rock-chips.com>
 Date: Mon, 18 Dec 2017 16:52:25 +0800
-Subject: [PATCH 3/3] DEBIAN: update rules for release_20171218
+Subject: [PATCH 4/4] DEBIAN: update rules for release_20171218-2
 
 Signed-off-by: Jacob Chen <jacob2.chen@rock-chips.com>
 ---
  debian/.gitignore                 |  2 ++
- debian/changelog                  | 57 +++++++++++++++++++++++++++++++++++++++
+ debian/changelog                  | 64 +++++++++++++++++++++++++++++++++++++++
  debian/control                    |  4 +++
  debian/rockchip-mpp-demos.install |  2 ++
- 4 files changed, 65 insertions(+)
+ 4 files changed, 72 insertions(+)
  create mode 100755 debian/rockchip-mpp-demos.install
 
 diff --git a/debian/.gitignore b/debian/.gitignore
@@ -26,10 +26,17 @@ index b73b5a4..4e592a4 100644
  /librockchip-vpu0/
  /tmp/
 diff --git a/debian/changelog b/debian/changelog
-index 7d12d89..6cd615f 100644
+index 7d12d89..db8b0a6 100644
 --- a/debian/changelog
 +++ b/debian/changelog
-@@ -1,3 +1,60 @@
+@@ -1,3 +1,67 @@
++mpp (20171218-2) UNRELEASED; urgency=medium
++
++  [ LongChair ]
++  * retrieve available input packet free slots
++
++ -- Jacob Chen <jacob2.chen@rock-chips.com>  Wed, 17 Jan 2018 15:57:42 +0800
++
 +mpp (20171218-1) UNRELEASED; urgency=medium
 +
 +  [ Randy Li ]
