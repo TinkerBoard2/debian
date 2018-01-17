@@ -34,8 +34,8 @@ elif [[  "$1" == "rk3036"  ]]; then
     dpkg -i  /packages/libmali/libmali-rk-dev_*.deb
     mv /etc/X11/xorg.conf.d/20-modesetting.conf /etc/X11/xorg.conf.d/20-modesetting.conf.backup
     mv /etc/X11/xorg.conf.d/20-armsoc.conf.backup /etc/X11/xorg.conf.d/20-armsoc.conf
-    sed -i -e 's:"SWcursor"              "false":"SWcursor"              "true":' \
-        -i /etc/X11/xorg.conf.d/20-armsoc.conf
+    # sed -i -e 's:"SWcursor"              "false":"SWcursor"              "true":' \
+    #     -i /etc/X11/xorg.conf.d/20-armsoc.conf
 fi
 }
 
