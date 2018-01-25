@@ -64,10 +64,10 @@ echo -e "\033[36m Setup Video.................... \033[0m"
 apt-get install -y gstreamer1.0-plugins-base gstreamer1.0-tools gstreamer1.0-alsa \
 	gstreamer1.0-plugins-good  gstreamer1.0-plugins-bad alsa-utils
 
-[ -e /packages/video/mpp/librockchip-mpp1_*_armhf.deb  ] && dpkg -i  /packages/video/mpp/librockchip-mpp1_*_armhf.deb
-[ -e /packages/video/mpp/librockchip-mpp-dev_*_armhf.deb  ] && dpkg -i  /packages/video/mpp/librockchip-mpp-dev_*_armhf.deb
-[ -e /packages/video/mpp/librockchip-vpu0_*_armhf.deb  ] && dpkg -i  /packages/video/mpp/librockchip-vpu0_*_armhf.deb
-[ -e /packages/video/gstreamer  ] && dpkg -i  /packages/video/gstreamer/*.deb
+dpkg -i  /packages/video/mpp/librockchip-mpp1_*_armhf.deb
+dpkg -i  /packages/video/mpp/librockchip-mpp-dev_*_armhf.deb
+dpkg -i  /packages/video/mpp/librockchip-vpu0_*_armhf.deb
+dpkg -i  /packages/video/gstreamer/*.deb
 apt-get install -f -y
 
 #---------------Qt-Video--------------
@@ -81,6 +81,14 @@ if [ "$?" -eq 0 ]; then
 else
 	echo "won't install qt"
 fi
+
+#---------------Others--------------
+#---------FFmpeg---------
+apt-get install -y libsdl2-2.0-0 libcdio-paranoia1 libjs-bootstrap libjs-jquery
+dpkg -i  /packages/others/ffmpeg/*
+#---------FFmpeg---------
+dpkg -i  /packages/others/mpv/*
+apt-get install -f -y
 
 #---------------Debug-------------- 
 if [ "$VERSION" == "debug" ] || [ "$VERSION" == "jenkins" ] ; then
