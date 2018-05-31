@@ -21,7 +21,8 @@ finish() {
 trap finish ERR
 
 echo -e "\033[36m Extract image \033[0m"
-sudo tar -xpf linaro-buster-alip-*.tar.gz
+#sudo tar -xpf linaro-buster-alip-*.tar.gz
+sudo tar -xpf linaro-stretch-alip-*.tar.gz
 
 echo -e "\033[36m Copy overlay to rootfs \033[0m"
 sudo mkdir -p $TARGET_ROOTFS_DIR/packages
@@ -62,22 +63,22 @@ apt-get install -f -y
 #---------------Setup Graphics-------------- 
 apt-get install -y weston
 cd /usr/lib/arm-linux-gnueabihf
-wget https://github.com/rockchip-linux/libmali/raw/rockchip/lib/arm-linux-gnueabihf/libmali-midgard-r13p0-r0p0-wayland.so
-ln -s libmali-midgard-r13p0-r0p0-wayland.so libmali-midgard-r13p0-r0p0-wayland.so
-ln -sf libmali-midgard-r13p0-r0p0-wayland.so libEGL.so
-ln -sf libmali-midgard-r13p0-r0p0-wayland.so libEGL.so.1
-ln -sf libmali-midgard-r13p0-r0p0-wayland.so libEGL.so.1.0.0
-ln -sf libmali-midgard-r13p0-r0p0-wayland.so libGLESv2.so
-ln -sf libmali-midgard-r13p0-r0p0-wayland.so libGLESv2.so.2
-ln -sf libmali-midgard-r13p0-r0p0-wayland.so libGLESv2.so.2.0.0
-ln -sf libmali-midgard-r13p0-r0p0-wayland.so libMaliOpenCL.so
-ln -sf libmali-midgard-r13p0-r0p0-wayland.so libOpenCL.so
-ln -sf libmali-midgard-r13p0-r0p0-wayland.so libgbm.so
-ln -sf libmali-midgard-r13p0-r0p0-wayland.so libgbm.so.1
-ln -sf libmali-midgard-r13p0-r0p0-wayland.so libgbm.so.1.0.0
-ln -sf libmali-midgard-r13p0-r0p0-wayland.so libwayland-egl.so
-ln -sf libmali-midgard-r13p0-r0p0-wayland.so libwayland-egl.so.1
-ln -sf libmali-midgard-r13p0-r0p0-wayland.so libwayland-egl.so.1.0.0
+wget https://github.com/rockchip-linux/libmali/blob/29mirror/lib/arm-linux-gnueabihf/libmali-bifrost-g31-rxp0-wayland-gbm.so
+ln -s libmali-bifrost-g31-rxp0-wayland-gbm.so libmali-bifrost-g31-rxp0-wayland-gbm.so
+ln -sf libmali-bifrost-g31-rxp0-wayland-gbm.so libEGL.so
+ln -sf libmali-bifrost-g31-rxp0-wayland-gbm.so libEGL.so.1
+ln -sf libmali-bifrost-g31-rxp0-wayland-gbm.so libEGL.so.1.0.0
+ln -sf libmali-bifrost-g31-rxp0-wayland-gbm.so libGLESv2.so
+ln -sf libmali-bifrost-g31-rxp0-wayland-gbm.so libGLESv2.so.2
+ln -sf libmali-bifrost-g31-rxp0-wayland-gbm.so libGLESv2.so.2.0.0
+ln -sf libmali-bifrost-g31-rxp0-wayland-gbm.so libMaliOpenCL.so
+ln -sf libmali-bifrost-g31-rxp0-wayland-gbm.so libOpenCL.so
+ln -sf libmali-bifrost-g31-rxp0-wayland-gbm.so libgbm.so
+ln -sf libmali-bifrost-g31-rxp0-wayland-gbm.so libgbm.so.1
+ln -sf libmali-bifrost-g31-rxp0-wayland-gbm.so libgbm.so.1.0.0
+ln -sf libmali-bifrost-g31-rxp0-wayland-gbm.so libwayland-egl.so
+ln -sf libmali-bifrost-g31-rxp0-wayland-gbm.so libwayland-egl.so.1
+ln -sf libmali-bifrost-g31-rxp0-wayland-gbm.so libwayland-egl.so.1.0.0
 cd /
 
 
