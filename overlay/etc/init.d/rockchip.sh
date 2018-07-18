@@ -69,6 +69,9 @@ then
     setcap CAP_SYS_ADMIN+ep /usr/bin/gst-launch-1.0
     rm -rf /packages
 
+    # Add cache sync here, prevent the os missing
+    sync
+
     # The base target does not come with lightdm
     systemctl restart lightdm.service || true
 fi
