@@ -30,6 +30,12 @@ sudo cp -rf packages/$ARCH/* $TARGET_ROOTFS_DIR/packages
 sudo cp -rf overlay/* $TARGET_ROOTFS_DIR/
 # bt,wifi,audio firmware
 sudo cp -rf overlay-firmware/* $TARGET_ROOTFS_DIR/
+
+if [ "$ARCH" == "armhf" ]; then
+sudo cp -rf overlay-debug/usr/local/share/adb/adbd-32 $TARGET_ROOTFS_DIR/usr/local/sbin/adbd
+sudo cp -rf overlay-debug/usr/local/share/adb/S60adbd $TARGET_ROOTFS_DIR/usr/local/sbin/
+fi
+
 if [ "$VERSION" == "debug" ] || [ "$VERSION" == "jenkins" ]; then
 	# adb, video, camera  test file
 	sudo cp -rf overlay-debug/* $TARGET_ROOTFS_DIR/

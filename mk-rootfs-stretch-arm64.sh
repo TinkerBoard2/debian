@@ -35,6 +35,11 @@ if [ "$VERSION" == "debug" ] || [ "$VERSION" == "jenkins" ]; then
 	sudo cp -rf overlay-debug/* $TARGET_ROOTFS_DIR/
 fi
 
+if [ "$ARCH" == "arm64"  ]; then
+    sudo cp -rf overlay-debug/usr/local/share/adb/adbd-64 $TARGET_ROOTFS_DIR/usr/local/sbin/adbd
+    sudo cp -rf overlay-debug/usr/local/share/adb/S60adbd $TARGET_ROOTFS_DIR/usr/local/sbin/
+fi
+
 if [ "$VERSION" == "jenkins" ]; then
 	# network
 	sudo cp -b /etc/resolv.conf $TARGET_ROOTFS_DIR/etc/resolv.conf
