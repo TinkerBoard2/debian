@@ -52,6 +52,14 @@ Creating the ext4 image(linaro-rootfs.img):
 
 [Docker + Multiarch](http://opensource.rock-chips.com/wiki_Cross_Compile#Docker)
 
-### Package Code Base
+## Package Code Base
 
 Please apply [those patches](https://github.com/rockchip-linux/rk-rootfs-build/tree/master/packages-patches) to release code base before rebuilding!
+
+## FAQ
+
+1. noexec or nodev issue
+/usr/share/debootstrap/functions: line 1450: ..../rootfs/ubuntu-build-service/stretch-desktop-armhf/chroot/test-dev-null: Permission denied
+E: Cannot install into target '/home/foxluo/work3/rockchip/rk_linux/rk3399_linux/rootfs/ubuntu-build-service/stretch-desktop-armhf/chroot' mounted with noexec or nodev
+
+Solution: mount -o remount,exec,dev xxx (xxx is the mount place), then rebuild it.
