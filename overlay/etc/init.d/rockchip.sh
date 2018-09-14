@@ -14,7 +14,7 @@ function link_mali() {
 if [ "$1" == "rk3288" ];
 then
     GPU_VERSION=$(cat /sys/devices/platform/*gpu/gpuinfo)
-    if [[ $GPU_VERSION =~ "Mali-T76x MP4 r1p0 0x0750" ]];
+    if echo $GPU_VERSION|grep -q r1p0;
     then
         dpkg -i  /packages/libmali/libmali-rk-midgard-t76x-r14p0-r1p0_*.deb #3288w
     else
