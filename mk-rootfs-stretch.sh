@@ -89,6 +89,10 @@ else
 fi
 
 #---------------Others--------------
+
+#----------chromium------
+dpkg -i  /packages/others/chromium/*
+sudo apt-mark hold chromium
 #---------FFmpeg---------
 apt-get install -y libsdl2-2.0-0 libcdio-paranoia1 libjs-bootstrap libjs-jquery
 dpkg -i  /packages/others/ffmpeg/*
