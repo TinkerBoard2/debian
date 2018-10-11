@@ -28,7 +28,16 @@ sudo mkdir -p $TARGET_ROOTFS_DIR/packages
 sudo cp -rf packages/$ARCH/* $TARGET_ROOTFS_DIR/packages
 # some configs
 sudo cp -rf overlay/* $TARGET_ROOTFS_DIR/
+if [ "$ARCH" == "armhf"  ]; then
+    sudo cp overlay-firmware/usr/bin/brcm_patchram_plus1_32 $TARGET_ROOTFS_DIR/usr/bin/brcm_patchram_plus1
+    sudo cp overlay-firmware/usr/bin/rk_wifi_init_32 $TARGET_ROOTFS_DIR/usr/bin/rk_wifi_init
+fi
+
 # bt,wifi,audio firmware
+sudo mkdir -p $TARGET_ROOTFS_DIR/system/lib/modules/
+sudo find ../kernel/drivers/net/wireless/rockchip_wlan/*  -name "*.ko" | \
+    xargs -n1 -i sudo cp {} $TARGET_ROOTFS_DIR/system/lib/modules/
+
 sudo cp -rf overlay-firmware/* $TARGET_ROOTFS_DIR/
 
 if [ "$ARCH" == "armhf" ]; then
@@ -54,6 +63,7 @@ cat <<EOF | sudo chroot $TARGET_ROOTFS_DIR
 
 chmod o+x /usr/lib/dbus-1.0/dbus-daemon-launch-helper
 apt-get update
+apt-get install -y blueman
 
 #---------------conflict workaround --------------
 apt-get remove -y xserver-xorg-input-evdev
