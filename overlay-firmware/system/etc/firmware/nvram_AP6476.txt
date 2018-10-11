@@ -1,4 +1,4 @@
-#AP6476_NVRAM_V1.2_09042013
+#AP6476_NVRAM_V1.2_09112013
 manfid=0x2d0
 prodid=0x492
 vendid=0x14e4
@@ -37,7 +37,7 @@ swctrlmap_2g=0x04040404,0x02020202,0x02020202,0x010101,0x1ff
 temp_add=29767
 temp_mult=425
 
-btc_flags=0x6
+btc_flags=0x7
 btc_params0=5000
 btc_params1=1000
 btc_params6=63

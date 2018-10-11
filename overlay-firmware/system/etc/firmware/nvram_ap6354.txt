@@ -1,4 +1,4 @@
-#AP6354_NVRAM_V1.4_20150323.txt
+#AP6354_NVRAM_V1.5_20150323.txt
 
 # Sample variables file for BCM94354 WLBGA iPA, iLNA board with SDIO for production package
 NVRAMRev=$Rev: 373428 $
@@ -7,6 +7,8 @@ boardrev=0x1101
 boardtype=0x06db
 boardflags=0x02400201
 #enable LNA1 bypass for both 2G & 5G
+
+ed_thresh=-71
 
 #boardflags2=0xc0800000
 boardflags2=0x00802000
