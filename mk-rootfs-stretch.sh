@@ -40,9 +40,18 @@ sudo find ../kernel/drivers/net/wireless/rockchip_wlan/*  -name "*.ko" | \
 
 sudo cp -rf overlay-firmware/* $TARGET_ROOTFS_DIR/
 
+# adb
 if [ "$ARCH" == "armhf" ]; then
 sudo cp -rf overlay-debug/usr/local/share/adb/adbd-32 $TARGET_ROOTFS_DIR/usr/local/sbin/adbd
 sudo cp -rf overlay-debug/usr/local/share/adb/S60adbd $TARGET_ROOTFS_DIR/usr/local/sbin/
+fi
+
+# glmark2
+if [ "$ARCH" == "armhf" ]; then
+sudo rm -rf $TARGET_ROOTFS_DIR/usr/local/share/glmark2
+sudo mkdir -p $TARGET_ROOTFS_DIR/usr/local/share/glmark2
+sudo cp -rf overlay-debug/usr/local/share/glmark2/armhf/share/* $TARGET_ROOTFS_DIR/usr/local/share/glmark2
+sudo cp overlay-debug/usr/local/share/glmark2/armhf/bin/glmark2-es2 $TARGET_ROOTFS_DIR/usr/local/bin/glmark2-es2
 fi
 
 if [ "$VERSION" == "debug" ] || [ "$VERSION" == "jenkins" ]; then

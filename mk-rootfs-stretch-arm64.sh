@@ -44,12 +44,22 @@ if [ "$VERSION" == "debug" ] || [ "$VERSION" == "jenkins" ]; then
 	sudo cp -rf overlay-debug/* $TARGET_ROOTFS_DIR/
 fi
 
+# adb
 if [ "$ARCH" == "arm64"  ]; then
     sudo cp -rf overlay-debug/usr/local/share/adb/adbd-64 $TARGET_ROOTFS_DIR/usr/local/sbin/adbd
     sudo cp -rf overlay-debug/usr/local/share/adb/S60adbd $TARGET_ROOTFS_DIR/usr/local/sbin
     sudo cp -rf overlay-debug/usr/local/share/adb/libcutils.so $TARGET_ROOTFS_DIR/usr/lib
     sudo cp -rf overlay-debug/usr/local/share/adb/libcrypto.so.1.0.0 $TARGET_ROOTFS_DIR/usr/lib
 fi
+
+# glmark2
+if [ "$ARCH" == "arm64" ]; then
+sudo rm -rf $TARGET_ROOTFS_DIR/usr/local/share/glmark2
+sudo mkdir -p $TARGET_ROOTFS_DIR/usr/local/share/glmark2
+sudo cp -rf overlay-debug/usr/local/share/glmark2/aarch64/share/* $TARGET_ROOTFS_DIR/usr/local/share/glmark2
+sudo cp overlay-debug/usr/local/share/glmark2/aarch64/bin/glmark2 $TARGET_ROOTFS_DIR/usr/local/bin/glmark2-es2
+fi
+
 
 if [ "$VERSION" == "jenkins" ]; then
 	# network
