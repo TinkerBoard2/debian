@@ -29,6 +29,9 @@ elif [[  "$1" == "rk3328"  ]]; then
 elif [[  "$1" == "rk3399"  ]]; then
     dpkg -i  /packages/libmali/libmali-rk-midgard-t86x-*.deb
     dpkg -i  /packages/libmali/libmali-rk-dev_*.deb
+elif [[  "$1" == "rk3399pro"  ]]; then
+    dpkg -i  /packages/libmali/libmali-rk-midgard-t86x-*.deb
+    dpkg -i  /packages/libmali/libmali-rk-dev_*.deb
 elif [[  "$1" == "rk3326"  ]]; then
     dpkg -i  /packages/libmali/libmali-rk-bifrost-g31-*.deb
     dpkg -i  /packages/libmali/libmali-rk-dev_*.deb
@@ -42,12 +45,21 @@ elif [[  "$1" == "rk3036"  ]]; then
 fi
 }
 
+function update_npu_fw() {
+    /usr/bin/npu-image.sh
+    sleep 1
+    /usr/bin/npu_transfer_proxy.proxy&
+}
+
 COMPATIBLE=$(cat /proc/device-tree/compatible)
 if [[ $COMPATIBLE =~ "rk3288" ]];
 then
     CHIPNAME="rk3288"
 elif [[ $COMPATIBLE =~ "rk3328" ]]; then
     CHIPNAME="rk3328"
+elif [[ $COMPATIBLE =~ "rk3399" && $COMPATIBLE =~ "rk3399pro" ]]; then
+    CHIPNAME="rk3399pro"
+    update_npu_fw
 elif [[ $COMPATIBLE =~ "rk3399" ]]; then
     CHIPNAME="rk3399"
 elif [[ $COMPATIBLE =~ "rk3326" ]]; then
