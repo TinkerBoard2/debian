@@ -74,7 +74,11 @@ cat <<EOF | sudo chroot $TARGET_ROOTFS_DIR
 
 chmod o+x /usr/lib/dbus-1.0/dbus-daemon-launch-helper
 apt-get update
-sudo apt-get install -y blueman
+apt-get install -y blueman
+echo exit 101 > /usr/sbin/policy-rc.d
+chmod +x /usr/sbin/policy-rc.d
+apt-get install -y blueman
+rm -f /usr/sbin/policy-rc.d
 
 #---------------conflict workaround --------------
 apt-get remove -y xserver-xorg-input-evdev
