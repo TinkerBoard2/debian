@@ -57,7 +57,7 @@ if [ "$ARCH" == "arm64" ]; then
 sudo rm -rf $TARGET_ROOTFS_DIR/usr/local/share/glmark2
 sudo mkdir -p $TARGET_ROOTFS_DIR/usr/local/share/glmark2
 sudo cp -rf overlay-debug/usr/local/share/glmark2/aarch64/share/* $TARGET_ROOTFS_DIR/usr/local/share/glmark2
-sudo cp overlay-debug/usr/local/share/glmark2/aarch64/bin/glmark2 $TARGET_ROOTFS_DIR/usr/local/bin/glmark2-es2
+sudo cp overlay-debug/usr/local/share/glmark2/aarch64/bin/glmark2-es2 $TARGET_ROOTFS_DIR/usr/local/bin/glmark2-es2
 fi
 
 
@@ -101,16 +101,16 @@ dpkg -i  /packages/workaround/*.deb
 apt-get install -f -y
 
 #------------------libdrm------------
-dpkg -i  /packages/libdrm/*.deb
-apt-get install -f -y
+#dpkg -i  /packages/libdrm/*.deb
+#apt-get install -f -y
 
 #---------------Qt-Video--------------
 dpkg -l | grep lxde
 if [ "$?" -eq 0 ]; then
 	# if target is base, we won't install qt
-	apt-get install  -y libqt5opengl5 libqt5qml5 libqt5quick5 libqt5widgets5 libqt5gui5 libqt5core5a qml-module-qtquick2 \
+	apt-get install -y libqt5opengl5 libqt5qml5 libqt5quick5 libqt5widgets5 libqt5gui5 libqt5core5a qml-module-qtquick2 \
 		libqt5multimedia5 libqt5multimedia5-plugins libqt5multimediaquick-p5
-#	dpkg -i  /packages/video/qt/*
+	dpkg -i  /packages/video/qt/*
 	apt-get install -f -y
 else
 	echo "won't install qt"
