@@ -74,10 +74,10 @@ cat <<EOF | sudo chroot $TARGET_ROOTFS_DIR
 
 chmod o+x /usr/lib/dbus-1.0/dbus-daemon-launch-helper
 apt-get update
-apt-get install -y blueman
+apt-get install -y blueman:arm64
 echo exit 101 > /usr/sbin/policy-rc.d
 chmod +x /usr/sbin/policy-rc.d
-apt-get install -y blueman
+apt-get install -y blueman:arm64
 rm -f /usr/sbin/policy-rc.d
 
 #---------------conflict workaround --------------
@@ -97,7 +97,6 @@ apt-get install -y gstreamer1.0-plugins-base gstreamer1.0-tools gstreamer1.0-als
 
 dpkg -i  /packages/video/mpp/*.deb
 dpkg -i  /packages/video/gstreamer/*.deb
-dpkg -i  /packages/workaround/*.deb
 apt-get install -f -y
 
 #------------------libdrm------------
@@ -118,11 +117,11 @@ fi
 
 #---------------Others--------------
 #---------FFmpeg---------
-#apt-get install -y libsdl2-2.0-0 libcdio-paranoia1 libjs-bootstrap libjs-jquery
-#dpkg -i  /packages/others/ffmpeg/*
-#---------FFmpeg---------
-#dpkg -i  /packages/others/mpv/*
-#apt-get install -f -y
+apt-get install -y libsdl2-2.0-0:arm64 libcdio-paranoia1:arm64 libjs-bootstrap:arm64 libjs-jquery:arm64
+dpkg -i  /packages/others/ffmpeg/*
+#---------MPV---------
+dpkg -i  /packages/others/mpv/*
+apt-get install -f -y
 
 #---------------Debug-------------- 
 if [ "$VERSION" == "debug" ] || [ "$VERSION" == "jenkins" ] ; then
