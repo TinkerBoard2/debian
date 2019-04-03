@@ -42,8 +42,7 @@ sudo cp -rf overlay-firmware/* $TARGET_ROOTFS_DIR/
 
 # adb
 if [ "$ARCH" == "armhf" ]; then
-sudo cp -rf overlay-debug/usr/local/share/adb/adbd-32 $TARGET_ROOTFS_DIR/usr/local/sbin/adbd
-sudo cp -rf overlay-debug/usr/local/share/adb/S60adbd $TARGET_ROOTFS_DIR/usr/local/sbin/
+sudo cp -rf overlay-debug/usr/local/share/adb/adbd-32 $TARGET_ROOTFS_DIR/usr/local/bin/adbd
 fi
 
 # glmark2
