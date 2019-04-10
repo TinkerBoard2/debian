@@ -92,9 +92,15 @@ fi
 if [ -e "/etc/init.d/adbd.sh" ] ;
 then
     cd /etc/rcS.d
-    ln -s ../init.d/adbd.sh S01adbd.sh
+    if [ ! -e "S01adbd.sh" ] ;
+    then
+        ln -s ../init.d/adbd.sh S01adbd.sh
+    fi
     cd /etc/rc6.d
-    ln -s ../init.d/adbd.sh K01adbd.sh
+    if [ ! -e "K01adbd.sh" ] ;
+    then
+        ln -s ../init.d/adbd.sh K01adbd.sh
+    fi
 
     service adbd.sh start
 fi
