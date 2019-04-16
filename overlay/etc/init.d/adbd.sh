@@ -85,19 +85,28 @@ configfs_init()
 function_init()
 {
 	if [ $UMS_EN = on ];then
-		mkdir -p /sys/kernel/config/usb_gadget/rockchip/functions/mass_storage.0
-		echo /dev/disk/by-partlabel/userdata > /sys/kernel/config/usb_gadget/rockchip/functions/mass_storage.0/lun.0/file
-		ln -s /sys/kernel/config/usb_gadget/rockchip/functions/mass_storage.0 /sys/kernel/config/usb_gadget/rockchip/configs/b.1/mass_storage.0
+		if [ ! -e "/sys/kernel/config/usb_gadget/rockchip/functions/mass_storage.0" ] ;
+		then
+			mkdir -p /sys/kernel/config/usb_gadget/rockchip/functions/mass_storage.0
+			echo /dev/disk/by-partlabel/userdata > /sys/kernel/config/usb_gadget/rockchip/functions/mass_storage.0/lun.0/file
+			ln -s /sys/kernel/config/usb_gadget/rockchip/functions/mass_storage.0 /sys/kernel/config/usb_gadget/rockchip/configs/b.1/mass_storage.0
+		fi
 	fi
 
 	if [ $ADB_EN = on ];then
-		mkdir -p /sys/kernel/config/usb_gadget/rockchip/functions/ffs.adb
-		ln -s /sys/kernel/config/usb_gadget/rockchip/functions/ffs.adb /sys/kernel/config/usb_gadget/rockchip/configs/b.1/ffs.adb
+		if [ ! -e "/sys/kernel/config/usb_gadget/rockchip/functions/ffs.adb" ] ;
+		then
+			mkdir -p /sys/kernel/config/usb_gadget/rockchip/functions/ffs.adb
+			ln -s /sys/kernel/config/usb_gadget/rockchip/functions/ffs.adb /sys/kernel/config/usb_gadget/rockchip/configs/b.1/ffs.adb
+		fi
 	fi
 
 	if [ $MTP_EN = on ];then
-		mkdir -p /sys/kernel/config/usb_gadget/rockchip/functions/mtp.gs0
-		ln -s /sys/kernel/config/usb_gadget/rockchip/functions/mtp.gs0 /sys/kernel/config/usb_gadget/rockchip/configs/b.1/mtp.gs0
+		if [ ! -e "mkdir -p /sys/kernel/config/usb_gadget/rockchip/functions/mtp.gs0" ] ;
+		then
+			mkdir -p /sys/kernel/config/usb_gadget/rockchip/functions/mtp.gs0
+			ln -s /sys/kernel/config/usb_gadget/rockchip/functions/mtp.gs0 /sys/kernel/config/usb_gadget/rockchip/configs/b.1/mtp.gs0
+		fi
 	fi
 }
 
@@ -118,15 +127,18 @@ start)
 	function_init
 
 	if [ $ADB_EN = on ];then
-		mkdir -p /dev/usb-ffs/adb
-		mount -o uid=2000,gid=2000 -t functionfs adb /dev/usb-ffs/adb
+		if [ ! -e "/dev/usb-ffs/adb" ] ;
+		then
+			mkdir -p /dev/usb-ffs/adb
+			mount -o uid=2000,gid=2000 -t functionfs adb /dev/usb-ffs/adb
+		fi
 		export service_adb_tcp_port=5555
 		start-stop-daemon --start --oknodo --pidfile /var/run/adbd.pid --startas /usr/local/bin/adbd --background
 		sleep 1
 	fi
 
 	if [ $MTP_EN = on ];then
-		if [ $ADB_EN = on ]; then
+		if [ $MTP_EN = on ]; then
 			mtp-server&
 		else
 			sleep 1 && mtp-server&
@@ -137,10 +149,10 @@ start)
 	echo $UDC > /sys/kernel/config/usb_gadget/rockchip/UDC
 	;;
 stop)
+	echo "none" > /sys/kernel/config/usb_gadget/rockchip/UDC
 	if [ $ADB_EN = on ];then
 		start-stop-daemon --stop --oknodo --pidfile /var/run/adbd.pid --retry 5
 	fi
-	echo "none" > /sys/kernel/config/usb_gadget/rockchip/UDC
 	;;
 restart|reload)
 	;;
