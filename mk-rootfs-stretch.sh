@@ -116,6 +116,8 @@ else
 fi
 
 #---------------Others--------------
++#---------Camera---------
+dpkg -i  /packages/others/camera/*
 
 #----------chromium------
 dpkg -i  /packages/others/chromium/*
