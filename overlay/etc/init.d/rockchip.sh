@@ -81,16 +81,17 @@ then
     echo "It's the first time booting."
     echo "The rootfs will be configured."
 
+    # Force rootfs synced
+    mount -o remount,sync /
+
     link_mali ${CHIPNAME}
-    touch /usr/local/first_boot_flag
     setcap CAP_SYS_ADMIN+ep /usr/bin/gst-launch-1.0
     rm -rf /packages
 
-    # Add cache sync here, prevent the os missing
-    sync
-
     # The base target does not come with lightdm
     systemctl restart lightdm.service || true
+
+    touch /usr/local/first_boot_flag
 fi
 
 # enable adbd service
