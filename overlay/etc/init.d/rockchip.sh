@@ -111,6 +111,22 @@ then
     service adbd.sh start
 fi
 
+# support power management
+if [ -e "/usr/sbin/pm-suspend" ] ;
+then
+    mv /etc/Powermanager/power-key.sh /usr/bin/
+    mv /etc/Powermanager/power-key.conf /etc/triggerhappy/triggers.d/
+    if [[ "$CHIPNAME" == "rk3399pro" ]];
+    then
+        mv /etc/Powermanager/01npu /usr/lib/pm-utils/sleep.d/
+    fi
+    mv /etc/Powermanager/triggerhappy /etc/init.d/triggerhappy
+
+    rm /etc/Powermanager -rf
+    service triggerhappy restart
+fi
+
+
 # read mac-address from efuse
 # if [ "$BOARDNAME" == "rk3288-miniarm" ]; then
 #     MAC=`xxd -s 16 -l 6 -g 1 /sys/bus/nvmem/devices/rockchip-efuse0/nvmem | awk '{print $2$3$4$5$6$7 }'`

@@ -78,6 +78,10 @@ chmod +x /usr/sbin/policy-rc.d
 apt-get install -y blueman:arm64
 rm -f /usr/sbin/policy-rc.d
 
+#---------------power management --------------
+apt-get install -y pm-utils triggerhappy
+cp /etc/Powermanager/triggerhappy.service  /lib/systemd/system/triggerhappy.service
+
 #---------------conflict workaround --------------
 apt-get remove -y xserver-xorg-input-evdev
 
