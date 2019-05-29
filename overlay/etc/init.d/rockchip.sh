@@ -51,7 +51,7 @@ fi
 function update_npu_fw() {
     /usr/bin/npu-image.sh
     sleep 1
-    /usr/bin/npu_transfer_proxy.proxy&
+    /usr/bin/npu_transfer_proxy&
 }
 
 COMPATIBLE=$(cat /proc/device-tree/compatible)
