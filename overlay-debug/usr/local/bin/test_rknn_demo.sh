@@ -3,5 +3,5 @@
 echo "Start RKNN_DEMO Camera Preview!"
 
 sudo service lightdm stop
-/usr/bin/npu_transfer_proxy.proxy&
+/usr/bin/npu_transfer_proxy&
 rknn_demo
