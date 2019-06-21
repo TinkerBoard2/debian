@@ -123,8 +123,8 @@ dpkg -i  /packages/others/camera/*
 
 #---------FFmpeg---------
 #-----TODO: it will cause crash with online video on chromium---------
-#apt-get install -y libsdl2-2.0-0:arm64 libcdio-paranoia1:arm64 libjs-bootstrap:arm64 libjs-jquery:arm64
-#dpkg -i  /packages/others/ffmpeg/*
+apt-get install -y libsdl2-2.0-0:arm64 libcdio-paranoia1:arm64 libjs-bootstrap:arm64 libjs-jquery:arm64
+dpkg -i  /packages/others/ffmpeg/*
 #---------MPV---------
 dpkg -i  /packages/others/mpv/*
 apt-get install -f -y
