@@ -79,7 +79,7 @@ apt-get install -y blueman
 rm -f /usr/sbin/policy-rc.d
 
 #---------------power management --------------
-apt-get install -y pm-utils triggerhappy
+apt-get install -y busybox pm-utils triggerhappy
 cp /etc/Powermanager/triggerhappy.service  /lib/systemd/system/triggerhappy.service
 
 #---------------conflict workaround --------------
