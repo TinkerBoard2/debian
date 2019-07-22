@@ -89,8 +89,9 @@ apt-get install -y libxfont1 libinput-bin libinput10 libwacom-common libwacom2 l
 
 #---------------Xserver--------------
 echo -e "\033[36m Setup Xserver.................... \033[0m"
-dpkg -i  /packages/xserver/*
-apt-get install -f -y
+#dpkg -i  /packages/xserver/*
+#apt-get install -f -y
+tar zxvf /packages/xserver/glamor_64.tgz -C /
 
 #---------------Video--------------
 echo -e "\033[36m Setup Video.................... \033[0m"
@@ -102,8 +103,8 @@ dpkg -i  /packages/video/gstreamer/*.deb
 apt-get install -f -y
 
 #------------------libdrm------------
-#dpkg -i  /packages/libdrm/*.deb
-#apt-get install -f -y
+dpkg -i  /packages/libdrm/*.deb
+apt-get install -f -y
 
 #---------------Qt-Video--------------
 dpkg -l | grep lxde
