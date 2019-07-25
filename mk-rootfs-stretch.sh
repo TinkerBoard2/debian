@@ -134,6 +134,9 @@ dpkg -i  /packages/others/ffmpeg/*
 dpkg -i  /packages/others/mpv/*
 apt-get install -f -y
 
+#--------------Conflict with libmali
+apt-get remove -y libgles2-mesa-dev libegl1-mesa-dev
+
 #---------------Debug-------------- 
 if [ "$VERSION" == "debug" ] || [ "$VERSION" == "jenkins" ] ; then
 	apt-get install -y sshfs openssh-server bash-completion
