@@ -57,6 +57,12 @@ sudo cp -rf overlay-debug/usr/local/share/glmark2/aarch64/share/* $TARGET_ROOTFS
 sudo cp overlay-debug/usr/local/share/glmark2/aarch64/bin/glmark2-es2 $TARGET_ROOTFS_DIR/usr/local/bin/glmark2-es2
 fi
 
+# rga
+if [ "$ARCH" == "arm64" ]; then
+sudo mkdir -p $TARGET_ROOTFS_DIR/usr/include/rga
+sudo cp packages/$ARCH/rga/include/*      $TARGET_ROOTFS_DIR/usr/include/rga/
+sudo cp packages/$ARCH/rga/lib/librga.so  $TARGET_ROOTFS_DIR/usr/lib/
+fi
 
 if [ "$VERSION" == "jenkins" ]; then
 	# network
@@ -82,17 +88,6 @@ rm -f /usr/sbin/policy-rc.d
 apt-get install -y busybox pm-utils triggerhappy
 cp /etc/Powermanager/triggerhappy.service  /lib/systemd/system/triggerhappy.service
 
-#---------------conflict workaround --------------
-apt-get remove -y xserver-xorg-input-evdev
-
-apt-get install -y libxfont1 libinput-bin libinput10 libwacom-common libwacom2 libunwind8 xserver-xorg-input-libinput
-
-#---------------Xserver--------------
-echo -e "\033[36m Setup Xserver.................... \033[0m"
-#dpkg -i  /packages/xserver/*
-#apt-get install -f -y
-tar zxvf /packages/xserver/glamor_64.tgz -C /
-
 #---------------Video--------------
 echo -e "\033[36m Setup Video.................... \033[0m"
 apt-get install -y gstreamer1.0-plugins-base gstreamer1.0-tools gstreamer1.0-alsa \
@@ -100,10 +95,6 @@ apt-get install -y gstreamer1.0-plugins-base gstreamer1.0-tools gstreamer1.0-als
 
 dpkg -i  /packages/video/mpp/*.deb
 dpkg -i  /packages/video/gstreamer/*.deb
-apt-get install -f -y
-
-#------------------libdrm------------
-dpkg -i  /packages/libdrm/*.deb
 apt-get install -f -y
 
 #---------------Qt-Video--------------
@@ -130,12 +121,38 @@ dpkg -i  /packages/others/ffmpeg/*
 dpkg -i  /packages/others/mpv/*
 apt-get install -f -y
 
-#---------------Debug-------------- 
+#---------------conflict workaround --------------
+apt-get remove -y xserver-xorg-input-evdev
+
+apt-get install -y libxfont1 libinput-bin libinput10 libwacom-common libwacom2 libunwind8 xserver-xorg-input-libinput
+
+#---------------Xserver--------------
+apt-get remove -y libgl1-mesa-dri:arm64
+apt-get install -y debhelper:arm64 gettext:arm64 libstartup-notification0-dev:arm64 libxrender-dev:arm64 pkg-config:arm64 libglib2.0-dev:arm64 libxml2-dev:arm64 perl libxt-dev:arm64 libxinerama-dev:arm64 libxrandr-dev:arm64 libpango1.0-dev:arm64 libx11-dev:arm64 autoconf:arm64 automake:arm64 libimlib2-dev:arm64 libxcursor-dev:arm64 autopoint:arm64 librsvg2-dev:arm64 libxi-dev:arm64 g++ make libdmx-dev:arm64 libxcb-xv0-dev:arm64 libxfont-dev:arm64 libxkbfile-dev:arm64 libpciaccess-dev:arm64 mesa-common-dev:arm64
+
+echo -e "\033[36m Install openbox.................... \033[0m"
+dpkg -i  /packages/openbox/*.deb
+
+echo "deb http://http.debian.net/debian/ buster main contrib non-free" >> /etc/apt/sources.list
+apt-get update
+apt-get install -y x11proto-dev=2018.4-4 libxcb-xf86dri0-dev:arm64
+
+sed -i '/buster/'d /etc/apt/sources.list
+apt-get update
+
+echo -e "\033[36m Setup Xserver.................... \033[0m"
+dpkg -i  /packages/xserver/*
+
+#------------------libdrm------------
+dpkg -i  /packages/libdrm/*.deb
+apt-get install -f -y
+
+#---------------Debug--------------
 if [ "$VERSION" == "debug" ] || [ "$VERSION" == "jenkins" ] ; then
 	apt-get install -y sshfs openssh-server bash-completion
 fi
 
-#---------------Custom Script-------------- 
+#---------------Custom Script--------------
 systemctl enable rockchip.service
 systemctl mask systemd-networkd-wait-online.service
 systemctl mask NetworkManager-wait-online.service
@@ -145,7 +162,7 @@ rm /lib/systemd/system/wpa_supplicant@.service
 ln -s /usr/lib/aarch64-linux-gnu/libGLESv2.so /usr/lib/chromium/libGLESv2.so
 ln -s /usr/lib/aarch64-linux-gnu/libEGL.so /usr/lib/chromium/libEGL.so
 
-#---------------Clean-------------- 
+#---------------Clean--------------
 rm -rf /var/lib/apt/lists/*
 
 EOF

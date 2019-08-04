@@ -53,6 +53,13 @@ sudo cp -rf overlay-debug/usr/local/share/glmark2/armhf/share/* $TARGET_ROOTFS_D
 sudo cp overlay-debug/usr/local/share/glmark2/armhf/bin/glmark2-es2 $TARGET_ROOTFS_DIR/usr/local/bin/glmark2-es2
 fi
 
+# rga
+if [ "$ARCH" == "armhf" ]; then
+sudo mkdir -p $TARGET_ROOTFS_DIR/usr/include/rga
+sudo cp packages/$ARCH/rga/include/*      $TARGET_ROOTFS_DIR/usr/include/rga/
+sudo cp packages/$ARCH/rga/lib/librga.so  $TARGET_ROOTFS_DIR/usr/lib/
+fi
+
 if [ "$VERSION" == "debug" ] || [ "$VERSION" == "jenkins" ]; then
 	# adb, video, camera  test file
 	sudo cp -rf overlay-debug/* $TARGET_ROOTFS_DIR/
@@ -82,17 +89,6 @@ rm -f /usr/sbin/policy-rc.d
 apt-get install -y busybox pm-utils triggerhappy
 cp /etc/Powermanager/triggerhappy.service  /lib/systemd/system/triggerhappy.service
 
-#---------------conflict workaround --------------
-apt-get remove -y xserver-xorg-input-evdev
-
-apt-get install -y libxfont1 libinput-bin libinput10 libwacom-common libwacom2 libunwind8 xserver-xorg-input-libinput
-
-#---------------Xserver--------------
-echo -e "\033[36m Setup Xserver.................... \033[0m"
-#dpkg -i  /packages/xserver/*
-#apt-get install -f -y
-tar zxvf /packages/xserver/glamor_32.tgz -C /
-
 #---------------Video--------------
 echo -e "\033[36m Setup Video.................... \033[0m"
 apt-get install -y gstreamer1.0-plugins-base gstreamer1.0-tools gstreamer1.0-alsa \
@@ -102,10 +98,6 @@ dpkg -i  /packages/video/mpp/librockchip-mpp1_*_armhf.deb
 dpkg -i  /packages/video/mpp/librockchip-mpp-dev_*_armhf.deb
 dpkg -i  /packages/video/mpp/librockchip-vpu0_*_armhf.deb
 dpkg -i  /packages/video/gstreamer/*.deb
-apt-get install -f -y
-
-#------------------libdrm------------
-dpkg -i  /packages/libdrm/*.deb
 apt-get install -f -y
 
 #---------------Qt-Video--------------
@@ -136,6 +128,33 @@ apt-get install -f -y
 
 #--------------Conflict with libmali
 apt-get remove -y libgles2-mesa-dev libegl1-mesa-dev
+
+
+#---------------conflict workaround --------------
+apt-get remove -y xserver-xorg-input-evdev
+
+apt-get install -y libxfont1 libinput-bin libinput10 libwacom-common libwacom2 libunwind8 xserver-xorg-input-libinput
+
+#---------------Xserver--------------
+apt-get remove -y libgl1-mesa-dri:armhf
+apt-get install -y debhelper:armhf gettext:armhf libstartup-notification0-dev:armhf libxrender-dev:armhf pkg-config:armhf libglib2.0-dev:armhf libxml2-dev:armhf perl libxt-dev:armhf libxinerama-dev:armhf libxrandr-dev:armhf libpango1.0-dev:armhf libx11-dev:armhf  autoconf:armhf automake:armhf libimlib2-dev:armhf libxcursor-dev:armhf autopoint:armhf librsvg2-dev:armhf libxi-dev:armhf g++ make libdmx-dev:armhf libxcb-xv0-dev:armhf libxfont-dev:armhf libxkbfile-dev:armhf libpciaccess-dev:armhf mesa-common-dev:armhf
+
+echo -e "\033[36m Install openbox.................... \033[0m"
+dpkg -i  /packages/openbox/*.deb
+
+echo "deb http://http.debian.net/debian/ buster main contrib non-free" >> /etc/apt/sources.list
+apt-get update
+apt-get install -y x11proto-dev=2018.4-4 libxcb-xf86dri0-dev:armhf
+
+sed -i '/buster/'d /etc/apt/sources.list
+apt-get update
+
+echo -e "\033[36m Setup Xserver.................... \033[0m"
+dpkg -i  /packages/xserver/*
+
+#------------------libdrm------------
+dpkg -i  /packages/libdrm/*.deb
+apt-get install -f -y
 
 #---------------Debug-------------- 
 if [ "$VERSION" == "debug" ] || [ "$VERSION" == "jenkins" ] ; then
