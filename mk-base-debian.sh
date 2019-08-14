@@ -1,11 +1,7 @@
 #!/bin/bash -e
 
-if [ "$RELEASE" == "stretch" ]; then
+if [ ! $RELEASE ]; then
 	RELEASE='stretch'
-elif [ "$ARCH" == "buster" ]; then
-	ARCH='buster'
-else
-    echo -e "\033[36m please input debian version stretch...... \033[0m"
 fi
 
 if [ "$ARCH" == "armhf" ]; then

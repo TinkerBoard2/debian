@@ -4,14 +4,15 @@ for rockchip platform.
 
 ## Available Distro
 * Debian Stretch (X11)
-* ~~Debian Buster (Wayland)~~
+* Debian Buster (X11 and Wayland)~~
 
-## Usage for 32bit Debian
+sudo apt-get install binfmt-support qemu-user-static
+sudo dpkg -i ubuntu-build-service/packages/*
+sudo apt-get install -f
+
+## Usage for 32bit Debian Stretch
 Building a base debian system by ubuntu-build-service from linaro.
 
-	sudo apt-get install binfmt-support qemu-user-static
-	sudo dpkg -i ubuntu-build-service/packages/*
-	sudo apt-get install -f
 	RELEASE=stretch TARGET=desktop ARCH=armhf ./mk-base-debian.sh
 
 Building the rk-debian rootfs:
@@ -27,12 +28,27 @@ Creating the ext4 image(linaro-rootfs.img):
 	./mk-image.sh
 ---
 
-## Usage for 64bit Debian
+## Usage for 32bit Debian Buster
 Building a base debian system by ubuntu-build-service from linaro.
 
-	sudo apt-get install binfmt-support qemu-user-static
-	sudo dpkg -i ubuntu-build-service/packages/*
-	sudo apt-get install -f
+	RELEASE=buster TARGET=desktop ARCH=armhf ./mk-base-debian.sh
+
+Building the rk-debian rootfs:
+
+	RELEASE=buster ARCH=armhf ./mk-rootfs.sh
+
+Building the rk-debain rootfs with debug:
+
+	VERSION=debug ARCH=armhf ./mk-rootfs-buster.sh
+
+Creating the ext4 image(linaro-rootfs.img):
+
+	./mk-image.sh
+---
+
+## Usage for 64bit Debian Stretch
+Building a base debian system by ubuntu-build-service from linaro.
+
 	RELEASE=stretch TARGET=desktop ARCH=arm64 ./mk-base-debian.sh
 
 Building the rk-debian rootfs:
@@ -42,6 +58,24 @@ Building the rk-debian rootfs:
 Building the rk-debain rootfs with debug:
 
 	VERSION=debug ARCH=arm64 ./mk-rootfs-stretch-arm64.sh
+
+Creating the ext4 image(linaro-rootfs.img):
+
+	./mk-image.sh
+---
+
+## Usage for 64bit Debian Buster
+Building a base debian system by ubuntu-build-service from linaro.
+
+	RELEASE=buster TARGET=desktop ARCH=arm64 ./mk-base-debian.sh
+
+Building the rk-debian rootfs:
+
+	RELEASE=buster ARCH=arm64 ./mk-rootfs.sh
+
+Building the rk-debain rootfs with debug:
+
+	VERSION=debug ARCH=arm64 ./mk-rootfs-buster.sh
 
 Creating the ext4 image(linaro-rootfs.img):
 
