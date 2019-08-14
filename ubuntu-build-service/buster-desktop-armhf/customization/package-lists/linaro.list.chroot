@@ -72,7 +72,7 @@ iw
 kbd
 kmod
 less
-libxatracker2
+#libxatracker2
 #lightdm
 #linaro-artwork
 #linaro-default-settings
