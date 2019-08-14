@@ -33,7 +33,10 @@ sudo mkdir -p $TARGET_ROOTFS_DIR/packages
 sudo cp -rf packages/$ARCH/* $TARGET_ROOTFS_DIR/packages
 
 # some configs
-sudo cp -rf overlay/* $TARGET_ROOTFS_DIR/
+sudo cp -rf overlay/etc $TARGET_ROOTFS_DIR/
+sudo cp -rf overlay/lib $TARGET_ROOTFS_DIR/usr/
+sudo cp -rf overlay/usr $TARGET_ROOTFS_DIR/
+
 if [ "$ARCH" == "armhf"  ]; then
     sudo cp overlay-firmware/usr/bin/brcm_patchram_plus1_32 $TARGET_ROOTFS_DIR/usr/bin/brcm_patchram_plus1
     sudo cp overlay-firmware/usr/bin/rk_wifi_init_32 $TARGET_ROOTFS_DIR/usr/bin/rk_wifi_init
@@ -47,7 +50,9 @@ sudo mkdir -p $TARGET_ROOTFS_DIR/system/lib/modules/
 sudo find ../kernel/drivers/net/wireless/rockchip_wlan/*  -name "*.ko" | \
     xargs -n1 -i sudo cp {} $TARGET_ROOTFS_DIR/system/lib/modules/
 
-sudo cp -rf overlay-firmware/* $TARGET_ROOTFS_DIR/
+sudo cp -rf overlay-firmware/etc $TARGET_ROOTFS_DIR/
+sudo cp -rf overlay-firmware/lib $TARGET_ROOTFS_DIR/usr/
+sudo cp -rf overlay-firmware/usr $TARGET_ROOTFS_DIR/
 
 # adb
 if [ "$ARCH" == "armhf" ]; then
@@ -58,7 +63,7 @@ fi
 
 # glmark2
 sudo rm -rf $TARGET_ROOTFS_DIR/usr/local/share/glmark2
-sudo mkdir -p $TARGET_ROOTFS_DIR/usr/local/share/glmark
+sudo mkdir -p $TARGET_ROOTFS_DIR/usr/local/share/glmark2
 if [ "$ARCH" == "armhf" ]; then
 	sudo cp -rf overlay-debug/usr/local/share/glmark2/armhf/share/* $TARGET_ROOTFS_DIR/usr/local/share/glmark2
 	sudo cp overlay-debug/usr/local/share/glmark2/armhf/bin/glmark2-es2 $TARGET_ROOTFS_DIR/usr/local/bin/glmark2-es2
@@ -69,7 +74,9 @@ fi
 
 if [ "$VERSION" == "debug" ] || [ "$VERSION" == "jenkins" ]; then
 	# adb, video, camera  test file
-	sudo cp -rf overlay-debug/* $TARGET_ROOTFS_DIR/
+	sudo cp -rf overlay-debug/etc $TARGET_ROOTFS_DIR/
+	sudo cp -rf overlay-debug/lib $TARGET_ROOTFS_DIR/usr/
+	sudo cp -rf overlay-debug/usr $TARGET_ROOTFS_DIR/
 fi
 
 if  [ "$VERSION" == "jenkins" ] ; then
@@ -113,7 +120,9 @@ apt-get install -f -y
 #---------------conflict workaround --------------
 apt-get remove -y xserver-xorg-input-evdev
 
-apt-get install -y libxfont1 libinput-bin libinput10 libwacom-common libwacom2 libunwind8 xserver-xorg-input-libinput
+apt-get install -y libxfont-dev libinput-bin libinput10 libwacom-common libwacom2 libunwind8 xserver-xorg-input-libinput libdmx1 \
+		   libxcb-icccm4 libxcb-image0 libxcb-keysyms1 libxcb-render-util0 libxcb-xf86dri0 libxcb-xv0 libpixman-1-dev \
+		   libxkbfile-dev libpciaccess-dev mesa-common-dev
 
 #---------------Xserver--------------
 echo -e "\033[36m Setup Xserver.................... \033[0m"
