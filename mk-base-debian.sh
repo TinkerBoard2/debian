@@ -1,7 +1,11 @@
 #!/bin/bash -e
 
-if [ ! $RELEASE ]; then
+if [ "$RELEASE" == "stretch" ]; then
 	RELEASE='stretch'
+elif [ "$RELEASE" == "buster" ]; then
+	RELEASE='buster'
+else
+    echo -e "\033[36m please input the os type,stretch or buster...... \033[0m"
 fi
 
 if [ "$ARCH" == "armhf" ]; then
