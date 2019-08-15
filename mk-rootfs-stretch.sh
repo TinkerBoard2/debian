@@ -3,9 +3,14 @@
 # Directory contains the target rootfs
 TARGET_ROOTFS_DIR="binary"
 
-if [ ! $ARCH ]; then
+if [ "$ARCH" == "armhf" ]; then
 	ARCH='armhf'
+elif [ "$ARCH" == "arm64" ]; then
+	ARCH='arm64'
+else
+    echo -e "\033[36m please input is: armhf or arm64...... \033[0m"
 fi
+
 if [ ! $VERSION ]; then
 	VERSION="debug"
 fi
@@ -26,42 +31,11 @@ sudo tar -xpf linaro-stretch-alip-*.tar.gz
 echo -e "\033[36m Copy overlay to rootfs \033[0m"
 sudo mkdir -p $TARGET_ROOTFS_DIR/packages
 sudo cp -rf packages/$ARCH/* $TARGET_ROOTFS_DIR/packages
-# some configs
+
+# copy overlay to target
 sudo cp -rf overlay/* $TARGET_ROOTFS_DIR/
-if [ "$ARCH" == "armhf"  ]; then
-    sudo cp overlay-firmware/usr/bin/brcm_patchram_plus1_32 $TARGET_ROOTFS_DIR/usr/bin/brcm_patchram_plus1
-    sudo cp overlay-firmware/usr/bin/rk_wifi_init_32 $TARGET_ROOTFS_DIR/usr/bin/rk_wifi_init
-fi
-
-# bt,wifi,audio firmware
-sudo mkdir -p $TARGET_ROOTFS_DIR/system/lib/modules/
-sudo find ../kernel/drivers/net/wireless/rockchip_wlan/*  -name "*.ko" | \
-    xargs -n1 -i sudo cp {} $TARGET_ROOTFS_DIR/system/lib/modules/
-
 sudo cp -rf overlay-firmware/* $TARGET_ROOTFS_DIR/
-
-# adb
-if [ "$ARCH" == "armhf" ]; then
-sudo cp -rf overlay-debug/usr/local/share/adb/adbd-32 $TARGET_ROOTFS_DIR/usr/local/bin/adbd
-fi
-
-# glmark2
-if [ "$ARCH" == "armhf" ]; then
-sudo rm -rf $TARGET_ROOTFS_DIR/usr/local/share/glmark2
-sudo mkdir -p $TARGET_ROOTFS_DIR/usr/local/share/glmark2
-sudo cp -rf overlay-debug/usr/local/share/glmark2/armhf/share/* $TARGET_ROOTFS_DIR/usr/local/share/glmark2
-sudo cp overlay-debug/usr/local/share/glmark2/armhf/bin/glmark2-es2 $TARGET_ROOTFS_DIR/usr/local/bin/glmark2-es2
-fi
-
-# rga
-if [ "$ARCH" == "armhf" ]; then
-sudo mkdir -p $TARGET_ROOTFS_DIR/usr/include/rga
-sudo cp packages/$ARCH/rga/include/*      $TARGET_ROOTFS_DIR/usr/include/rga/
-sudo cp packages/$ARCH/rga/lib/librga.so  $TARGET_ROOTFS_DIR/usr/lib/
-fi
-
 if [ "$VERSION" == "debug" ] || [ "$VERSION" == "jenkins" ]; then
-	# adb, video, camera  test file
 	sudo cp -rf overlay-debug/* $TARGET_ROOTFS_DIR/
 fi
 
@@ -70,20 +44,57 @@ if [ "$VERSION" == "jenkins" ]; then
 	sudo cp -b /etc/resolv.conf $TARGET_ROOTFS_DIR/etc/resolv.conf
 fi
 
+# bt/wifi firmware
+if [ "$ARCH" == "armhf" ]; then
+    sudo cp overlay-firmware/usr/bin/brcm_patchram_plus1_32 $TARGET_ROOTFS_DIR/usr/bin/brcm_patchram_plus1
+    sudo cp overlay-firmware/usr/bin/rk_wifi_init_32 $TARGET_ROOTFS_DIR/usr/bin/rk_wifi_init
+elif [ "$ARCH" == "arm64" ]; then
+    sudo cp overlay-firmware/usr/bin/brcm_patchram_plus1_64 $TARGET_ROOTFS_DIR/usr/bin/brcm_patchram_plus1
+    sudo cp overlay-firmware/usr/bin/rk_wifi_init_64 $TARGET_ROOTFS_DIR/usr/bin/rk_wifi_init
+fi
+sudo mkdir -p $TARGET_ROOTFS_DIR/system/lib/modules/
+sudo find ../kernel/drivers/net/wireless/rockchip_wlan/*  -name "*.ko" | \
+    xargs -n1 -i sudo cp {} $TARGET_ROOTFS_DIR/system/lib/modules/
+
+if [ "$VERSION" == "debug" ]; then
+	echo -e "\033[36m Enable adb/glmark2 for debug \033[0m"
+fi
+
+# adb
+if [ "$ARCH" == "armhf" ] && [ "$VERSION" == "debug" ]; then
+	sudo cp -rf overlay-debug/usr/local/share/adb/adbd-32 $TARGET_ROOTFS_DIR/usr/local/bin/adbd
+elif [ "$ARCH" == "arm64"  ]; then
+	sudo cp -rf overlay-debug/usr/local/share/adb/adbd-64 $TARGET_ROOTFS_DIR/usr/local/bin/adbd
+fi
+
+# glmark2
+sudo rm -rf $TARGET_ROOTFS_DIR/usr/local/share/glmark2
+sudo mkdir -p $TARGET_ROOTFS_DIR/usr/local/share/glmark2
+if [ "$ARCH" == "armhf" ] && [ "$VERSION" == "debug" ]; then
+	sudo cp -rf overlay-debug/usr/local/share/glmark2/armhf/share/* $TARGET_ROOTFS_DIR/usr/local/share/glmark2
+	sudo cp overlay-debug/usr/local/share/glmark2/armhf/bin/glmark2-es2 $TARGET_ROOTFS_DIR/usr/local/bin/glmark2-es2
+elif [ "$ARCH" == "arm64" ] && [ "$VERSION" == "debug" ]; then
+	sudo cp -rf overlay-debug/usr/local/share/glmark2/aarch64/share/* $TARGET_ROOTFS_DIR/usr/local/share/glmark2
+	sudo cp overlay-debug/usr/local/share/glmark2/aarch64/bin/glmark2-es2 $TARGET_ROOTFS_DIR/usr/local/bin/glmark2-es2
+fi
+
+# rga
+sudo mkdir -p $TARGET_ROOTFS_DIR/usr/include/rga
+sudo cp packages/$ARCH/rga/include/*      $TARGET_ROOTFS_DIR/usr/include/rga/
+sudo cp packages/$ARCH/rga/lib/librga.so  $TARGET_ROOTFS_DIR/usr/lib/
+
 echo -e "\033[36m Change root.....................\033[0m"
-sudo cp /usr/bin/qemu-arm-static $TARGET_ROOTFS_DIR/usr/bin/
+if [ "$ARCH" == "armhf" ]; then
+	sudo cp /usr/bin/qemu-arm-static $TARGET_ROOTFS_DIR/usr/bin/
+elif [ "$ARCH" == "arm64"  ]; then
+	sudo cp /usr/bin/qemu-aarch64-static $TARGET_ROOTFS_DIR/usr/bin/
+fi
 sudo mount -o bind /dev $TARGET_ROOTFS_DIR/dev
 
 cat <<EOF | sudo chroot $TARGET_ROOTFS_DIR
 
 chmod o+x /usr/lib/dbus-1.0/dbus-daemon-launch-helper
 apt-get update
-apt-get install -y lxpolkit
-apt-get install -y blueman
-echo exit 101 > /usr/sbin/policy-rc.d
-chmod +x /usr/sbin/policy-rc.d
-apt-get install -y blueman
-rm -f /usr/sbin/policy-rc.d
 
 #---------------power management --------------
 apt-get install -y busybox pm-utils triggerhappy
@@ -91,12 +102,9 @@ cp /etc/Powermanager/triggerhappy.service  /lib/systemd/system/triggerhappy.serv
 
 #---------------Video--------------
 echo -e "\033[36m Setup Video.................... \033[0m"
-apt-get install -y gstreamer1.0-plugins-base gstreamer1.0-tools gstreamer1.0-alsa \
-	gstreamer1.0-plugins-good  gstreamer1.0-plugins-bad alsa-utils
+apt-get install -y gstreamer1.0-plugins-base gstreamer1.0-tools gstreamer1.0-alsa
 
-dpkg -i  /packages/video/mpp/librockchip-mpp1_*_armhf.deb
-dpkg -i  /packages/video/mpp/librockchip-mpp-dev_*_armhf.deb
-dpkg -i  /packages/video/mpp/librockchip-vpu0_*_armhf.deb
+dpkg -i  /packages/video/mpp/*
 dpkg -i  /packages/video/gstreamer/*.deb
 apt-get install -f -y
 
@@ -117,18 +125,23 @@ fi
 dpkg -i  /packages/others/camera/*
 
 #----------chromium------
-dpkg -i  /packages/others/chromium/*
-sudo apt-mark hold chromium
+if [ "$ARCH" == "armhf" ]; then
+	dpkg -i  /packages/others/chromium/*
+	sudo apt-mark hold chromium
+fi
+
 #---------FFmpeg---------
 apt-get install -y libsdl2-2.0-0 libcdio-paranoia1 libjs-bootstrap libjs-jquery
 dpkg -i  /packages/others/ffmpeg/*
-#---------FFmpeg---------
+
+#---------MPV---------
 dpkg -i  /packages/others/mpv/*
 apt-get install -f -y
 
 #--------------Conflict with libmali
-apt-get remove -y libgles2-mesa-dev libegl1-mesa-dev
-
+if [ "$ARCH" == "armhf" ]; then
+	apt-get remove -y libgles2-mesa-dev libegl1-mesa-dev
+fi
 
 #---------------conflict workaround --------------
 apt-get remove -y xserver-xorg-input-evdev
@@ -136,21 +149,22 @@ apt-get remove -y xserver-xorg-input-evdev
 apt-get install -y libxfont1 libinput-bin libinput10 libwacom-common libwacom2 libunwind8 xserver-xorg-input-libinput
 
 #---------------Xserver--------------
-apt-get remove -y libgl1-mesa-dri:armhf
-apt-get install -y debhelper:armhf gettext:armhf libstartup-notification0-dev:armhf libxrender-dev:armhf pkg-config:armhf libglib2.0-dev:armhf libxml2-dev:armhf perl libxt-dev:armhf libxinerama-dev:armhf libxrandr-dev:armhf libpango1.0-dev:armhf libx11-dev:armhf  autoconf:armhf automake:armhf libimlib2-dev:armhf libxcursor-dev:armhf autopoint:armhf librsvg2-dev:armhf libxi-dev:armhf g++ make libdmx-dev:armhf libxcb-xv0-dev:armhf libxfont-dev:armhf libxkbfile-dev:armhf libpciaccess-dev:armhf mesa-common-dev:armhf
-
-echo -e "\033[36m Install openbox.................... \033[0m"
-dpkg -i  /packages/openbox/*.deb
+apt-get remove -y libgl1-mesa-dri:$ARCH
+apt-get install -y libxml2-dev:$ARCH libglib2.0-dev:$ARCH libpango1.0-dev:$ARCH libimlib2-dev:$ARCH librsvg2-dev:$ARCH libxcursor-dev:$ARCH g++ make libdmx-dev:$ARCH libxcb-xv0-dev:$ARCH libxfont-dev:$ARCH libxkbfile-dev:$ARCH libpciaccess-dev:$ARCH mesa-common-dev:$ARCH libpixman-1-dev:$ARCH 
 
 echo "deb http://http.debian.net/debian/ buster main contrib non-free" >> /etc/apt/sources.list
 apt-get update
-apt-get install -y x11proto-dev=2018.4-4 libxcb-xf86dri0-dev:armhf
+apt-get install -y x11proto-dev=2018.4-4 libxcb-xf86dri0-dev:$ARCH
 
 sed -i '/buster/'d /etc/apt/sources.list
 apt-get update
 
 echo -e "\033[36m Setup Xserver.................... \033[0m"
 dpkg -i  /packages/xserver/*
+
+#---------------Openbox--------------
+echo -e "\033[36m Install openbox.................... \033[0m"
+dpkg -i  /packages/openbox/*.deb
 
 #------------------libdrm------------
 dpkg -i  /packages/libdrm/*.deb
