@@ -3,6 +3,10 @@
 # Directory contains the target rootfs
 TARGET_ROOTFS_DIR="binary"
 
+if [ -e $TARGET_ROOTFS_DIR ]; then
+	rm -rf $TARGET_ROOTFS_DIR
+fi
+
 if [ "$ARCH" == "armhf" ]; then
 	ARCH='armhf'
 elif [ "$ARCH" == "arm64" ]; then
@@ -100,6 +104,18 @@ apt-get update
 apt-get install -y busybox pm-utils triggerhappy
 cp /etc/Powermanager/triggerhappy.service  /lib/systemd/system/triggerhappy.service
 
+#---------------Qt-Video--------------
+dpkg -l | grep lxde
+if [ "$?" -eq 0 ]; then
+	# if target is base, we won't install qt
+	apt-get install -y libqt5opengl5 libqt5qml5 libqt5quick5 libqt5widgets5 libqt5gui5 libqt5core5a qml-module-qtquick2 \
+		libqt5multimedia5 libqt5multimedia5-plugins libqt5multimediaquick-p5
+	dpkg -i  /packages/video/qt/*
+	apt-get install -f -y
+else
+	echo "won't install qt"
+fi
+
 #---------------Video--------------
 echo -e "\033[36m Setup Video.................... \033[0m"
 apt-get install -y gstreamer1.0-plugins-base gstreamer1.0-tools gstreamer1.0-alsa
@@ -108,20 +124,8 @@ dpkg -i  /packages/video/mpp/*
 dpkg -i  /packages/video/gstreamer/*.deb
 apt-get install -f -y
 
-#---------------Qt-Video--------------
-dpkg -l | grep lxde
-if [ "$?" -eq 0 ]; then
-	# if target is base, we won't install qt
-	apt-get install  -y libqt5opengl5 libqt5qml5 libqt5quick5 libqt5widgets5 libqt5gui5 libqt5core5a qml-module-qtquick2 \
-		libqt5multimedia5 libqt5multimedia5-plugins libqt5multimediaquick-p5
-	dpkg -i  /packages/video/qt/*
-	apt-get install -f -y
-else
-	echo "won't install qt"
-fi
-
 #---------------Others--------------
-+#---------Camera---------
+#---------Camera---------
 dpkg -i  /packages/others/camera/*
 
 #----------chromium------
@@ -131,37 +135,28 @@ if [ "$ARCH" == "armhf" ]; then
 fi
 
 #---------FFmpeg---------
-apt-get install -y libsdl2-2.0-0 libcdio-paranoia1 libjs-bootstrap libjs-jquery
+apt-get install -y libsdl2-2.0-0 libcdio-paranoia1 libjs-bootstrap libjs-jquery libavcodec-extra57 libavfilter-extra6
 dpkg -i  /packages/others/ffmpeg/*
 
 #---------MPV---------
+apt-get install -y libuchardet0 liblua5.2-0
 dpkg -i  /packages/others/mpv/*
 apt-get install -f -y
 
-#--------------Conflict with libmali
-if [ "$ARCH" == "armhf" ]; then
-	apt-get remove -y libgles2-mesa-dev libegl1-mesa-dev
-fi
-
-#---------------conflict workaround --------------
-apt-get remove -y xserver-xorg-input-evdev
-
-apt-get install -y libxfont1 libinput-bin libinput10 libwacom-common libwacom2 libunwind8 xserver-xorg-input-libinput
+apt-get remove -y libgl1-mesa-dri:$ARCH xserver-xorg-input-evdev:$ARCH
+apt-get install -y libxfont1:$ARCH libinput-bin:$ARCH libinput10:$ARCH libwacom2:$ARCH libunwind8:$ARCH xserver-xorg-input-libinput:$ARCH libxml2-dev:$ARCH libglib2.0-dev:$ARCH libpango1.0-dev:$ARCH libimlib2-dev:$ARCH librsvg2-dev:$ARCH libxcursor-dev:$ARCH g++ make libdmx-dev:$ARCH libxcb-xv0-dev:$ARCH libxfont-dev:$ARCH libxkbfile-dev:$ARCH libpciaccess-dev:$ARCH mesa-common-dev:$ARCH libpixman-1-dev:$ARCH
 
 #---------------Xserver--------------
-apt-get remove -y libgl1-mesa-dri:$ARCH
-apt-get install -y libxml2-dev:$ARCH libglib2.0-dev:$ARCH libpango1.0-dev:$ARCH libimlib2-dev:$ARCH librsvg2-dev:$ARCH libxcursor-dev:$ARCH g++ make libdmx-dev:$ARCH libxcb-xv0-dev:$ARCH libxfont-dev:$ARCH libxkbfile-dev:$ARCH libpciaccess-dev:$ARCH mesa-common-dev:$ARCH libpixman-1-dev:$ARCH 
-
 echo "deb http://http.debian.net/debian/ buster main contrib non-free" >> /etc/apt/sources.list
 apt-get update
-apt-get install -y x11proto-dev=2018.4-4 libxcb-xf86dri0-dev:$ARCH
+#---------------conflict workaround --------------
+apt-get install -f -y x11proto-dev=2018.4-4 libxcb-xf86dri0-dev:$ARCH qtmultimedia5-examples:$ARCH
 
 sed -i '/buster/'d /etc/apt/sources.list
 apt-get update
 
 echo -e "\033[36m Setup Xserver.................... \033[0m"
 dpkg -i  /packages/xserver/*
-
 #---------------Openbox--------------
 echo -e "\033[36m Install openbox.................... \033[0m"
 dpkg -i  /packages/openbox/*.deb
@@ -170,22 +165,24 @@ dpkg -i  /packages/openbox/*.deb
 dpkg -i  /packages/libdrm/*.deb
 apt-get install -f -y
 
-#---------------Debug-------------- 
+#---------------Debug--------------
 if [ "$VERSION" == "debug" ] || [ "$VERSION" == "jenkins" ] ; then
 	apt-get install -y sshfs openssh-server bash-completion
 fi
 
-#---------------Custom Script-------------- 
+#---------------Custom Script--------------
 systemctl enable rockchip.service
 systemctl mask systemd-networkd-wait-online.service
 systemctl mask NetworkManager-wait-online.service
 rm /lib/systemd/system/wpa_supplicant@.service
 
 #---------------get accelerated back for chromium v61--------------
-ln -s /usr/lib/arm-linux-gnueabihf/libGLESv2.so /usr/lib/chromium/libGLESv2.so
-ln -s /usr/lib/arm-linux-gnueabihf/libEGL.so /usr/lib/chromium/libEGL.so
+if [ "$ARCH" == "armhf" ]; then
+	ln -s /usr/lib/arm-linux-gnueabihf/libGLESv2.so /usr/lib/chromium/libGLESv2.so
+	ln -s /usr/lib/arm-linux-gnueabihf/libEGL.so /usr/lib/chromium/libEGL.so
+fi
 
-#---------------Clean-------------- 
+#---------------Clean--------------
 rm -rf /var/lib/apt/lists/*
 
 EOF

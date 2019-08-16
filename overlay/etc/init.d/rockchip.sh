@@ -46,6 +46,38 @@ elif [[  "$1" == "rk3036"  ]]; then
     # sed -i -e 's:"SWcursor"              "false":"SWcursor"              "true":' \
     #     -i /etc/X11/xorg.conf.d/20-armsoc.conf
 fi
+if [ -e "/usr/lib/aarch64-linux-gnu" ] ;
+then
+    cd /usr/lib/aarch64-linux-gnu/
+    rm libEGL.so.1.1.0 libGLESv2.so.2.0.0 libGLEW.so.2.0.0
+    ln -s libMali.so libEGL.so.1.1.0
+    ln -s libMali.so libEGL.so
+    ln -s libMali.so libEGL.so.1.0.0
+    ln -s libMali.so libEGL.so.1.4
+    ln -s libMali.so libGLESv2.so
+    ln -s libMali.so libGLESv2.so.2.0
+    ln -s libMali.so libGLESv2.so.2.0.0
+    ln -s libMali.so libGLESv1_CM.so
+    ln -s libMali.so libGLESv1_CM.so.1
+    ln -s libMali.so libGLESv1_CM.so.1.1
+
+fi
+if [ -e "/usr/lib/arm-linux-gnueabihf" ] ;
+then
+    cd /usr/lib/arm-linux-gnueabihf/
+    rm libEGL.so.1.1.0 libGLESv2.so.2.0.0 libGLEW.so.2.0.0
+    ln -s libMali.so libEGL.so.1.1.0
+    ln -s libMali.so libEGL.so
+    ln -s libMali.so libEGL.so.1.0.0
+    ln -s libMali.so libEGL.so.1.4
+    ln -s libMali.so libGLESv2.so
+    ln -s libMali.so libGLESv2.so.2.0
+    ln -s libMali.so libGLESv2.so.2.0.0
+    ln -s libMali.so libGLESv1_CM.so
+    ln -s libMali.so libGLESv1_CM.so.1
+    ln -s libMali.so libGLESv1_CM.so.1.1
+fi
+
 }
 
 function update_npu_fw() {
