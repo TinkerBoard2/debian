@@ -4,7 +4,7 @@
 TARGET_ROOTFS_DIR="binary"
 
 if [ -e $TARGET_ROOTFS_DIR ]; then
-	rm -rf $TARGET_ROOTFS_DIR
+	sudo rm -rf $TARGET_ROOTFS_DIR
 fi
 
 if [ "$ARCH" == "armhf" ]; then

@@ -46,10 +46,11 @@ elif [[  "$1" == "rk3036"  ]]; then
     # sed -i -e 's:"SWcursor"              "false":"SWcursor"              "true":' \
     #     -i /etc/X11/xorg.conf.d/20-armsoc.conf
 fi
-if [ -e "/usr/lib/aarch64-linux-gnu" ] ;
-then
+if [ -e "/usr/lib/aarch64-linux-gnu" ]; then
     cd /usr/lib/aarch64-linux-gnu/
-    rm libEGL.so.1.1.0 libGLESv2.so.2.0.0 libGLEW.so.2.0.0
+    if [ -e "libEGL.so.1.1.0" ]; then
+        rm libEGL.so.1.1.0 libGLESv2.so.2.0.0 libGLEW.so.2.0.0
+    fi
     ln -s libMali.so libEGL.so.1.1.0
     ln -s libMali.so libEGL.so
     ln -s libMali.so libEGL.so.1.0.0
@@ -62,10 +63,11 @@ then
     ln -s libMali.so libGLESv1_CM.so.1.1
 
 fi
-if [ -e "/usr/lib/arm-linux-gnueabihf" ] ;
-then
+if [ -e "/usr/lib/arm-linux-gnueabihf" ]; then
     cd /usr/lib/arm-linux-gnueabihf/
-    rm libEGL.so.1.1.0 libGLESv2.so.2.0.0 libGLEW.so.2.0.0
+    if [ -e "libEGL.so.1.1.0" ]; then
+        rm libEGL.so.1.1.0 libGLESv2.so.2.0.0 libGLEW.so.2.0.0
+    fi
     ln -s libMali.so libEGL.so.1.1.0
     ln -s libMali.so libEGL.so
     ln -s libMali.so libEGL.so.1.0.0
