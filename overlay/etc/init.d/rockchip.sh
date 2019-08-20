@@ -49,35 +49,44 @@ fi
 if [ -e "/usr/lib/aarch64-linux-gnu" ]; then
     cd /usr/lib/aarch64-linux-gnu/
     if [ -e "libEGL.so.1.1.0" ]; then
-        rm libEGL.so.1.1.0 libGLESv2.so.2.0.0 libGLEW.so.2.0.0
+        rm libEGL.so.1.1.0
+    elif [ -e "libGLESv2.so.2.0.0" ]; then
+	rm libGLESv2.so.2.0.0
+    elif [ -e "libGLEW.so.2.0.0" ]; then
+	rm libGLEW.so.2.0.0
     fi
-    ln -s libMali.so libEGL.so.1.1.0
-    ln -s libMali.so libEGL.so
-    ln -s libMali.so libEGL.so.1.0.0
-    ln -s libMali.so libEGL.so.1.4
-    ln -s libMali.so libGLESv2.so
-    ln -s libMali.so libGLESv2.so.2.0
-    ln -s libMali.so libGLESv2.so.2.0.0
-    ln -s libMali.so libGLESv1_CM.so
-    ln -s libMali.so libGLESv1_CM.so.1
-    ln -s libMali.so libGLESv1_CM.so.1.1
+    ln -sf libMali.so libEGL.so.1.1.0
+    ln -sf libMali.so libEGL.so
+    ln -sf libMali.so libEGL.so.1.0.0
+    ln -sf libMali.so libEGL.so.1.4
+    ln -sf libMali.so libGLESv2.so
+    ln -sf libMali.so libGLESv2.so.2.0
+    ln -sf libMali.so libGLESv2.so.2.0.0
+    ln -sf libMali.so libGLESv1_CM.so
+    ln -sf libMali.so libGLESv1_CM.so.1
+    ln -sf libMali.so libGLESv1_CM.so.1.1
 
 fi
 if [ -e "/usr/lib/arm-linux-gnueabihf" ]; then
     cd /usr/lib/arm-linux-gnueabihf/
     if [ -e "libEGL.so.1.1.0" ]; then
-        rm libEGL.so.1.1.0 libGLESv2.so.2.0.0 libGLEW.so.2.0.0
+        rm libEGL.so.1.1.0
+    elif [ -e "libGLESv2.so.2.0.0" ]; then
+	rm libGLESv2.so.2.0.0
+    elif [ -e "libGLEW.so.2.0.0" ]; then
+	rm libGLEW.so.2.0.0
     fi
-    ln -s libMali.so libEGL.so.1.1.0
-    ln -s libMali.so libEGL.so
-    ln -s libMali.so libEGL.so.1.0.0
-    ln -s libMali.so libEGL.so.1.4
-    ln -s libMali.so libGLESv2.so
-    ln -s libMali.so libGLESv2.so.2.0
-    ln -s libMali.so libGLESv2.so.2.0.0
-    ln -s libMali.so libGLESv1_CM.so
-    ln -s libMali.so libGLESv1_CM.so.1
-    ln -s libMali.so libGLESv1_CM.so.1.1
+
+    ln -sf libMali.so libEGL.so.1.1.0
+    ln -sf libMali.so libEGL.so
+    ln -sf libMali.so libEGL.so.1.0.0
+    ln -sf libMali.so libEGL.so.1.4
+    ln -sf libMali.so libGLESv2.so
+    ln -sf libMali.so libGLESv2.so.2.0
+    ln -sf libMali.so libGLESv2.so.2.0.0
+    ln -sf libMali.so libGLESv1_CM.so
+    ln -sf libMali.so libGLESv1_CM.so.1
+    ln -sf libMali.so libGLESv1_CM.so.1.1
 fi
 
 }
