@@ -179,6 +179,9 @@ if [ "$VERSION" == "debug" ] || [ "$VERSION" == "jenkins" ] ; then
 	systemctl enable test.service
 fi
 
+#-------------mount partition p7--------------
+systemctl enable mountboot.service
+
 #---------------Clean--------------
 rm -rf /var/lib/apt/lists/*
 
