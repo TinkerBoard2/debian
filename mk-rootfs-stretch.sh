@@ -126,6 +126,7 @@ apt-get install -f -y
 
 #---------------Others--------------
 #---------Camera---------
+apt-get install cheese -y
 dpkg -i  /packages/others/camera/*
 
 #----------chromium------
