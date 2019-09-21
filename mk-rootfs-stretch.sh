@@ -129,29 +129,17 @@ apt-get install -f -y
 apt-get install cheese -y
 dpkg -i  /packages/others/camera/*
 
-#----------chromium------
-if [ "$ARCH" == "armhf" ]; then
-	dpkg -i  /packages/others/chromium/*
-	sudo apt-mark hold chromium
-fi
-
-#---------FFmpeg---------
-apt-get install -y libsdl2-2.0-0 libcdio-paranoia1 libjs-bootstrap libjs-jquery libavcodec-extra57 libavfilter-extra6
-dpkg -i  /packages/others/ffmpeg/*
-
-#---------MPV---------
-apt-get install -y libuchardet0 liblua5.2-0
-dpkg -i  /packages/others/mpv/*
-apt-get install -f -y
-
 apt-get remove -y libgl1-mesa-dri:$ARCH xserver-xorg-input-evdev:$ARCH
 apt-get install -y libxfont1:$ARCH libinput-bin:$ARCH libinput10:$ARCH libwacom2:$ARCH libunwind8:$ARCH xserver-xorg-input-libinput:$ARCH libxml2-dev:$ARCH libglib2.0-dev:$ARCH libpango1.0-dev:$ARCH libimlib2-dev:$ARCH librsvg2-dev:$ARCH libxcursor-dev:$ARCH g++ make libdmx-dev:$ARCH libxcb-xv0-dev:$ARCH libxfont-dev:$ARCH libxkbfile-dev:$ARCH libpciaccess-dev:$ARCH mesa-common-dev:$ARCH libpixman-1-dev:$ARCH
 
 #---------------Xserver--------------
 echo "deb http://http.debian.net/debian/ buster main contrib non-free" >> /etc/apt/sources.list
 apt-get update
-#---------------conflict workaround --------------
+
 apt-get install -f -y x11proto-dev=2018.4-4 libxcb-xf86dri0-dev:$ARCH qtmultimedia5-examples:$ARCH
+
+#---------update chromium-----
+yes|apt-get install chromium -f -y
 
 sed -i '/buster/'d /etc/apt/sources.list
 apt-get update
@@ -165,6 +153,16 @@ dpkg -i  /packages/openbox/*.deb
 #------------------libdrm------------
 dpkg -i  /packages/libdrm/*.deb
 apt-get install -f -y
+
+#---------FFmpeg---------
+#apt-get install -y libsdl2-2.0-0 libcdio-paranoia1 libjs-bootstrap libjs-jquery libavcodec-extra57 libavfilter-extra6
+#dpkg -i  /packages/others/ffmpeg/*
+tar -xzvf /packages/others/ffmpeg/ffmpeg-4.1.3-$ARCH.tar.gz -C /
+
+#---------MPV---------
+#apt-get install -y libuchardet0 liblua5.2-0
+#dpkg -i  /packages/others/mpv/*
+#apt-get install -f -y
 
 #---------------Debug--------------
 if [ "$VERSION" == "debug" ] || [ "$VERSION" == "jenkins" ] ; then
