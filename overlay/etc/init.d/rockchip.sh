@@ -169,6 +169,11 @@ then
     service triggerhappy restart
 fi
 
+# set the /dev/rga permission
+if [ -e "/dev/rga" ] ;
+then
+    chmod 666 /dev/rga
+fi
 
 # read mac-address from efuse
 # if [ "$BOARDNAME" == "rk3288-miniarm" ]; then
