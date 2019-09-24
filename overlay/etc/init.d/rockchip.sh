@@ -169,12 +169,6 @@ then
     service triggerhappy restart
 fi
 
-# set the /dev/rga permission
-if [ -e "/dev/rga" ] ;
-then
-    chmod 666 /dev/rga
-fi
-
 # read mac-address from efuse
 # if [ "$BOARDNAME" == "rk3288-miniarm" ]; then
 #     MAC=`xxd -s 16 -l 6 -g 1 /sys/bus/nvmem/devices/rockchip-efuse0/nvmem | awk '{print $2$3$4$5$6$7 }'`
