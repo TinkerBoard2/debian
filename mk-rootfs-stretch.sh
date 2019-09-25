@@ -172,12 +172,6 @@ systemctl mask systemd-networkd-wait-online.service
 systemctl mask NetworkManager-wait-online.service
 rm /lib/systemd/system/wpa_supplicant@.service
 
-#---------------get accelerated back for chromium v61--------------
-if [ "$ARCH" == "armhf" ]; then
-	ln -s /usr/lib/arm-linux-gnueabihf/libGLESv2.so /usr/lib/chromium/libGLESv2.so
-	ln -s /usr/lib/arm-linux-gnueabihf/libEGL.so /usr/lib/chromium/libEGL.so
-fi
-
 #---------------Clean--------------
 rm -rf /var/lib/apt/lists/*
 
