@@ -139,7 +139,11 @@ apt-get update
 apt-get install -f -y x11proto-dev=2018.4-4 libxcb-xf86dri0-dev:$ARCH qtmultimedia5-examples:$ARCH
 
 #---------update chromium-----
-no|apt-get install chromium -f -y
+yes|apt-get install chromium -f -y
+cp -f /packages/others/chromium/etc/chromium.d/default-flags /etc/chromium.d/
+
+#---------MPV---------
+apt-get install -f -y mpv
 
 sed -i '/buster/'d /etc/apt/sources.list
 apt-get update
@@ -155,14 +159,7 @@ dpkg -i  /packages/libdrm/*.deb
 apt-get install -f -y
 
 #---------FFmpeg---------
-#apt-get install -y libsdl2-2.0-0 libcdio-paranoia1 libjs-bootstrap libjs-jquery libavcodec-extra57 libavfilter-extra6
-#dpkg -i  /packages/others/ffmpeg/*
 tar -xzvf /packages/others/ffmpeg/ffmpeg-4.1.3-$ARCH.tar.gz -C /
-
-#---------MPV---------
-#apt-get install -y libuchardet0 liblua5.2-0
-#dpkg -i  /packages/others/mpv/*
-#apt-get install -f -y
 
 #---------------Debug--------------
 if [ "$VERSION" == "debug" ] || [ "$VERSION" == "jenkins" ] ; then
