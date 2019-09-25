@@ -11,5 +11,8 @@ fullscreen)
 offscreen)
 	/usr/local/bin/test_glmark2_offscreen.sh
 	;;
+*)
+	/usr/local/bin/test_glmark2_normal.sh
+	;;
 esac
 shift
