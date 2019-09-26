@@ -162,6 +162,7 @@ then
     if [[ "$CHIPNAME" == "rk3399pro" ]];
     then
         mv /etc/Powermanager/01npu /usr/lib/pm-utils/sleep.d/
+        mv /etc/Powermanager/02npu /lib/systemd/system-sleep/
     fi
     mv /etc/Powermanager/triggerhappy /etc/init.d/triggerhappy
 
