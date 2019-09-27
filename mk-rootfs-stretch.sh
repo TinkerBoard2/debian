@@ -118,7 +118,7 @@ fi
 
 #---------------Video--------------
 echo -e "\033[36m Setup Video.................... \033[0m"
-apt-get install -y gstreamer1.0-plugins-base gstreamer1.0-tools gstreamer1.0-alsa ladspalist ladspa-sdk csladspa
+apt-get install -y gstreamer1.0-plugins-base gstreamer1.0-tools gstreamer1.0-alsa
 
 dpkg -i  /packages/video/mpp/*
 dpkg -i  /packages/video/gstreamer/*.deb
