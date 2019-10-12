@@ -104,18 +104,6 @@ apt-get update
 apt-get install -y busybox pm-utils triggerhappy
 cp /etc/Powermanager/triggerhappy.service  /lib/systemd/system/triggerhappy.service
 
-#---------------Qt-Video--------------
-dpkg -l | grep lxde
-if [ "$?" -eq 0 ]; then
-	# if target is base, we won't install qt
-	apt-get install -y libqt5opengl5 libqt5qml5 libqt5quick5 libqt5widgets5 libqt5gui5 libqt5core5a qml-module-qtquick2 \
-		libqt5multimedia5 libqt5multimedia5-plugins libqt5multimediaquick-p5
-	dpkg -i  /packages/video/qt/*
-	apt-get install -f -y
-else
-	echo "won't install qt"
-fi
-
 #---------------Video--------------
 echo -e "\033[36m Setup Video.................... \033[0m"
 apt-get install -y gstreamer1.0-plugins-base gstreamer1.0-tools gstreamer1.0-alsa
