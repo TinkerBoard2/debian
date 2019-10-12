@@ -124,10 +124,6 @@ then
     echo "It's the first time booting."
     echo "The rootfs will be configured."
 
-    # pre-generate the register
-    mkdir -p /home/linaro/.cache/gstreamer-1.0/
-    cp -f /packages/others/gstreamer/*  /home/linaro/.cache/gstreamer-1.0/
-
     # Force rootfs synced
     mount -o remount,sync /
 
