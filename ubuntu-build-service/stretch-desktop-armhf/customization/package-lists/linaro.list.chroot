@@ -84,7 +84,7 @@ lsb-release
 lsof
 lxde
 lxlauncher
-lxmusic
+#lxmusic
 lxpolkit
 lxsession-default-apps
 lxsession-logout
