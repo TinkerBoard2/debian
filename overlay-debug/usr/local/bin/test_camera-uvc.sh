@@ -4,7 +4,7 @@ export DISPLAY=:0.0
 #export GST_DEBUG=*:5
 #test_camera-uvc.sh > /tmp/1.txt 2>&1
 #export GST_DEBUG_FILE=/tmp/2.txt
-
+#echo 600000000 > /sys/kernel/debug/clk/aclk_vcodec/clk_rate
 echo "Start UVC Camera M-JPEG Preview!"
 
 su linaro -c " \
