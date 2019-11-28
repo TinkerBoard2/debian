@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 PROGRAM=${0##*/}
 
 #reset npu
