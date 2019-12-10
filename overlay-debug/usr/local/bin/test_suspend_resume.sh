@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 RESULT_DIR=/usr/local/rockchip_test/
 RESULT_LOG=${RESULT_DIR}/suspend_resume.log
