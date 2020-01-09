@@ -152,7 +152,7 @@ dpkg -i  /packages/libdrm/*.deb
 apt-get install -f -y
 
 #---------FFmpeg---------
-tar -xzvf /packages/others/ffmpeg/ffmpeg-4.1.3-$ARCH.tar.gz -C /
+tar -xzvf /packages/others/ffmpeg/ffmpeg-4.1.4-$ARCH.tar.gz -C /
 
 #---------------Debug--------------
 if [ "$VERSION" == "debug" ] || [ "$VERSION" == "jenkins" ] ; then
