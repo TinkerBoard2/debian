@@ -114,7 +114,7 @@ apt-get install -f -y
 
 #---------------Others--------------
 #---------Camera---------
-apt-get install cheese -y
+apt-get install cheese v4l-utils -y
 dpkg -i  /packages/others/camera/*.deb
 if [ "$ARCH" == "armhf" ]; then
        cp /packages/others/camera/libv4l-mplane.so /usr/lib/arm-linux-gnueabihf/libv4l/plugins/
@@ -137,6 +137,9 @@ cp -f /packages/others/chromium/etc/chromium.d/default-flags /etc/chromium.d/
 
 #---------MPV---------
 apt-get install -f -y mpv
+
+#---------Parole-----
+apt-get install -f -y parole
 
 sed -i '/buster/'d /etc/apt/sources.list
 apt-get update
