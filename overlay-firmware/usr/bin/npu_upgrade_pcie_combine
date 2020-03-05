@@ -10,7 +10,7 @@ if [ $# -ne 4 ]; then
 	echo 'Usage: '$PROGRAM' loader uboot trust boot'
 	exit
 fi
-DIR="/usr/share/npu_fw_pvtm-32k/pcie"
+DIR="/usr/share/npu_fw_pcie"
 UPGRADE_TOOL=/usr/bin/upgrade_tool
 
 LOADER=$DIR/$1
