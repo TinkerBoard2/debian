@@ -110,6 +110,7 @@ apt-get install -y gstreamer1.0-plugins-base gstreamer1.0-tools gstreamer1.0-als
 
 dpkg -i  /packages/video/mpp/*
 dpkg -i  /packages/gst-rkmpp/*.deb
+dpkg -i  /packages/gst-bad/*.deb
 apt-get install -f -y
 
 #---------------Others--------------
