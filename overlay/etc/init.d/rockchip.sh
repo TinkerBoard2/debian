@@ -132,7 +132,7 @@ then
     rm -rf /packages
 
     # The base target does not come with lightdm
-   # systemctl restart lightdm.service || true
+    systemctl restart lightdm.service || true
 
     touch /usr/local/first_boot_flag
 fi
