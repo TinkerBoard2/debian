@@ -38,6 +38,9 @@ elif [[  "$1" == "rk3326"  ]]; then
 elif [[  "$1" == "px30"  ]]; then
     dpkg -i  /packages/libmali/libmali-rk-bifrost-g31-*.deb
     dpkg -i  /packages/libmali/libmali-rk-dev_*.deb
+elif [[  "$1" == "rk3128"  ]]; then
+    dpkg -i  /packages/libmali/libmali-rk-utgard-400-*.deb
+    dpkg -i  /packages/libmali/libmali-rk-dev_*.deb
 elif [[  "$1" == "rk3036"  ]]; then
     dpkg -i  /packages/libmali/libmali-rk-utgard-400-*.deb
     dpkg -i  /packages/libmali/libmali-rk-dev_*.deb
@@ -112,6 +115,8 @@ elif [[ $COMPATIBLE =~ "rk3326" ]]; then
     CHIPNAME="rk3326"
 elif [[ $COMPATIBLE =~ "px30" ]]; then
     CHIPNAME="px30"
+elif [[ $COMPATIBLE =~ "rk3128" ]]; then
+    CHIPNAME="rk3128"
 else
     CHIPNAME="rk3036"
 fi
