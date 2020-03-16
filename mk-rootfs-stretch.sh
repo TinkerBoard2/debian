@@ -137,9 +137,6 @@ apt-get install -f -y x11proto-dev=2018.4-4 libxcb-xf86dri0-dev:$ARCH qtmultimed
 yes|apt-get install chromium -f -y
 cp -f /packages/others/chromium/etc/chromium.d/default-flags /etc/chromium.d/
 
-#---------Parole-----
-apt-get install -f -y parole
-
 sed -i '/buster/'d /etc/apt/sources.list
 apt-get update
 
