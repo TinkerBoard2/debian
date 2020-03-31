@@ -146,6 +146,10 @@ dpkg -i  /packages/xserver/*
 echo -e "\033[36m Install openbox.................... \033[0m"
 dpkg -i  /packages/openbox/*.deb
 
+#------------------pcmanfm------------
+dpkg -i  /packages/pcmanfm/*.deb
+apt-get install -f -y
+
 #------------------libdrm------------
 dpkg -i  /packages/libdrm/*.deb
 apt-get install -f -y
