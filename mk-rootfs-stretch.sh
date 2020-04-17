@@ -165,6 +165,8 @@ systemctl mask systemd-networkd-wait-online.service
 systemctl mask NetworkManager-wait-online.service
 rm /lib/systemd/system/wpa_supplicant@.service
 
+echo $VERSION_NUMBER-$VERSION > /etc/version
+
 #---------------Clean--------------
 rm -rf /var/lib/apt/lists/*
 
