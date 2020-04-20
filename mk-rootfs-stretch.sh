@@ -136,7 +136,7 @@ yes|apt-get install chromium -f -y
 cp -f /packages/others/chromium/etc/chromium.d/default-flags /etc/chromium.d/
 
 #---------MPV---------
-apt-get install -f -y mpv
+#apt-get install -f -y mpv
 
 sed -i '/buster/'d /etc/apt/sources.list
 apt-get update
