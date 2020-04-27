@@ -168,6 +168,10 @@ rm /lib/systemd/system/wpa_supplicant@.service
 
 echo $VERSION_NUMBER-$VERSION > /etc/version
 
+if [ "$VERSION" == "debug" ] || [ "$VERSION" == "jenkins" ] ; then
+	systemctl enable test.service
+fi
+
 #---------------Clean--------------
 rm -rf /var/lib/apt/lists/*
 
