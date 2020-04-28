@@ -166,6 +166,10 @@ systemctl mask systemd-networkd-wait-online.service
 systemctl mask NetworkManager-wait-online.service
 rm /lib/systemd/system/wpa_supplicant@.service
 
+#-------------blueman--------------
+bash /etc/init.d/blueman.sh
+rm /etc/init.d/blueman.sh
+
 echo $VERSION_NUMBER-$VERSION > /etc/version
 
 if [ "$VERSION" == "debug" ] || [ "$VERSION" == "jenkins" ] ; then
