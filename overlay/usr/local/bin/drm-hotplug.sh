@@ -124,4 +124,16 @@ if [ $dp_status = "connected" ]; then
 	su $user -c "echo Plug_In" > $DP_HOTPLUG_CONFIG
 fi
 
+# Audio : pulseaudio suspend/resume for HDMI and DP
+
+hdmi_status=$(cat /sys/class/drm/card0-HDMI-A-1/status)
+dp_status=$(cat /sys/class/drm/card0-DP-1/status)
+
+if [ $hdmi_status = "connected" ] || [ $dp_status = "connected" ]
+then
+	echo "pulseaudio suspend and resume"
+	sudo -u linaro PULSE_RUNTIME_PATH=/run/user/1000/pulse pacmd suspend true
+	sudo -u linaro PULSE_RUNTIME_PATH=/run/user/1000/pulse pacmd suspend false
+fi
+
 exit 0
