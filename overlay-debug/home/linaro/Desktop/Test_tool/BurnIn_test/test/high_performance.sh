@@ -7,9 +7,10 @@ echo "performance" > /sys/class/devfreq/ff9a0000.gpu/governor
 
 if [ $1 -a $1 == 2 ]; then
 	echo keep thermal
-	echo 70000 > /sys/class/thermal/thermal_zone0/trip_point_0_temp
-	echo 85000 > /sys/class/thermal/thermal_zone0/trip_point_1_temp
-	echo 115000 > /sys/class/thermal/thermal_zone0/trip_point_2_temp
+	echo power_allocator >/sys/class/thermal/thermal_zone0/policy
+	echo enabled > /sys/class/thermal/thermal_zone0/mode
+	echo power_allocator >/sys/class/thermal/thermal_zone1/policy
+	echo enabled > /sys/class/thermal/thermal_zone1/mode
 else
 	echo disable thermal
 	if [ -e /sys/class/thermal/thermal_zone0 ]; then

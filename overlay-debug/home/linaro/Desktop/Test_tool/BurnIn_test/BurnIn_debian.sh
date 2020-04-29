@@ -44,7 +44,6 @@ pause(){
 
 high_performance()
 {
-	sudo bash $SCRIPTPATH/test/high_performance.sh > /dev/null 2>&1
 	echo
 	echo "1. disable thermal policy"
 	echo "2. keep thermal policy "
