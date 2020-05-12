@@ -106,11 +106,13 @@ cp /etc/Powermanager/triggerhappy.service  /lib/systemd/system/triggerhappy.serv
 
 #---------------Video--------------
 echo -e "\033[36m Setup Video.................... \033[0m"
-apt-get install -y gstreamer1.0-plugins-base gstreamer1.0-tools gstreamer1.0-alsa
+apt-get install -y gstreamer1.0-plugins-base gstreamer1.0-tools gstreamer1.0-alsa gstreamer1.0-plugins-base-apps
 apt-get install -y v4l-utils
 
-dpkg -i  /packages/video/mpp/*
-dpkg -i  /packages/video/gstreamer/*.deb
+dpkg -i  /packages/video/mpp/*.deb
+dpkg -i  /packages/gst-rkmpp/*.deb
+dpkg -i  /packages/gst-base/*.deb
+apt-mark hold gstreamer1.0-x
 apt-get install -f -y
 
 #---------------Others--------------
@@ -154,6 +156,10 @@ dpkg -i  /packages/openbox/*.deb
 
 #------------------libdrm------------
 dpkg -i  /packages/libdrm/*.deb
+apt-get install -f -y
+
+#---------kmssink---------
+dpkg -i  /packages/gst-bad/*.deb
 apt-get install -f -y
 
 #---------FFmpeg---------
