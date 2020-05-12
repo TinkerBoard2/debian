@@ -21,6 +21,7 @@ function END()
 systemctl mask sleep.target suspend.target hibernate.target hybrid-sleep.target
 Remove_TestResult
 
+echo 60 > /tmp/flicker_mode
 cat /sys/bus/i2c/drivers/imx219/1-0010/name |grep "imx219"
 if [ "$?" == "0" ]; then
 	echo -e "Start Preview Test!" | tee -a $ResultFile

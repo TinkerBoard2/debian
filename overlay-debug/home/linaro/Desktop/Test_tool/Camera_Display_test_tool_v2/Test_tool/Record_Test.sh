@@ -22,7 +22,7 @@ systemctl mask sleep.target suspend.target hibernate.target hybrid-sleep.target
 Remove_TestResult
 time=2
 echo -e "Start Record Test!" | tee -a $ResultFile
-
+echo 60 > /tmp/flicker_mode
 cat /sys/bus/i2c/drivers/imx219/1-0010/name |grep "imx219"
 if [ "$?" == "0" ]; then
 	media-ctl -d /dev/media0 --set-v4l2 '"rkisp1-isp-subdev":0[fmt:SRGGB10_1X10/3280x2464]'
