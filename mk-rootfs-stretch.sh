@@ -95,6 +95,14 @@ elif [ "$ARCH" == "arm64"  ]; then
 fi
 sudo mount -o bind /dev $TARGET_ROOTFS_DIR/dev
 
+# gpio_lib_python and gpio_lib_c for rk3399
+if [ "$ARCH" == "arm64" ]; then
+	sudo rm -rf $TARGET_ROOTFS_DIR/usr/local/share/gpio_lib_c_rk3399
+	sudo rm -rf $TARGET_ROOTFS_DIR/usr/local/share/gpio_lib_python_rk3399
+	sudo cp -rf overlay-debug/usr/local/share/gpio_lib_c_rk3399 $TARGET_ROOTFS_DIR/usr/local/share/gpio_lib_c_rk3399
+	sudo cp -rf overlay-debug/usr/local/share/gpio_lib_python_rk3399 $TARGET_ROOTFS_DIR/usr/local/share/gpio_lib_python_rk3399
+fi
+
 cat <<EOF | sudo chroot $TARGET_ROOTFS_DIR
 
 chmod o+x /usr/lib/dbus-1.0/dbus-daemon-launch-helper
@@ -185,6 +193,21 @@ echo $VERSION_NUMBER-$VERSION > /etc/version
 if [ "$VERSION" == "debug" ] || [ "$VERSION" == "jenkins" ] ; then
 	systemctl enable test.service
 fi
+
+#---------------gpio library --------------
+# For gpio wiring c library
+apt-get install build-essential -y
+apt-get install python-dev -y
+apt-get install python3-dev -y
+apt-get install make -y
+apt-get install gcc-aarch64-linux-gnu -y
+chmod a+x /usr/local/share/gpio_lib_c_rk3399
+cd /usr/local/share/gpio_lib_c_rk3399
+./build
+# For gpio python library
+cd /usr/local/share/gpio_lib_python_rk3399/
+python setup.py install
+cd /
 
 #-------------mount partition p7--------------
 systemctl enable mountboot.service
