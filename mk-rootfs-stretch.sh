@@ -140,6 +140,10 @@ apt-get install -y libxfont1:$ARCH libinput-bin:$ARCH libinput10:$ARCH libwacom2
 #---------I2C---------
 apt-get install -y i2c-tools
 
+#---------notify send-----------
+apt-get install -y libnotify-bin
+apt-get install -y xfce4-notifyd
+
 #---------------Xserver--------------
 echo "deb http://http.debian.net/debian/ buster main contrib non-free" >> /etc/apt/sources.list
 apt-get update
