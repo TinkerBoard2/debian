@@ -114,7 +114,6 @@ cp /etc/Powermanager/triggerhappy.service  /lib/systemd/system/triggerhappy.serv
 
 #---------------Video--------------
 echo -e "\033[36m Setup Video.................... \033[0m"
-apt-get install -y gstreamer1.0-plugins-base gstreamer1.0-tools gstreamer1.0-alsa gstreamer1.0-plugins-base-apps
 apt-get install -y v4l-utils
 
 dpkg -i  /packages/video/mpp/*.deb
@@ -136,13 +135,6 @@ cp /packages/others/camera/librkisp.so /usr/lib/
 
 apt-get remove -y libgl1-mesa-dri:$ARCH xserver-xorg-input-evdev:$ARCH
 apt-get install -y libxfont1:$ARCH libinput-bin:$ARCH libinput10:$ARCH libwacom2:$ARCH libunwind8:$ARCH xserver-xorg-input-libinput:$ARCH libxml2-dev:$ARCH libglib2.0-dev:$ARCH libpango1.0-dev:$ARCH libimlib2-dev:$ARCH librsvg2-dev:$ARCH libxcursor-dev:$ARCH g++ make libdmx-dev:$ARCH libxcb-xv0-dev:$ARCH libxfont-dev:$ARCH libxkbfile-dev:$ARCH libpciaccess-dev:$ARCH mesa-common-dev:$ARCH libpixman-1-dev:$ARCH
-
-#---------I2C---------
-apt-get install -y i2c-tools
-
-#---------notify send-----------
-apt-get install -y libnotify-bin
-apt-get install -y xfce4-notifyd
 
 #---------------Xserver--------------
 echo "deb http://http.debian.net/debian/ buster main contrib non-free" >> /etc/apt/sources.list
@@ -200,9 +192,7 @@ fi
 
 #---------------gpio library --------------
 # For gpio wiring c library
-apt-get install build-essential -y
 apt-get install python-dev -y
-apt-get install python3-dev -y
 apt-get install make -y
 apt-get install gcc-aarch64-linux-gnu -y
 chmod a+x /usr/local/share/gpio_lib_c_rk3399
