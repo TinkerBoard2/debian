@@ -136,6 +136,11 @@ cp /packages/others/camera/librkisp.so /usr/lib/
 apt-get remove -y libgl1-mesa-dri:$ARCH xserver-xorg-input-evdev:$ARCH
 apt-get install -y libxfont1:$ARCH libinput-bin:$ARCH libinput10:$ARCH libwacom2:$ARCH libunwind8:$ARCH xserver-xorg-input-libinput:$ARCH libxml2-dev:$ARCH libglib2.0-dev:$ARCH libpango1.0-dev:$ARCH libimlib2-dev:$ARCH librsvg2-dev:$ARCH libxcursor-dev:$ARCH g++ make libdmx-dev:$ARCH libxcb-xv0-dev:$ARCH libxfont-dev:$ARCH libxkbfile-dev:$ARCH libpciaccess-dev:$ARCH mesa-common-dev:$ARCH libpixman-1-dev:$ARCH
 
+#----------Ethernet-----------
+apt-get install -y ethtool
+chmod 755 /etc/ethernet/ethernet_restart_on_boot.sh
+ln -s /lib/systemd/system/ethernet_restart_on_boot.service /etc/systemd/system/multi-user.target.wants/ethernet_restart_on_boot.service
+
 #---------------Xserver--------------
 echo "deb http://http.debian.net/debian/ buster main contrib non-free" >> /etc/apt/sources.list
 apt-get update
