@@ -20,6 +20,9 @@ elif [[  "$1" == "px30" || "$1" == "rk3326"  ]]; then
 elif [[  "$1" == "rk1808" || "$1" == "rk3308"  ]]; then
 	echo "the chips didn't support gpu"
 
+elif [[  "$1" == "rk3128" ]]; then
+	su linaro -c "DISPLAY=:0.0 glmark2-es2"
+
 elif [[  "$1" == "px3se"  ]]; then
 	su linaro -c "DISPLAY=:0.0 glmark2-es2"
 else
@@ -48,6 +51,8 @@ elif [[ $(expr $COMPATIBLE : ".*px3se") -ne 0 ]]; then
     CHIPNAME="px3se"
 elif [[ $(expr $COMPATIBLE : ".*px30") -ne 0 ]]; then
     CHIPNAME="px30"
+elif [[ $(expr $COMPATIBLE : ".*rk3128") -ne 0 ]]; then
+    CHIPNAME="rk3128"
 else
     CHIPNAME="rk3399"
 fi

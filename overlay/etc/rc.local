@@ -39,6 +39,9 @@ touch $DP_HOTPLUG_CONFIG
 
 rk_wifi_init /dev/ttyS0
 
+# HACK: Prevent blueman from changing rfkill states
+rm /dev/rfkill
+
 # Generate the SSH keys if non-existent
 ssh-keygen -A
 

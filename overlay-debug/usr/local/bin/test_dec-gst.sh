@@ -1,6 +1,6 @@
 #!/bin/sh
 
-export DISPLAY=:0.0 
+export DISPLAY=:0.0
 #export GST_DEBUG=*:5
 #export GST_DEBUG_FILE=/tmp/2.txt
 
@@ -11,8 +11,12 @@ case "$1" in
 	su linaro -c "gst-launch-1.0 uridecodebin uri=file:///usr/local/test.mp4 ! kmssink plane-id=52"
 	sudo service lightdm start
 	;;
-*)
+	rk) ### rkximagesink for better performance
 	su linaro -c "gst-launch-1.0 uridecodebin uri=file:///usr/local/test.mp4  ! rkximagesink"
+	;;
+*)
+    ### xvimagesink for better compatibility
+	su linaro -c "gst-play-1.0 --videosink=xvimagesink /usr/local/test.mp4"
 	;;
 esac
 shift
