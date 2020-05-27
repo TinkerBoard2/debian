@@ -18,7 +18,7 @@ Display_Test :
 Record_Test:
 
 	Script執行流程:
-		1.錄影測試，會分別對OV5647與IMX219各錄製480p/720p/1080p的檔案，並存至/tmp/底下，檔案約一分鐘
+		1.錄影測試，錄製480p/720p/1080p的檔案，並存至/tmp/底下，檔案約一分鐘
 
 	Script使用方法:
 		$sudo ./Record_Test.sh
@@ -28,7 +28,7 @@ Capture_Test:
 
 	Script執行流程:
 		1.預覽測試，請觀察螢幕上的預覽畫面是否正常
-		2.拍照測試，當Script執行結束後，請檢查/tmp/Capture_ov5647.jpg與/tmp/Capture_imx219.jpg照片是否正常
+		2.拍照測試，當Script執行結束後，請檢查/tmp/Capture.jpg照片是否正常
 
     Script使用方法:
 		$sudo ./Capture_Test.sh
