@@ -138,6 +138,9 @@ cp /packages/others/camera/librkisp.so /usr/lib/
 apt-get remove -y libgl1-mesa-dri:$ARCH xserver-xorg-input-evdev:$ARCH
 apt-get install -y libxfont1:$ARCH libinput-bin:$ARCH libinput10:$ARCH libwacom2:$ARCH libunwind8:$ARCH xserver-xorg-input-libinput:$ARCH libxml2-dev:$ARCH libglib2.0-dev:$ARCH libpango1.0-dev:$ARCH libimlib2-dev:$ARCH librsvg2-dev:$ARCH libxcursor-dev:$ARCH g++ make libdmx-dev:$ARCH libxcb-xv0-dev:$ARCH libxfont-dev:$ARCH libxkbfile-dev:$ARCH libpciaccess-dev:$ARCH mesa-common-dev:$ARCH libpixman-1-dev:$ARCH
 
+apt-get install -y plymouth plymouth-themes
+plymouth-set-default-theme script
+
 #----------Ethernet-----------
 apt-get install -y ethtool
 chmod 755 /etc/ethernet/ethernet_restart_on_boot.sh
@@ -189,6 +192,9 @@ apt-get install -f -y
 if [ "$VERSION" == "debug" ] || [ "$VERSION" == "jenkins" ] ; then
 	apt-get install -y sshfs openssh-server bash-completion
 fi
+
+#-------- Cron --------
+apt-get install -y cron
 
 #---------------Custom Script--------------
 systemctl enable rockchip.service
