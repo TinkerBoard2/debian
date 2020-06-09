@@ -196,6 +196,10 @@ fi
 #-------- Cron --------
 apt-get install -y cron
 
+#-------- Florence Virtual Keyboard --------
+apt-get install -y at-spi2-core
+apt-get install -y florence
+
 #---------------Custom Script--------------
 systemctl enable rockchip.service
 systemctl mask systemd-networkd-wait-online.service
