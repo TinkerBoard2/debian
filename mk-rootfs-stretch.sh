@@ -112,6 +112,9 @@ apt-get update
 apt-get install -y busybox pm-utils triggerhappy
 cp /etc/Powermanager/triggerhappy.service  /lib/systemd/system/triggerhappy.service
 
+#---------------Audio---------------
+chmod 755 /etc/pulse/movesinks.sh
+
 #---------------Video--------------
 echo -e "\033[36m Setup Video.................... \033[0m"
 apt-get install -y v4l-utils
