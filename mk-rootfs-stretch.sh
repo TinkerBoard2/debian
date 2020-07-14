@@ -121,7 +121,7 @@ apt-get install -y v4l-utils
 
 apt-get install -y gstreamer1.0-plugins-base gstreamer1.0-tools gstreamer1.0-alsa gstreamer1.0-plugins-base-apps
 
-dpkg -i  /packages/video/mpp/*
+dpkg -i  /packages/mpp/*
 dpkg -i  /packages/gst-rkmpp/*.deb
 dpkg -i  /packages/gst-base/*.deb
 apt-mark hold gstreamer1.0-x
