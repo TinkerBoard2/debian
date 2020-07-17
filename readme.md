@@ -4,7 +4,6 @@ for rockchip platform.
 
 ## Available Distro
 * Debian 9 (Stretch-X11)
-* Debian 10 (Buster-X11 and Wayland)~~
 
 sudo apt-get install binfmt-support qemu-user-static
 sudo dpkg -i ubuntu-build-service/packages/*
@@ -28,24 +27,6 @@ Creating the ext4 image(linaro-rootfs.img):
 	./mk-image.sh
 ---
 
-## Usage for 32bit Debian 10 (Buster-32)
-Building a base debian system by ubuntu-build-service from linaro.
-
-	RELEASE=buster TARGET=desktop ARCH=armhf ./mk-base-debian.sh
-
-Building the rk-debian rootfs:
-
-	RELEASE=buster ARCH=armhf ./mk-rootfs.sh
-
-Building the rk-debain rootfs with debug:
-
-	VERSION=debug ARCH=armhf ./mk-rootfs-buster.sh
-
-Creating the ext4 image(linaro-rootfs.img):
-
-	./mk-image.sh
----
-
 ## Usage for 64bit Debian 9 (Stretch-64)
 Building a base debian system by ubuntu-build-service from linaro.
 
@@ -58,24 +39,6 @@ Building the rk-debian rootfs:
 Building the rk-debain rootfs with debug:
 
 	VERSION=debug ARCH=arm64 ./mk-rootfs-stretch.sh
-
-Creating the ext4 image(linaro-rootfs.img):
-
-	./mk-image.sh
----
-
-## Usage for 64bit Debian 10 (Buster-64)
-Building a base debian system by ubuntu-build-service from linaro.
-
-	RELEASE=buster TARGET=desktop ARCH=arm64 ./mk-base-debian.sh
-
-Building the rk-debian rootfs:
-
-	RELEASE=buster ARCH=arm64 ./mk-rootfs.sh
-
-Building the rk-debain rootfs with debug:
-
-	VERSION=debug ARCH=arm64 ./mk-rootfs-buster.sh
 
 Creating the ext4 image(linaro-rootfs.img):
 
