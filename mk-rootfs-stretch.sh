@@ -82,11 +82,6 @@ elif [ "$ARCH" == "arm64" ] && [ "$VERSION" == "debug" ]; then
 	sudo cp overlay-debug/usr/local/share/glmark2/aarch64/bin/glmark2-es2 $TARGET_ROOTFS_DIR/usr/local/bin/glmark2-es2
 fi
 
-# rga
-sudo mkdir -p $TARGET_ROOTFS_DIR/usr/include/rga
-sudo cp packages/$ARCH/rga/include/*      $TARGET_ROOTFS_DIR/usr/include/rga/
-sudo cp packages/$ARCH/rga/lib/librga.so  $TARGET_ROOTFS_DIR/usr/lib/
-
 echo -e "\033[36m Change root.....................\033[0m"
 if [ "$ARCH" == "armhf" ]; then
 	sudo cp /usr/bin/qemu-arm-static $TARGET_ROOTFS_DIR/usr/bin/
@@ -111,6 +106,9 @@ apt-get update
 #---------------power management --------------
 apt-get install -y busybox pm-utils triggerhappy
 cp /etc/Powermanager/triggerhappy.service  /lib/systemd/system/triggerhappy.service
+
+#---------------Rga--------------
+dpkg -i /packages/rga/*.deb
 
 #---------------Audio---------------
 chmod 755 /etc/pulse/movesinks.sh
