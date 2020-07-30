@@ -24,8 +24,6 @@ then
 elif [[  "$1" == "rk3328"  ]]; then
     dpkg -i  /packages/libmali/libmali-rk-utgard-450-*.deb
     dpkg -i  /packages/libmali/libmali-rk-dev_*.deb
-    mv /etc/X11/xorg.conf.d/20-modesetting.conf /etc/X11/xorg.conf.d/20-modesetting.conf.backup
-    mv /etc/X11/xorg.conf.d/20-armsoc.conf.backup /etc/X11/xorg.conf.d/20-armsoc.conf
 elif [[  "$1" == "rk3399"  ]]; then
     dpkg -i  /packages/libmali/libmali-rk-midgard-t86x-*.deb
     dpkg -i  /packages/libmali/libmali-rk-dev_*.deb
@@ -44,10 +42,6 @@ elif [[  "$1" == "rk3128"  ]]; then
 elif [[  "$1" == "rk3036"  ]]; then
     dpkg -i  /packages/libmali/libmali-rk-utgard-400-*.deb
     dpkg -i  /packages/libmali/libmali-rk-dev_*.deb
-    mv /etc/X11/xorg.conf.d/20-modesetting.conf /etc/X11/xorg.conf.d/20-modesetting.conf.backup
-    mv /etc/X11/xorg.conf.d/20-armsoc.conf.backup /etc/X11/xorg.conf.d/20-armsoc.conf
-    # sed -i -e 's:"SWcursor"              "false":"SWcursor"              "true":' \
-    #     -i /etc/X11/xorg.conf.d/20-armsoc.conf
 fi
 if [ -e "/usr/lib/aarch64-linux-gnu" ]; then
     cd /usr/lib/aarch64-linux-gnu/
