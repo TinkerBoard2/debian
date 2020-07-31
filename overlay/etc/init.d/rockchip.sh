@@ -10,82 +10,30 @@
 ### END INIT INFO
 
 PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
-function link_mali() {
-if [ "$1" == "rk3288" ];
-then
-    GPU_VERSION=$(cat /sys/devices/platform/*gpu/gpuinfo)
-    if echo $GPU_VERSION|grep -q r1p0;
-    then
-        dpkg -i  /packages/libmali/libmali-rk-midgard-t76x-r18p0-r1p0_*.deb #3288w
-    else
-        dpkg -i  /packages/libmali/libmali-rk-midgard-t76x-r18p0-r0p0_*.deb
-    fi
-    dpkg -i  /packages/libmali/libmali-rk-dev_*.deb
-elif [[  "$1" == "rk3328"  ]]; then
-    dpkg -i  /packages/libmali/libmali-rk-utgard-450-*.deb
-    dpkg -i  /packages/libmali/libmali-rk-dev_*.deb
-elif [[  "$1" == "rk3399"  ]]; then
-    dpkg -i  /packages/libmali/libmali-rk-midgard-t86x-*.deb
-    dpkg -i  /packages/libmali/libmali-rk-dev_*.deb
-elif [[  "$1" == "rk3399pro"  ]]; then
-    dpkg -i  /packages/libmali/libmali-rk-midgard-t86x-*.deb
-    dpkg -i  /packages/libmali/libmali-rk-dev_*.deb
-elif [[  "$1" == "rk3326"  ]]; then
-    dpkg -i  /packages/libmali/libmali-rk-bifrost-g31-*.deb
-    dpkg -i  /packages/libmali/libmali-rk-dev_*.deb
-elif [[  "$1" == "px30"  ]]; then
-    dpkg -i  /packages/libmali/libmali-rk-bifrost-g31-*.deb
-    dpkg -i  /packages/libmali/libmali-rk-dev_*.deb
-elif [[  "$1" == "rk3128"  ]]; then
-    dpkg -i  /packages/libmali/libmali-rk-utgard-400-*.deb
-    dpkg -i  /packages/libmali/libmali-rk-dev_*.deb
-elif [[  "$1" == "rk3036"  ]]; then
-    dpkg -i  /packages/libmali/libmali-rk-utgard-400-*.deb
-    dpkg -i  /packages/libmali/libmali-rk-dev_*.deb
-fi
-if [ -e "/usr/lib/aarch64-linux-gnu" ]; then
-    cd /usr/lib/aarch64-linux-gnu/
-    if [ -e "libEGL.so.1.1.0" ]; then
-        rm libEGL.so.1.1.0
-    elif [ -e "libGLESv2.so.2.0.0" ]; then
-	rm libGLESv2.so.2.0.0
-    elif [ -e "libGLEW.so.2.0.0" ]; then
-	rm libGLEW.so.2.0.0
-    fi
-    ln -sf libMali.so libEGL.so.1.1.0
-    ln -sf libMali.so libEGL.so
-    ln -sf libMali.so libEGL.so.1.0.0
-    ln -sf libMali.so libEGL.so.1.4
-    ln -sf libMali.so libGLESv2.so
-    ln -sf libMali.so libGLESv2.so.2.0
-    ln -sf libMali.so libGLESv2.so.2.0.0
-    ln -sf libMali.so libGLESv1_CM.so
-    ln -sf libMali.so libGLESv1_CM.so.1
-    ln -sf libMali.so libGLESv1_CM.so.1.1
+install_mali() {
+    case $1 in
+        rk3288)
+            MALI=midgard-t76x-r18p0-r0p0
 
-fi
-if [ -e "/usr/lib/arm-linux-gnueabihf" ]; then
-    cd /usr/lib/arm-linux-gnueabihf/
-    if [ -e "libEGL.so.1.1.0" ]; then
-        rm libEGL.so.1.1.0
-    elif [ -e "libGLESv2.so.2.0.0" ]; then
-	rm libGLESv2.so.2.0.0
-    elif [ -e "libGLEW.so.2.0.0" ]; then
-	rm libGLEW.so.2.0.0
-    fi
+            # 3288w
+            cat /sys/devices/platform/*gpu/gpuinfo | grep -q r1p0 && \
+                MALI=midgard-t76x-r18p0-r1p0
+            ;;
+        rk3399|rk3399pro)
+            MALI=midgard-t86x-r18p0
+            ;;
+        rk3328)
+            MALI=utgard-450
+            ;;
+        rk3326|px30)
+            MALI=bifrost-g31
+            ;;
+        rk3128|rk3036)
+            MALI=utgard-400
+            ;;
+    esac
 
-    ln -sf libMali.so libEGL.so.1.1.0
-    ln -sf libMali.so libEGL.so
-    ln -sf libMali.so libEGL.so.1.0.0
-    ln -sf libMali.so libEGL.so.1.4
-    ln -sf libMali.so libGLESv2.so
-    ln -sf libMali.so libGLESv2.so.2.0
-    ln -sf libMali.so libGLESv2.so.2.0.0
-    ln -sf libMali.so libGLESv1_CM.so
-    ln -sf libMali.so libGLESv1_CM.so.1
-    ln -sf libMali.so libGLESv1_CM.so.1.1
-fi
-
+    apt install -f /packages/libmali/libmali-*$MALI*-x11*.deb
 }
 
 function update_npu_fw() {
@@ -126,7 +74,7 @@ then
     # Force rootfs synced
     mount -o remount,sync /
 
-    link_mali ${CHIPNAME}
+    install_mali ${CHIPNAME}
     setcap CAP_SYS_ADMIN+ep /usr/bin/gst-launch-1.0
     rm -rf /packages
 
