@@ -3,3 +3,19 @@ https://github.com/rockchip-linux/rk-rootfs-build
 branch:master
 The last RK's commit: 8cb2feeb472e6699f5695b970e26a9f380d2ae89
 packages/mpp: update to 20200423
+//////////////////////////////////////////////////////////
+RK Branch: rk3399_linux_release_v2.4.0_20200430
+
+
+//////////////////////////////////////////////////////////
+librockchip-mpp-dev_1.4.0-1_arm64.deb
+librockchip-mpp1-dbgsym_1.4.0-1_arm64.deb
+librockchip-mpp1_1.4.0-1_arm64.deb
+librockchip-vpu0-dbgsym_1.4.0-1_arm64.deb
+librockchip-vpu0_1.4.0-1_arm64.deb
+rockchip-mpp-demos-dbgsym_1.4.0-1_arm64.deb
+rockchip-mpp-demos_1.4.0-1_arm64.deb
+https://github.com/rockchip-linux/rk-rootfs-build
+branch:master
+The last RK's commit: b9401dbe91b4c66f7ab1b920eb8557b3a6c00330
+mpp: Update packages

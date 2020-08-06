@@ -121,7 +121,7 @@ apt-get install -y v4l-utils
 
 apt-get install -y gstreamer1.0-plugins-base gstreamer1.0-tools gstreamer1.0-alsa gstreamer1.0-plugins-base-apps
 
-dpkg -i  /packages/video/mpp/*
+dpkg -i  /packages/video/mpp/*.deb
 dpkg -i  /packages/gst-rkmpp/*.deb
 dpkg -i  /packages/gst-base/*.deb
 apt-mark hold gstreamer1.0-x
@@ -159,9 +159,6 @@ apt-get install -f -y x11proto-dev=2018.4-4 libxcb-xf86dri0-dev:$ARCH qtmultimed
 yes|apt-get install chromium -f -y
 cp -f /packages/others/chromium/etc/chromium.d/default-flags /etc/chromium.d/
 
-#---------MPV---------
-#apt-get install -f -y mpv
-
 sed -i '/buster/'d /etc/apt/sources.list
 apt-get update
 
@@ -188,8 +185,8 @@ dpkg -i  /packages/ffmpeg/*.deb
 apt-get install -f -y
 
 #---------MPV---------
-dpkg -i  /packages/mpv/*.deb
-apt-get install -f -y
+#dpkg -i  /packages/mpv/*.deb
+#apt-get install -f -y
 
 #---------------Debug--------------
 if [ "$VERSION" == "debug" ] || [ "$VERSION" == "jenkins" ] ; then
