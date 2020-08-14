@@ -144,11 +144,6 @@ apt-get install -y libxfont1:$ARCH libinput-bin:$ARCH libinput10:$ARCH libwacom2
 apt-get install -y plymouth plymouth-themes
 plymouth-set-default-theme script
 
-#----------Ethernet-----------
-apt-get install -y ethtool
-chmod 755 /etc/ethernet/ethernet_restart_on_boot.sh
-ln -s /lib/systemd/system/ethernet_restart_on_boot.service /etc/systemd/system/multi-user.target.wants/ethernet_restart_on_boot.service
-
 #---------------Xserver--------------
 echo "deb http://http.debian.net/debian/ buster main contrib non-free" >> /etc/apt/sources.list
 apt-get update

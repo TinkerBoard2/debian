@@ -138,7 +138,6 @@ then
 
     # The base target does not come with lightdm
     systemctl restart lightdm.service || true
-    systemctl restart ethernet_restart_on_boot.service
 
     touch /usr/local/first_boot_flag
 fi
