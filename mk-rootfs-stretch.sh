@@ -128,6 +128,8 @@ apt-mark hold gstreamer1.0-x
 apt-get install -f -y
 
 #---------------Others--------------
+apt-get install -y cifs-utils
+
 #---------Camera---------
 apt-get install cheese v4l-utils -y
 dpkg -i  /packages/others/camera/*.deb
