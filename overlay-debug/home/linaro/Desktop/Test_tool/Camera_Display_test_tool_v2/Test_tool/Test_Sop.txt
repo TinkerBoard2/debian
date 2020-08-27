@@ -21,7 +21,7 @@ Record_Test:
 		1.錄影測試，錄製480p/720p/1080p的檔案，並存至/tmp/底下，檔案約一分鐘
 
 	Script使用方法:
-		$sudo ./Record_Test.sh
+		$./Record_Test.sh
 
 
 Capture_Test:
@@ -31,4 +31,4 @@ Capture_Test:
 		2.拍照測試，當Script執行結束後，請檢查/tmp/Capture.jpg照片是否正常
 
     Script使用方法:
-		$sudo ./Capture_Test.sh
+		$./Capture_Test.sh

@@ -4,7 +4,7 @@ i=0
 ERROR=0
 ResultFile="/tmp/Record_TestResult.txt"
 CSI0="/dev/video0"
-output="/home/linaro/Desktop"
+output="/tmp"
 
 function Remove_TestResult()
 {
@@ -19,7 +19,6 @@ function END()
     exit $ERROR
 }
 
-systemctl mask sleep.target suspend.target hibernate.target hybrid-sleep.target
 Remove_TestResult
 
 if [ ! -n "$1" ];then
@@ -55,7 +54,7 @@ while [ $i != $time ]; do
 	i=$(($i+1))
 	rm -rf $output/Record.avi
 	echo -e "$(date): Start record $i time(s)" | tee -a $ResultFile
-	gst-launch-1.0 v4l2src device=$CSI0 ! video/x-raw,width=640,height=480 ! tee name=t t. ! queue ! autovideosink sync=false t. ! queue ! mpph264enc ! queue ! h264parse ! mpegtsmux ! filesink location=$output/Record.avi &
+	gst-launch-1.0 v4l2src device=$CSI0 ! video/x-raw,width=640,height=480 ! tee name=t t. ! queue ! autovideosink sync=false t. ! queue ! mpph264enc ! queue ! h264parse ! mpegtsmux ! filesink location=$output/Record.ts &
 	var=$!
 	sleep 3600
 	kill -9 $var
@@ -63,4 +62,5 @@ while [ $i != $time ]; do
 done
 
 echo -e "Finished Record Test!" | tee -a $ResultFile
-systemctl unmask sleep.target suspend.target hibernate.target hybrid-sleep.target
+
+read -p "Press enter to finish"

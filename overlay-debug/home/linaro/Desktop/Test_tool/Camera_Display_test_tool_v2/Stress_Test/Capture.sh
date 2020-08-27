@@ -21,7 +21,6 @@ function END()
     exit $ERROR
 }
 
-systemctl mask sleep.target suspend.target hibernate.target hybrid-sleep.target
 Remove_TestResult
 
 if [ ! -n "$1" ];then
@@ -67,4 +66,5 @@ while [ $i != $count ]; do
 			
 done
 echo -e "Finished Capture Test!" | tee -a $ResultFile
-systemctl unmask sleep.target suspend.target hibernate.target hybrid-sleep.target
+
+read -p "Press enter to finish"

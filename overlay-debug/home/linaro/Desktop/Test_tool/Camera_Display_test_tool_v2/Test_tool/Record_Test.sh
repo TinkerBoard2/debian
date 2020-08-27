@@ -18,7 +18,6 @@ function END()
     exit $ERROR
 }
 
-systemctl mask sleep.target suspend.target hibernate.target hybrid-sleep.target
 Remove_TestResult
 time=2
 echo -e "Start Record Test!" | tee -a $ResultFile
@@ -59,4 +58,5 @@ kill -9 $var
 echo -e "$(date): Camera record Record_1080p.avi" | tee -a $ResultFile
 
 echo -e "Finished Record Test!" | tee -a $ResultFile
-systemctl unmask sleep.target suspend.target hibernate.target hybrid-sleep.target
+
+read -p "Press enter to finish"
