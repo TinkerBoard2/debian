@@ -1,5 +1,5 @@
 //////////////////////////////////////////////////////////
 https://github.com/rockchip-linux/rk-rootfs-build
 branch:master
-The last RK's commit: 8cb2feeb472e6699f5695b970e26a9f380d2ae89
-packages/mpp: update to 20200423
+The last RK's commit: 6bd240cd067b119cd31b8a97542b7bd75fae8cdc
+gst-rkmpp: Update pacakges
