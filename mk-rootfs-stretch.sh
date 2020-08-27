@@ -156,9 +156,6 @@ apt-get install -f -y x11proto-dev=2018.4-4 libxcb-xf86dri0-dev:$ARCH qtmultimed
 yes|apt-get install chromium -f -y
 cp -f /packages/others/chromium/etc/chromium.d/default-flags /etc/chromium.d/
 
-#---------MPV---------
-#apt-get install -f -y mpv
-
 sed -i '/buster/'d /etc/apt/sources.list
 apt-get update
 
@@ -185,8 +182,8 @@ dpkg -i  /packages/ffmpeg/*.deb
 apt-get install -f -y
 
 #---------MPV---------
-dpkg -i  /packages/mpv/*.deb
-apt-get install -f -y
+#dpkg -i  /packages/mpv/*.deb
+#apt-get install -f -y
 
 #---------------Debug--------------
 if [ "$VERSION" == "debug" ] || [ "$VERSION" == "jenkins" ] ; then
