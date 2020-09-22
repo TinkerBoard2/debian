@@ -56,9 +56,9 @@ elif [ "$ARCH" == "arm64" ]; then
     sudo cp overlay-firmware/usr/bin/brcm_patchram_plus1_64 $TARGET_ROOTFS_DIR/usr/bin/brcm_patchram_plus1
     sudo cp overlay-firmware/usr/bin/rk_wifi_init_64 $TARGET_ROOTFS_DIR/usr/bin/rk_wifi_init
 fi
-sudo mkdir -p $TARGET_ROOTFS_DIR/system/lib/modules/
-sudo find ../kernel/drivers/net/wireless/rockchip_wlan/*  -name "*.ko" | \
-    xargs -n1 -i sudo cp {} $TARGET_ROOTFS_DIR/system/lib/modules/
+#sudo mkdir -p $TARGET_ROOTFS_DIR/system/lib/modules/
+#sudo find ../kernel/drivers/net/wireless/rockchip_wlan/*  -name "*.ko" | \
+#    xargs -n1 -i sudo cp {} $TARGET_ROOTFS_DIR/system/lib/modules/
 
 if [ "$VERSION" == "debug" ]; then
 	echo -e "\033[36m Enable adb/glmark2 for debug \033[0m"
