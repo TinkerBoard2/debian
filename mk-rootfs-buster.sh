@@ -105,8 +105,9 @@ chmod +x /etc/rc.local
 apt-get install -y busybox pm-utils triggerhappy
 cp /etc/Powermanager/triggerhappy.service  /lib/systemd/system/triggerhappy.service
 
+#---------------system--------------
 apt-get install -y git fakeroot devscripts cmake binfmt-support dh-make dh-exec pkg-kde-tools device-tree-compiler \
-#bc cpio parted dosfstools mtools libssl-dev dpkg-dev isc-dhcp-client-ddns
+bc cpio parted dosfstools mtools libssl-dev dpkg-dev isc-dhcp-client-ddns hardinfo
 apt-get install -f -y
 
 #---------------Rga--------------
@@ -123,6 +124,7 @@ dpkg -i  /packages/gst-rkmpp/*.deb
 apt-get install -f -y
 
 #---------Camera---------
+echo -e "\033[36m Install camera.................... \033[0m"
 apt-get install cheese v4l-utils -y
 dpkg -i  /packages/others/camera/*.deb
 if [ "$ARCH" == "armhf" ]; then
@@ -132,6 +134,7 @@ elif [ "$ARCH" == "arm64" ]; then
 fi
 
 #---------Xserver---------
+echo -e "\033[36m Install Xserver.................... \033[0m"
 #apt-get build-dep -y xorg-server-source
 apt-get install -y libgl1-mesa-dev libgles1 libgles1 libegl1-mesa-dev libc-dev-bin libc6-dev libfontenc-dev libfreetype6-dev \
 libpciaccess-dev libpng-dev libpng-tools libxfont-dev libxkbfile-dev linux-libc-dev manpages manpages-dev xserver-common zlib1g-dev
@@ -143,20 +146,30 @@ apt-get install -f -y
 
 #---------------Openbox--------------
 echo -e "\033[36m Install openbox.................... \033[0m"
+apt-get install -y openbox
 dpkg -i  /packages/openbox/*.deb
 apt-get install -f -y
 
+#------------------pcmanfm------------
+echo -e "\033[36m Install pcmanfm.................... \033[0m"
+apt-get install -y pcmanfm
+dpkg -i  /packages/pcmanfm/*.deb
+apt-get install -f -y
+
 #------------------ffmpeg------------
+echo -e "\033[36m Install ffmpeg.................... \033[0m"
 apt-get install -y ffmpeg
 dpkg -i  /packages/ffmpeg/*.deb
 apt-get install -f -y
 
 #------------------mpv------------
+echo -e "\033[36m Install mpv.................... \033[0m"
 apt-get install -y libmpv1 mpv
 dpkg -i  /packages/mpv/*.deb
 apt-get install -f -y
 
 #------------------libdrm------------
+echo -e "\033[36m Install libdrm.................... \033[0m"
 dpkg -i  /packages/libdrm/*.deb
 apt-get install -f -y
 
