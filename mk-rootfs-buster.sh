@@ -167,12 +167,20 @@ apt-get install -f -y
 #apt-mark hold libegl-mesa0 libgbm1 libgles1 alsa-utils
 #apt-get install -f -y
 
+#---------------Updtae config--------------
+## Cannot open pixbuf loader module file
+if [ "$ARCH" == "armhf"  ]; then
+	/usr/lib/arm-linux-gnueabihf/gdk-pixbuf-2.0/gdk-pixbuf-query-loaders > /usr/lib/arm-linux-gnueabihf/gdk-pixbuf-2.0/2.10.0/loaders.cache
+elif [ "$ARCH" == "arm64"  ]; then
+	/usr/lib/aarch64-linux-gnu/gdk-pixbuf-2.0/gdk-pixbuf-query-loaders > /usr/lib/aarch64-linux-gnu/gdk-pixbuf-2.0/2.10.0/loaders.cache
+fi
+
 #---------------Custom Script--------------
 systemctl mask systemd-networkd-wait-online.service
 systemctl mask NetworkManager-wait-online.service
 rm /lib/systemd/system/wpa_supplicant@.service
 
-#---------------Clean-------------- 
+#---------------Clean--------------
 rm -rf /var/lib/apt/lists/*
 
 EOF
