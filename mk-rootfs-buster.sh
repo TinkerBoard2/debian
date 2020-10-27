@@ -107,7 +107,7 @@ cp /etc/Powermanager/triggerhappy.service  /lib/systemd/system/triggerhappy.serv
 
 #---------------system--------------
 apt-get install -y git fakeroot devscripts cmake binfmt-support dh-make dh-exec pkg-kde-tools device-tree-compiler \
-bc cpio parted dosfstools mtools libssl-dev dpkg-dev isc-dhcp-client-ddns hardinfo
+bc cpio parted dosfstools mtools libssl-dev dpkg-dev isc-dhcp-client-ddns
 apt-get install -f -y
 
 #---------------Rga--------------
@@ -137,7 +137,8 @@ fi
 echo -e "\033[36m Install Xserver.................... \033[0m"
 #apt-get build-dep -y xorg-server-source
 apt-get install -y libgl1-mesa-dev libgles1 libgles1 libegl1-mesa-dev libc-dev-bin libc6-dev libfontenc-dev libfreetype6-dev \
-libpciaccess-dev libpng-dev libpng-tools libxfont-dev libxkbfile-dev linux-libc-dev manpages manpages-dev xserver-common zlib1g-dev
+libpciaccess-dev libpng-dev libpng-tools libxfont-dev libxkbfile-dev linux-libc-dev manpages manpages-dev xserver-common zlib1g-dev \
+libdmx1 libpixman-1-dev libxcb-xf86dri0 libxcb-xv0
 apt-get install -f -y
 
 dpkg -i /packages/xserver/*.deb
@@ -167,6 +168,10 @@ echo -e "\033[36m Install mpv.................... \033[0m"
 apt-get install -y libmpv1 mpv
 dpkg -i  /packages/mpv/*.deb
 apt-get install -f -y
+
+#---------update chromium-----
+yes|apt-get install chromium -f -y
+cp -f /packages/others/chromium/etc/chromium.d/default-flags /etc/chromium.d/
 
 #------------------libdrm------------
 echo -e "\033[36m Install libdrm.................... \033[0m"
