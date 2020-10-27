@@ -3,7 +3,7 @@
 #ltrace
 #netperf
 #rt-app
-96boards-tools-common
+#96boards-tools-common
 acpi-support-base
 adduser
 alsa-utils
@@ -73,11 +73,11 @@ iw
 kbd
 kmod
 less
-libxatracker2
+#libxatracker2
 lightdm
 #linaro-artwork
 #linaro-default-settings
-linaro-overlay-minimal
+#linaro-overlay-minimal
 #lm-sensors
 locales
 lsb-release
