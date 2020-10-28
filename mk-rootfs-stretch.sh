@@ -226,6 +226,14 @@ cd /usr/local/share/gpio_lib_python_rk3399/
 python setup.py install
 cd /
 
+#---------------ncurses library--------------
+# For tinker-power-management build
+apt-get install libncurses5-dev libncursesw5-dev -y
+cd /usr/local/share/tinker-power-management
+gcc tinker-power-management.c -o tinker-power-management -lncursesw
+mv tinker-power-management /usr/bin
+cd /
+
 #-------------mount partition p7--------------
 systemctl enable mountboot.service
 
