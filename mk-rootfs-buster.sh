@@ -189,6 +189,7 @@ apt-get install -f -y
 ## Cannot open pixbuf loader module file
 if [ "$ARCH" == "armhf"  ]; then
 	/usr/lib/arm-linux-gnueabihf/gdk-pixbuf-2.0/gdk-pixbuf-query-loaders > /usr/lib/arm-linux-gnueabihf/gdk-pixbuf-2.0/2.10.0/loaders.cache
+	update-mime-database /usr/share/mime/
 elif [ "$ARCH" == "arm64"  ]; then
 	/usr/lib/aarch64-linux-gnu/gdk-pixbuf-2.0/gdk-pixbuf-query-loaders > /usr/lib/aarch64-linux-gnu/gdk-pixbuf-2.0/2.10.0/loaders.cache
 fi
