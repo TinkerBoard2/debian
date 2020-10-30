@@ -47,7 +47,7 @@ sudo cp -rf overlay-firmware/* $TARGET_ROOTFS_DIR/
 sudo cp -rf overlay-debug/* $TARGET_ROOTFS_DIR/
 
 ## hack the serial
-sudo cp -f $TARGET_ROOTFS_DIR/usr/lib/systemd/system/serial-getty@.service $TARGET_ROOTFS_DIR/lib/systemd/system/serial-getty@.service
+sudo cp -f overlay/usr/lib/systemd/system/serial-getty@.service $TARGET_ROOTFS_DIR/lib/systemd/system/serial-getty@.service
 
 # adb
 if [ "$ARCH" == "armhf" ] && [ "$VERSION" == "debug" ]; then
