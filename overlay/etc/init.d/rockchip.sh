@@ -158,6 +158,22 @@ else
     echo mmc0 > /sys/class/leds/act-led/trigger
 fi
 
+# set cpu governor and frequence
+CPU_GOVERNOR=$(cat /boot/config.txt | grep 'governor' | cut -d '=' -f2)
+A53_MINFREQ=$(cat /boot/config.txt | grep 'a53_minfreq' | cut -d '=' -f2)
+A53_MAXFREQ=$(cat /boot/config.txt | grep 'a53_maxfreq' | cut -d '=' -f2)
+A72_MINFREQ=$(cat /boot/config.txt | grep 'a72_minfreq' | cut -d '=' -f2)
+A72_MAXFREQ=$(cat /boot/config.txt | grep 'a72_maxfreq' | cut -d '=' -f2)
+
+if [ $CPU_GOVERNOR ] && [ $A53_MINFREQ -gt 0 ] && [ $A53_MAXFREQ -gt 0 ] && [ $A72_MINFREQ -gt 0 ] && [ $A72_MAXFREQ -gt 0 ]; then
+    sudo su -c "echo $CPU_GOVERNOR > /sys/devices/system/cpu/cpufreq/policy0/scaling_governor"
+    sudo su -c "echo $CPU_GOVERNOR > /sys/devices/system/cpu/cpufreq/policy4/scaling_governor"
+    sudo su -c "echo $A53_MINFREQ > /sys/devices/system/cpu/cpufreq/policy0/scaling_min_freq"
+    sudo su -c "echo $A53_MAXFREQ > /sys/devices/system/cpu/cpufreq/policy0/scaling_max_freq"
+    sudo su -c "echo $A72_MINFREQ > /sys/devices/system/cpu/cpufreq/policy4/scaling_min_freq"
+    sudo su -c "echo $A72_MAXFREQ > /sys/devices/system/cpu/cpufreq/policy4/scaling_max_freq"
+fi
+
 # enable adbd service
 if [ -e "/etc/init.d/adbd.sh" ] ;
 then
