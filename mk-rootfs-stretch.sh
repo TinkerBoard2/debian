@@ -112,6 +112,7 @@ dpkg -i /packages/rga/*.deb
 
 #---------------Audio---------------
 chmod 755 /etc/pulse/movesinks.sh
+chmod 755 /usr/lib/pm-utils/sleep.d/02pulseaudio-suspend
 
 #---------------Video--------------
 echo -e "\033[36m Setup Video.................... \033[0m"
