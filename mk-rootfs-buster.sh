@@ -126,7 +126,7 @@ apt-get install -f -y
 #---------Camera---------
 echo -e "\033[36m Install camera.................... \033[0m"
 apt-get install cheese v4l-utils -y
-dpkg -i  /packages/others/camera/*.deb
+dpkg -i  /packages/rkisp/*.deb
 if [ "$ARCH" == "armhf" ]; then
        cp /packages/others/camera/libv4l-mplane.so /usr/lib/arm-linux-gnueabihf/libv4l/plugins/
 elif [ "$ARCH" == "arm64" ]; then
