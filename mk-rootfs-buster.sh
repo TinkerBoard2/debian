@@ -127,11 +127,7 @@ apt-get install -f -y
 echo -e "\033[36m Install camera.................... \033[0m"
 apt-get install cheese v4l-utils -y
 dpkg -i  /packages/rkisp/*.deb
-if [ "$ARCH" == "armhf" ]; then
-       cp /packages/others/camera/libv4l-mplane.so /usr/lib/arm-linux-gnueabihf/libv4l/plugins/
-elif [ "$ARCH" == "arm64" ]; then
-       cp /packages/others/camera/libv4l-mplane.so /usr/lib/aarch64-linux-gnu/libv4l/plugins/
-fi
+dpkg -i  /packages/libv4l/*.deb
 
 #---------Xserver---------
 echo -e "\033[36m Install Xserver.................... \033[0m"
