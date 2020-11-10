@@ -166,8 +166,8 @@ dpkg -i  /packages/mpv/*.deb
 apt-get install -f -y
 
 #---------update chromium-----
-yes|apt-get install chromium -f -y
-cp -f /packages/others/chromium/etc/chromium.d/default-flags /etc/chromium.d/
+apt-get install -y chromium
+apt-get install -f -y /packages/chromium/*.deb
 
 #------------------libdrm------------
 echo -e "\033[36m Install libdrm.................... \033[0m"
