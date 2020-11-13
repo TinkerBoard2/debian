@@ -1,4 +1,4 @@
-/*Tinker-Power-Management Version 1.00*/
+/*Tinker-Power-Management Version 1.01*/
 
 #include <ncurses.h>
 #include <locale.h>
@@ -22,6 +22,8 @@
 #define MAX_CPU_SQ 4
 #define MAX_A53_FREQ 7
 #define MAX_A72_FREQ 9
+
+#define SQFORM_WIDTH ((SQ_WIDTH * 5 + LEFT - A_EXTEND - 3) / 5)
 
 WINDOW *BOARDA;
 WINDOW *BOARDB;
@@ -267,8 +269,8 @@ void draw_square_FORMAC(int sq) {
 		wborder(FORMA[sq], ACS_VLINE, ACS_VLINE, ACS_HLINE, ACS_HLINE, ACS_TTEE, ACS_TTEE, ACS_PLUS, ACS_PLUS);
 		wborder(FORMC[sq], ACS_VLINE, ACS_VLINE, ACS_HLINE, ACS_HLINE, ACS_TTEE, ACS_TTEE, ACS_PLUS, ACS_PLUS);
 
-		mvwprintw(FORMA[sq], 1, (SQ_WIDTH - 10) / 2,"Min. freq.");
-		mvwprintw(FORMC[sq], 1, (SQ_WIDTH - 11) / 2,"Curr. freq.");
+		mvwprintw(FORMA[sq], 1, (SQFORM_WIDTH - 10) / 2,"Min. freq.");
+		mvwprintw(FORMC[sq], 1, (SQFORM_WIDTH - 11) / 2,"Curr. freq.");
 	} else if (sq == 1) {
 		wborder(FORMA[sq], ACS_VLINE, ACS_VLINE, ACS_HLINE, ACS_HLINE, ACS_PLUS, ACS_PLUS, ACS_PLUS, ACS_PLUS);
 		wborder(FORMC[sq], ACS_VLINE, ACS_VLINE, ACS_HLINE, ACS_HLINE, ACS_PLUS, ACS_PLUS, ACS_PLUS, ACS_PLUS);
@@ -279,7 +281,7 @@ void draw_square_FORMAC(int sq) {
 		pclose(fp);
 
 		a53_min = atoi(buffer) / 1000;
-		mvwprintw(FORMA[sq], 1, (SQ_WIDTH - 3) / 2,"%d ", a53_min);
+		mvwprintw(FORMA[sq], 1, (SQFORM_WIDTH - 3) / 2,"%d ", a53_min);
 
 		switch (a53_min) {
 			case 408:
@@ -314,7 +316,7 @@ void draw_square_FORMAC(int sq) {
 		pclose(fp);
 
 		a72_min = atoi(buffer) / 1000;
-		mvwprintw(FORMA[sq], 1, (SQ_WIDTH - 3) / 2,"%d ", a72_min);
+		mvwprintw(FORMA[sq], 1, (SQFORM_WIDTH - 3) / 2,"%d ", a72_min);
 
 		switch (a72_min) {
 			case 408:
@@ -349,8 +351,8 @@ void draw_square_FORMAC(int sq) {
 		wborder(FORMA[sq], ACS_VLINE, ACS_VLINE, ACS_HLINE, ACS_HLINE, ACS_TTEE, ACS_URCORNER, ACS_PLUS, ACS_RTEE);
 		wborder(FORMC[sq], ACS_VLINE, ACS_VLINE, ACS_HLINE, ACS_HLINE, ACS_TTEE, ACS_URCORNER, ACS_PLUS, ACS_RTEE);
 
-		mvwprintw(FORMA[sq], 1, (SQ_WIDTH - 10) / 2,"Max. freq.");
-		mvwprintw(FORMC[sq], 1, (SQ_WIDTH - 11) / 2,"Temperature");
+		mvwprintw(FORMA[sq], 1, (SQFORM_WIDTH - 10) / 2,"Max. freq.");
+		mvwprintw(FORMC[sq], 1, (SQFORM_WIDTH - 11) / 2,"Temperature");
 	} else if (sq == 3) {
 		wborder(FORMA[sq], ACS_VLINE, ACS_VLINE, ACS_HLINE, ACS_HLINE, ACS_PLUS, ACS_RTEE, ACS_PLUS, ACS_RTEE);
 		wborder(FORMC[sq], ACS_VLINE, ACS_VLINE, ACS_HLINE, ACS_HLINE, ACS_PLUS, ACS_RTEE, ACS_PLUS, ACS_RTEE);
@@ -361,7 +363,7 @@ void draw_square_FORMAC(int sq) {
 		pclose(fp);
 
 		a53_max = atoi(buffer) / 1000;
-		mvwprintw(FORMA[sq], 1, (SQ_WIDTH - 4) / 2,"%d ", a53_max);
+		mvwprintw(FORMA[sq], 1, (SQFORM_WIDTH - 4) / 2,"%d ", a53_max);
 
 		switch (a53_max) {
 			case 408:
@@ -396,7 +398,7 @@ void draw_square_FORMAC(int sq) {
 		pclose(fp);
 
 		a72_max = atoi(buffer) / 1000;
-		mvwprintw(FORMA[sq], 1, (SQ_WIDTH - 4) / 2,"%d ", a72_max);
+		mvwprintw(FORMA[sq], 1, (SQFORM_WIDTH - 4) / 2,"%d ", a72_max);
 
 		switch (a72_max) {
 			case 408:
@@ -449,8 +451,8 @@ void draw_square_FORMBD(int sq) {
 		wborder(FORMB[sq], ACS_VLINE, ACS_VLINE, ACS_HLINE, ACS_HLINE, ACS_TTEE, ACS_TTEE, ACS_PLUS, ACS_PLUS);
 		wborder(FORMD[sq], ACS_VLINE, ACS_VLINE, ACS_HLINE, ACS_HLINE, ACS_TTEE, ACS_TTEE, ACS_PLUS, ACS_PLUS);
 
-		mvwprintw(FORMB[sq], 1, (SQ_WIDTH - 10) / 2,"Min. freq.");
-		mvwprintw(FORMD[sq], 1, (SQ_WIDTH - 11) / 2,"Curr. freq.");
+		mvwprintw(FORMB[sq], 1, (SQFORM_WIDTH - 10) / 2,"Min. freq.");
+		mvwprintw(FORMD[sq], 1, (SQFORM_WIDTH - 11) / 2,"Curr. freq.");
 	} else if (sq == 1) {
 		wborder(FORMB[sq], ACS_VLINE, ACS_VLINE, ACS_HLINE, ACS_HLINE, ACS_PLUS, ACS_PLUS, ACS_BTEE, ACS_BTEE);
 		wborder(FORMD[sq], ACS_VLINE, ACS_VLINE, ACS_HLINE, ACS_HLINE, ACS_PLUS, ACS_PLUS, ACS_BTEE, ACS_BTEE);
@@ -460,13 +462,13 @@ void draw_square_FORMBD(int sq) {
 		fgets(buffer, sizeof(buffer), fp);
 		pclose(fp);
 
-		mvwprintw(FORMB[sq], 1, (SQ_WIDTH - 3) / 2,"%d", atoi(buffer) / 1000000);
+		mvwprintw(FORMB[sq], 1, (SQFORM_WIDTH - 3) / 2,"%d", atoi(buffer) / 1000000);
 	} else if (sq == 4) {
 		wborder(FORMB[sq], ACS_VLINE, ACS_VLINE, ACS_HLINE, ACS_HLINE, ACS_TTEE, ACS_URCORNER, ACS_PLUS, ACS_RTEE);
 		wborder(FORMD[sq], ACS_VLINE, ACS_VLINE, ACS_HLINE, ACS_HLINE, ACS_TTEE, ACS_URCORNER, ACS_PLUS, ACS_RTEE);
 
-		mvwprintw(FORMB[sq], 1, (SQ_WIDTH - 10) / 2,"Max. freq.");
-		mvwprintw(FORMD[sq], 1, (SQ_WIDTH - 11) / 2,"Temperature");
+		mvwprintw(FORMB[sq], 1, (SQFORM_WIDTH - 10) / 2,"Max. freq.");
+		mvwprintw(FORMD[sq], 1, (SQFORM_WIDTH - 11) / 2,"Temperature");
 	} else if (sq == 2) {
 		wborder(FORMB[sq], ACS_VLINE, ACS_VLINE, ACS_HLINE, ACS_HLINE, ACS_PLUS, ACS_RTEE, ACS_BTEE, ACS_LRCORNER);
 		wborder(FORMD[sq], ACS_VLINE, ACS_VLINE, ACS_HLINE, ACS_HLINE, ACS_PLUS, ACS_RTEE, ACS_BTEE, ACS_LRCORNER);
@@ -476,7 +478,7 @@ void draw_square_FORMBD(int sq) {
 		fgets(buffer, sizeof(buffer), fp);
 		pclose(fp);
 
-		mvwprintw(FORMB[sq], 1, (SQ_WIDTH - 3) / 2,"%d", atoi(buffer) / 1000000);
+		mvwprintw(FORMB[sq], 1, (SQFORM_WIDTH - 3) / 2,"%d", atoi(buffer) / 1000000);
 	}
 }
 
@@ -626,39 +628,39 @@ void create_board(void) {
 	BOARDB = newwin(SQA_HEIGHT, SQ_WIDTH * 5 + LEFT - A_EXTEND, starty, startx + SQ_WIDTH * 4 + A_EXTEND);
 	BOARDC = newwin(SQC_HEIGHT, COLS, starty + SQA_HEIGHT, startx);
 
-	FORMA[0] = derwin(BOARDB, 3, SQ_WIDTH * 3, SUBB_SHIFT_D, SUB_SHIFT_R);
-	FORMA[7] = derwin(BOARDB, 3, SQ_WIDTH * 3, SUBB_SHIFT_D + 2, SUB_SHIFT_R);
-	FORMA[8] = derwin(BOARDB, 3, SQ_WIDTH * 3, SUBB_SHIFT_D + 4, SUB_SHIFT_R);
-	FORMA[5] = derwin(BOARDB, 3, SQ_WIDTH, SUBB_SHIFT_D, SUB_SHIFT_R + SQ_WIDTH * 3 - 1);
-	FORMA[1] = derwin(BOARDB, 3, SQ_WIDTH, SUBB_SHIFT_D + 2, SUB_SHIFT_R + SQ_WIDTH * 3 - 1);
-	FORMA[2] = derwin(BOARDB, 3, SQ_WIDTH, SUBB_SHIFT_D + 4, SUB_SHIFT_R + SQ_WIDTH * 3 - 1);
-	FORMA[6] = derwin(BOARDB, 3, SQ_WIDTH, SUBB_SHIFT_D, SUB_SHIFT_R + SQ_WIDTH * 4 - 2);
-	FORMA[3] = derwin(BOARDB, 3, SQ_WIDTH, SUBB_SHIFT_D + 2, SUB_SHIFT_R + SQ_WIDTH * 4 - 2);
-	FORMA[4] = derwin(BOARDB, 3, SQ_WIDTH, SUBB_SHIFT_D + 4, SUB_SHIFT_R + SQ_WIDTH * 4 - 2);
+	FORMA[0] = derwin(BOARDB, 3, SQFORM_WIDTH * 3, SUBB_SHIFT_D, SUB_SHIFT_R);
+	FORMA[7] = derwin(BOARDB, 3, SQFORM_WIDTH * 3, SUBB_SHIFT_D + 2, SUB_SHIFT_R);
+	FORMA[8] = derwin(BOARDB, 3, SQFORM_WIDTH * 3, SUBB_SHIFT_D + 4, SUB_SHIFT_R);
+	FORMA[5] = derwin(BOARDB, 3, SQFORM_WIDTH, SUBB_SHIFT_D, SUB_SHIFT_R + SQFORM_WIDTH * 3 - 1);
+	FORMA[1] = derwin(BOARDB, 3, SQFORM_WIDTH, SUBB_SHIFT_D + 2, SUB_SHIFT_R + SQFORM_WIDTH * 3 - 1);
+	FORMA[2] = derwin(BOARDB, 3, SQFORM_WIDTH, SUBB_SHIFT_D + 4, SUB_SHIFT_R + SQFORM_WIDTH * 3 - 1);
+	FORMA[6] = derwin(BOARDB, 3, SQFORM_WIDTH, SUBB_SHIFT_D, SUB_SHIFT_R + SQFORM_WIDTH * 4 - 2);
+	FORMA[3] = derwin(BOARDB, 3, SQFORM_WIDTH, SUBB_SHIFT_D + 2, SUB_SHIFT_R + SQFORM_WIDTH * 4 - 2);
+	FORMA[4] = derwin(BOARDB, 3, SQFORM_WIDTH, SUBB_SHIFT_D + 4, SUB_SHIFT_R + SQFORM_WIDTH * 4 - 2);
 
-	FORMC[0] = derwin(BOARDC, 3, SQ_WIDTH * 3, SUBC_SHIFT_D, SUB_SHIFT_R);
-	FORMC[7] = derwin(BOARDC, 3, SQ_WIDTH * 3, SUBC_SHIFT_D + 2, SUB_SHIFT_R);
-	FORMC[8] = derwin(BOARDC, 3, SQ_WIDTH * 3, SUBC_SHIFT_D + 4, SUB_SHIFT_R);
-	FORMC[5] = derwin(BOARDC, 3, SQ_WIDTH, SUBC_SHIFT_D, SUB_SHIFT_R + SQ_WIDTH * 3 - 1);
-	FORMC[1] = derwin(BOARDC, 3, SQ_WIDTH, SUBC_SHIFT_D + 2, SUB_SHIFT_R + SQ_WIDTH * 3 - 1);
-	FORMC[2] = derwin(BOARDC, 3, SQ_WIDTH, SUBC_SHIFT_D + 4, SUB_SHIFT_R + SQ_WIDTH * 3 - 1);
-	FORMC[6] = derwin(BOARDC, 3, SQ_WIDTH, SUBC_SHIFT_D, SUB_SHIFT_R + SQ_WIDTH * 4 - 2);
-	FORMC[3] = derwin(BOARDC, 3, SQ_WIDTH, SUBC_SHIFT_D + 2, SUB_SHIFT_R + SQ_WIDTH * 4 - 2);
-	FORMC[4] = derwin(BOARDC, 3, SQ_WIDTH, SUBC_SHIFT_D + 4, SUB_SHIFT_R + SQ_WIDTH * 4 - 2);
+	FORMC[0] = derwin(BOARDC, 3, SQFORM_WIDTH * 3, SUBC_SHIFT_D, SUB_SHIFT_R);
+	FORMC[7] = derwin(BOARDC, 3, SQFORM_WIDTH * 3, SUBC_SHIFT_D + 2, SUB_SHIFT_R);
+	FORMC[8] = derwin(BOARDC, 3, SQFORM_WIDTH * 3, SUBC_SHIFT_D + 4, SUB_SHIFT_R);
+	FORMC[5] = derwin(BOARDC, 3, SQFORM_WIDTH, SUBC_SHIFT_D, SUB_SHIFT_R + SQFORM_WIDTH * 3 - 1);
+	FORMC[1] = derwin(BOARDC, 3, SQFORM_WIDTH, SUBC_SHIFT_D + 2, SUB_SHIFT_R + SQFORM_WIDTH * 3 - 1);
+	FORMC[2] = derwin(BOARDC, 3, SQFORM_WIDTH, SUBC_SHIFT_D + 4, SUB_SHIFT_R + SQFORM_WIDTH * 3 - 1);
+	FORMC[6] = derwin(BOARDC, 3, SQFORM_WIDTH, SUBC_SHIFT_D, SUB_SHIFT_R + SQFORM_WIDTH * 4 - 2);
+	FORMC[3] = derwin(BOARDC, 3, SQFORM_WIDTH, SUBC_SHIFT_D + 2, SUB_SHIFT_R + SQFORM_WIDTH * 4 - 2);
+	FORMC[4] = derwin(BOARDC, 3, SQFORM_WIDTH, SUBC_SHIFT_D + 4, SUB_SHIFT_R + SQFORM_WIDTH * 4 - 2);
 
-	FORMB[0] = derwin(BOARDB, 3, SQ_WIDTH * 3, SUBB_SHIFT_D + 9, SUB_SHIFT_R);
-	FORMB[5] = derwin(BOARDB, 3, SQ_WIDTH * 3, SUBB_SHIFT_D + 9 + 2, SUB_SHIFT_R);
-	FORMB[3] = derwin(BOARDB, 3, SQ_WIDTH, SUBB_SHIFT_D + 9, SUB_SHIFT_R + SQ_WIDTH * 3 - 1);
-	FORMB[1] = derwin(BOARDB, 3, SQ_WIDTH, SUBB_SHIFT_D + 9 + 2, SUB_SHIFT_R + SQ_WIDTH * 3 - 1);
-	FORMB[4] = derwin(BOARDB, 3, SQ_WIDTH, SUBB_SHIFT_D + 9, SUB_SHIFT_R + SQ_WIDTH * 4 - 2);
-	FORMB[2] = derwin(BOARDB, 3, SQ_WIDTH, SUBB_SHIFT_D + 9 + 2, SUB_SHIFT_R + SQ_WIDTH * 4 - 2);
+	FORMB[0] = derwin(BOARDB, 3, SQFORM_WIDTH * 3, SUBB_SHIFT_D + 9, SUB_SHIFT_R);
+	FORMB[5] = derwin(BOARDB, 3, SQFORM_WIDTH * 3, SUBB_SHIFT_D + 9 + 2, SUB_SHIFT_R);
+	FORMB[3] = derwin(BOARDB, 3, SQFORM_WIDTH, SUBB_SHIFT_D + 9, SUB_SHIFT_R + SQFORM_WIDTH * 3 - 1);
+	FORMB[1] = derwin(BOARDB, 3, SQFORM_WIDTH, SUBB_SHIFT_D + 9 + 2, SUB_SHIFT_R + SQFORM_WIDTH * 3 - 1);
+	FORMB[4] = derwin(BOARDB, 3, SQFORM_WIDTH, SUBB_SHIFT_D + 9, SUB_SHIFT_R + SQFORM_WIDTH * 4 - 2);
+	FORMB[2] = derwin(BOARDB, 3, SQFORM_WIDTH, SUBB_SHIFT_D + 9 + 2, SUB_SHIFT_R + SQFORM_WIDTH * 4 - 2);
 
-	FORMD[0] = derwin(BOARDC, 3, SQ_WIDTH * 3, SUBC_SHIFT_D + 9, SUB_SHIFT_R);
-	FORMD[5] = derwin(BOARDC, 3, SQ_WIDTH * 3, SUBC_SHIFT_D + 9 + 2, SUB_SHIFT_R);
-	FORMD[3] = derwin(BOARDC, 3, SQ_WIDTH, SUBC_SHIFT_D + 9, SUB_SHIFT_R + SQ_WIDTH * 3 - 1);
-	FORMD[1] = derwin(BOARDC, 3, SQ_WIDTH, SUBC_SHIFT_D + 9 + 2, SUB_SHIFT_R + SQ_WIDTH * 3 - 1);
-	FORMD[4] = derwin(BOARDC, 3, SQ_WIDTH, SUBC_SHIFT_D + 9, SUB_SHIFT_R + SQ_WIDTH * 4 - 2);
-	FORMD[2] = derwin(BOARDC, 3, SQ_WIDTH, SUBC_SHIFT_D + 9 + 2, SUB_SHIFT_R + SQ_WIDTH * 4 - 2);
+	FORMD[0] = derwin(BOARDC, 3, SQFORM_WIDTH * 3, SUBC_SHIFT_D + 9, SUB_SHIFT_R);
+	FORMD[5] = derwin(BOARDC, 3, SQFORM_WIDTH * 3, SUBC_SHIFT_D + 9 + 2, SUB_SHIFT_R);
+	FORMD[3] = derwin(BOARDC, 3, SQFORM_WIDTH, SUBC_SHIFT_D + 9, SUB_SHIFT_R + SQFORM_WIDTH * 3 - 1);
+	FORMD[1] = derwin(BOARDC, 3, SQFORM_WIDTH, SUBC_SHIFT_D + 9 + 2, SUB_SHIFT_R + SQFORM_WIDTH * 3 - 1);
+	FORMD[4] = derwin(BOARDC, 3, SQFORM_WIDTH, SUBC_SHIFT_D + 9, SUB_SHIFT_R + SQFORM_WIDTH * 4 - 2);
+	FORMD[2] = derwin(BOARDC, 3, SQFORM_WIDTH, SUBC_SHIFT_D + 9 + 2, SUB_SHIFT_R + SQFORM_WIDTH * 4 - 2);
 
 	CPUGOVER[0] = derwin(BOARDB, 3, sizeof(" auto "), SUBB_SHIFT_D - 2, 17);
 	CPUGOVER[1] = derwin(BOARDB, 3, sizeof(" manual "), SUBB_SHIFT_D - 2, 17 + sizeof(" auto ") - 1);
