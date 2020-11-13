@@ -31,6 +31,9 @@ install_mali() {
         rk3128|rk3036)
             MALI=utgard-400
             ;;
+        rk3568)
+            MALI=bifrost-g52
+            ;;
     esac
 
     apt install -f /packages/libmali/libmali-*$MALI*-x11*.deb
@@ -59,6 +62,8 @@ elif [[ $COMPATIBLE =~ "px30" ]]; then
     CHIPNAME="px30"
 elif [[ $COMPATIBLE =~ "rk3128" ]]; then
     CHIPNAME="rk3128"
+elif [[ $COMPATIBLE =~ "rk3568" ]]; then
+    CHIPNAME="rk3568"
 else
     CHIPNAME="rk3036"
 fi
