@@ -31,7 +31,7 @@ install_mali() {
         rk3128|rk3036)
             MALI=utgard-400
             ;;
-        rk3568)
+        rk3568|rk3566)
             MALI=bifrost-g52
             ;;
     esac
