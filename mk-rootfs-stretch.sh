@@ -196,6 +196,11 @@ apt-get install -y cron
 apt-get install -y at-spi2-core
 apt-get install -y florence
 
+#-------- 3rd party package --------
+apt-get install -y git
+apt-get install -y htop
+apt-get install -y logrotate
+
 #---------------Custom Script--------------
 systemctl enable rockchip.service
 systemctl mask systemd-networkd-wait-online.service
