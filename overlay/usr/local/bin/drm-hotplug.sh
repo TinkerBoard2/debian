@@ -136,4 +136,9 @@ then
 	sudo -u linaro PULSE_RUNTIME_PATH=/run/user/1000/pulse pacmd suspend false
 fi
 
+# The DP needs reinit every time, so turn it off when disconnected
+SYS="/sys/class/drm/card*-DP-1/"
+grep -q dis $SYS/status && grep -q "" $SYS/mode && \
+    sudo -u $user xrandr --output DP-1 --off
+
 exit 0
