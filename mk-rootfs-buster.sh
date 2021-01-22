@@ -174,6 +174,12 @@ echo -e "\033[36m Install libdrm.................... \033[0m"
 dpkg -i  /packages/libdrm/*.deb
 apt-get install -f -y
 
+#---------------tinker-power-management--------------
+cd /usr/local/share/tinker-power-management
+gcc tinker-power-management.c -o tinker-power-management -lncursesw
+mv tinker-power-management /usr/bin
+cd /
+
 # mark package to hold
 # apt-mark hold libv4l-0 libv4l2rds0 libv4lconvert0 libv4l-dev v4l-utils
 #apt-mark hold librockchip-mpp1 librockchip-mpp-static librockchip-vpu0 rockchip-mpp-demos
