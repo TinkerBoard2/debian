@@ -160,10 +160,10 @@ dpkg -i  /packages/ffmpeg/*.deb
 apt-get install -f -y
 
 #------------------mpv------------
-echo -e "\033[36m Install mpv.................... \033[0m"
-apt-get install -y libmpv1 mpv
-dpkg -i  /packages/mpv/*.deb
-apt-get install -f -y
+#echo -e "\033[36m Install mpv.................... \033[0m"
+#apt-get install -y libmpv1 mpv
+#dpkg -i  /packages/mpv/*.deb
+#apt-get install -f -y
 
 #---------update chromium-----
 apt-get install -y chromium
