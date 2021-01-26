@@ -197,6 +197,9 @@ rm /lib/systemd/system/wpa_supplicant@.service
 bash /etc/init.d/blueman.sh
 rm /etc/init.d/blueman.sh
 
+#-------------plymouth--------------
+plymouth-set-default-theme script
+
 echo $VERSION_NUMBER-$VERSION > /etc/version
 
 #---------------Clean--------------
