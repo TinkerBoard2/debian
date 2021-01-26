@@ -200,6 +200,9 @@ rm /etc/init.d/blueman.sh
 #-------------plymouth--------------
 plymouth-set-default-theme script
 
+#-------------Others--------------
+cp /etc/Powermanager/systemd-suspend.service  /lib/systemd/system/systemd-suspend.service
+
 echo $VERSION_NUMBER-$VERSION > /etc/version
 
 #---------------Clean--------------
