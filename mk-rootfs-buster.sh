@@ -202,6 +202,7 @@ plymouth-set-default-theme script
 
 #-------------Others--------------
 cp /etc/Powermanager/systemd-suspend.service  /lib/systemd/system/systemd-suspend.service
+update-alternatives --auto x-terminal-emulator
 
 echo $VERSION_NUMBER-$VERSION > /etc/version
 
