@@ -197,6 +197,16 @@ rm /lib/systemd/system/wpa_supplicant@.service
 bash /etc/init.d/blueman.sh
 rm /etc/init.d/blueman.sh
 
+#---------------gpio library --------------
+# For gpio wiring c library
+chmod a+x /usr/local/share/gpio_lib_c_rk3399
+cd /usr/local/share/gpio_lib_c_rk3399
+./build
+# For gpio python library
+cd /usr/local/share/gpio_lib_python_rk3399/
+python setup.py install
+cd /
+
 #-------------plymouth--------------
 plymouth-set-default-theme script
 
