@@ -216,6 +216,10 @@ plymouth-set-default-theme script
 cp /etc/Powermanager/systemd-suspend.service  /lib/systemd/system/systemd-suspend.service
 update-alternatives --auto x-terminal-emulator
 
+# Switching iptables/ip6tables to the legacy version
+update-alternatives --set iptables /usr/sbin/iptables-legacy
+update-alternatives --set ip6tables /usr/sbin/ip6tables-legacy
+
 echo $VERSION_NUMBER-$VERSION > /etc/version
 
 #---------------Clean--------------
