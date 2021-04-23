@@ -65,8 +65,10 @@ elif [ "$ARCH" == "arm64" ]; then
     sudo cp overlay-firmware/usr/bin/rk_wifi_init_64 $TARGET_ROOTFS_DIR/usr/bin/rk_wifi_init
 fi
 sudo mkdir -p $TARGET_ROOTFS_DIR/system/lib/modules/
-sudo find ../kernel/drivers/net/wireless/rockchip_wlan/*  -name "*.ko" | \
-    xargs -n1 -i sudo cp {} $TARGET_ROOTFS_DIR/system/lib/modules/
+#sudo find ../kernel/drivers/net/wireless/rockchip_wlan/*  -name "*.ko" | \
+#    xargs -n1 -i sudo cp {} $TARGET_ROOTFS_DIR/system/lib/modules/
+# ASUS: Change to copy all the kernel modules built from build.sh.
+sudo cp -rf lib_modules/lib/modules $TARGET_ROOTFS_DIR/lib/
 
 # adb
 if [ "$ARCH" == "armhf" ] && [ "$VERSION" == "debug" ]; then

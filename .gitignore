@@ -18,3 +18,4 @@ linaro-rootfs.img
 release
 build
 .lock
+lib_modules
