@@ -7,5 +7,8 @@
 
     <!-- Disable DPMS(auto screen-off) by default -->
     <property name="dpms-enabled" type="bool" value="false"/>
+
+    <!-- Set Blank after to "never" by default -->
+    <property name="blank-on-ac" type="int" value="0"/>
   </property>
 </channel>
