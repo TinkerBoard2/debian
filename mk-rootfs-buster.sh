@@ -44,7 +44,9 @@ sudo cp -rf overlay-firmware/* $TARGET_ROOTFS_DIR/
 
 # overlay-debug folder
 # adb, video, camera  test file
-sudo cp -rf overlay-debug/* $TARGET_ROOTFS_DIR/
+if [ "$VERSION" == "debug" ] || [ "$VERSION" == "jenkins" ]; then
+	sudo cp -rf overlay-debug/* $TARGET_ROOTFS_DIR/
+fi
 
 ## hack the serial
 sudo cp -f overlay/usr/lib/systemd/system/serial-getty@.service $TARGET_ROOTFS_DIR/lib/systemd/system/serial-getty@.service
