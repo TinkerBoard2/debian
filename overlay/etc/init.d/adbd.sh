@@ -30,6 +30,7 @@ USB_CONFIGFS_DIR=${CONFIGFS_DIR}/usb_gadget/${USB_GROUP}
 USB_STRINGS_DIR=${USB_CONFIGFS_DIR}/strings/${USB_ATTRIBUTE}
 USB_FUNCTIONS_DIR=${USB_CONFIGFS_DIR}/functions
 USB_CONFIGS_DIR=${USB_CONFIGFS_DIR}/configs/${USB_SKELETON}
+SSN_FILEPATH=/sys/bus/i2c/devices/8-0050/eeprom
 
 make_config_string()
 {
@@ -118,6 +119,37 @@ parameter_init()
 	esac
 }
 
+read_sn()
+{
+    data1=`xxd -s 0x6 -l 16 -g 1 $SSN_FILEPATH \
+        | awk '{ print $2$3$4$5$6$7$8$9$10$11$12$13$14$15$16$17 }'`
+    data2=`xxd -s 0x16 -l 4 -g 1 $SSN_FILEPATH \
+        | awk '{ print $2$3$4$5 }'`
+
+    idx=0
+    while [ $idx -lt 32 ];
+    do
+        val=${data1:$idx:2}
+        if [ $val != "00" ]
+        then
+            tmp=$(printf "\x$val")
+            SERIAL="$SERIAL$tmp"
+        fi
+        idx=$((idx+2))
+    done
+    idx=0
+    while [ $idx -lt 8 ];
+    do
+        val=${data2:$idx:2}
+        if [ $val != "00" ]
+        then
+            tmp=$(printf "\x$val")
+            SERIAL="$SERIAL$tmp"
+        fi
+        idx=$((idx+2))
+    done
+}
+
 configfs_init()
 {
 	mkdir -p ${USB_CONFIGFS_DIR} -m 0770
@@ -125,7 +157,11 @@ configfs_init()
 	echo $PID > ${USB_CONFIGFS_DIR}/idProduct
 	mkdir -p ${USB_STRINGS_DIR}   -m 0770
 
-	SERIAL=`cat /proc/cpuinfo | grep Serial | awk '{print $3}'`
+	if [ -e "$SSN_FILEPATH" ]; then
+		read_sn
+	elif [ -e "/proc/cpuinfo" ]; then
+		SERIAL=`cat /proc/cpuinfo | grep Serial | awk '{print $3}'`
+	fi
 	if [ -z $SERIAL ];then
 		SERIAL=0123456789ABCDEF
 	fi
