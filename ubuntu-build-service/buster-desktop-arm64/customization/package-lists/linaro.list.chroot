@@ -75,7 +75,7 @@ gstreamer1.0-tools
 gvfs
 gvfs-backends
 hardinfo
-hostapd
+#hostapd
 htop
 i2c-tools
 idle
