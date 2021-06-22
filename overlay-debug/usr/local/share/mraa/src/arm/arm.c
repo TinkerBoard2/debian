@@ -17,6 +17,7 @@
 #include "arm/phyboard.h"
 #include "arm/raspberry_pi.h"
 #include "arm/adlink_ipi.h"
+#include "arm/tinker_board.h"
 #include "mraa_internal.h"
 
 
@@ -98,6 +99,12 @@ mraa_arm_platform()
             platform_type = MRAA_RASPBERRY_PI;
         else if (mraa_file_contains("/proc/device-tree/model", "ADLINK ARM, LEC-PX30"))
             platform_type = MRAA_ADLINK_IPI;
+        else if (mraa_file_contains("/proc/device-tree/model", "ASUS Tinker Board 2 (Linux Opensource)") ||
+                 mraa_file_contains("/proc/device-tree/model", "ASUS Tinker Board 2 (Android)")
+                ){
+            syslog(LOG_ERR, "platform type ASUS Tinker Board");
+            platform_type = MRAA_TINKERBOARD;
+        }
     }
 
     switch (platform_type) {
@@ -124,6 +131,10 @@ mraa_arm_platform()
             break;
         case MRAA_ADLINK_IPI:
             plat = mraa_adlink_ipi();
+            break;
+        case MRAA_TINKERBOARD:
+	    syslog(LOG_ERR, "platform_type MRAA_TINKERBOARD");
+            plat = mraa_tinkerboard();
             break;
         default:
             plat = NULL;
