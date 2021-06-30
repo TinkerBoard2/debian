@@ -20,9 +20,7 @@
 * "ASUS Tinker Board 2" is used on Radxa 4.4 kernel
 * so we search for the string below by ignoring case
 */
-#define PLATFORM_NAME_TINKER_BOARD_2 "ASUS Tinker Board 2 (Linux Opensource)"
-#define PLATFORM_NAME_TINKER_BOARD_2_ANDROID "ASUS Tinker Board 2 (Android)"
-//#define PLATFORM_NAME_ROCK_PI4_2 "ROCK PI 4"
+#define PLATFORM_NAME_TINKER_BOARD_2 "Tinker Board 2"
 #define MAX_SIZE 64
 
 const char* tinkerboard2_serialdev[MRAA_TINKER2_UART_COUNT] = { "/dev/ttyS0", "/dev/ttyS4" };
@@ -54,12 +52,10 @@ mraa_tinkerboard_pininfo(mraa_board_t* board, int index, int sysfs_pin, mraa_pin
 mraa_board_t*
 mraa_tinkerboard()
 {
-    syslog(LOG_ERR, "mraa_tinkerboard 1=================");
     mraa_board_t* b = (mraa_board_t*) calloc(1, sizeof(mraa_board_t));
     if (b == NULL) {
         return NULL;
     }
-syslog(LOG_ERR, "mraa_tinkerboard 2=================");
     b->adv_func = (mraa_adv_func_t*) calloc(1, sizeof(mraa_adv_func_t));
     if (b->adv_func == NULL) {
         free(b);
@@ -69,39 +65,26 @@ syslog(LOG_ERR, "mraa_tinkerboard 2=================");
     // pin mux for buses are setup by default by kernel so tell mraa to ignore them
     b->no_bus_mux = 1;
     b->phy_pin_count = MRAA_TINKER2_PIN_COUNT + 1;
-syslog(LOG_ERR, "mraa_tinkerboard 3=================");
     if (mraa_file_exist(DT_BASE "/model")) {
         // We are on a modern kernel, great!!!!
-        syslog(LOG_ERR, "mraa_tinkerboard 33=================");
-        if (mraa_file_contains(DT_BASE "/model", PLATFORM_NAME_TINKER_BOARD_2) ||
-            mraa_file_contains(DT_BASE "/model", PLATFORM_NAME_TINKER_BOARD_2_ANDROID) 
-           ) {
-            syslog(LOG_ERR, "mraa_tinkerboard 333=================");
+        if (mraa_file_contains(DT_BASE "/model", PLATFORM_NAME_TINKER_BOARD_2)) {
             b->platform_name = PLATFORM_NAME_TINKER_BOARD_2;
             b->uart_dev[0].device_path = (char*) tinkerboard2_serialdev[0];
             b->uart_dev[1].device_path = (char*) tinkerboard2_serialdev[1];
         }
     }
-syslog(LOG_ERR, "mraa_tinkerboard=================");
     // UART
     b->uart_dev_count = MRAA_TINKER2_UART_COUNT;
     b->def_uart_dev = 0;
-    b->uart_dev[0].index = 2;
+    b->uart_dev[0].index = 0;
     b->uart_dev[1].index = 4;
-syslog(LOG_ERR, "mraa_tinkerboard2222=================");
     // I2C
-    if (b->platform_name == NULL) {
-    
-    if (strncmp(b->platform_name, PLATFORM_NAME_TINKER_BOARD_2, MAX_SIZE) == 0 ||
-        strncmp(b->platform_name, PLATFORM_NAME_TINKER_BOARD_2_ANDROID, MAX_SIZE) == 0
-       ) {
+    if (strncmp(b->platform_name, PLATFORM_NAME_TINKER_BOARD_2, MAX_SIZE) == 0) {
         b->i2c_bus_count = MRAA_TINKER2_I2C_COUNT;
         b->def_i2c_bus = 0;
         b->i2c_bus[0].bus_id = 6;
         b->i2c_bus[1].bus_id = 7;
     }
-    }
-syslog(LOG_ERR, "mraa_tinkerboard 5=================");
     // SPI
     b->spi_bus_count = MRAA_TINKER2_SPI_COUNT;
     b->def_spi_bus = 0;
@@ -112,27 +95,27 @@ syslog(LOG_ERR, "mraa_tinkerboard 5=================");
     b->pwm_default_period = 500;
     b->pwm_max_period = 2147483;
     b->pwm_min_period = 1;
-syslog(LOG_ERR, "mraa_tinkerboard 6=================");
     b->pins = (mraa_pininfo_t*) malloc(sizeof(mraa_pininfo_t) * b->phy_pin_count);
     if (b->pins == NULL) {
         free(b->adv_func);
         free(b);
         return NULL;
     }
-syslog(LOG_ERR, "mraa_tinkerboard 7=================");
-    b->pins[11].pwm.parent_id = 0;
-    b->pins[11].pwm.mux_total = 0;
-    b->pins[11].pwm.pinmap = 0;
-    b->pins[13].pwm.parent_id = 1;
-    b->pins[13].pwm.mux_total = 0;
-    b->pins[13].pwm.pinmap = 0;
+    b->pins[32].pwm.parent_id = 0;
+    b->pins[32].pwm.mux_total = 0;
+    b->pins[32].pwm.pinmap = 0;
+    b->pins[33].pwm.parent_id = 1;
+    b->pins[33].pwm.mux_total = 0;
+    b->pins[33].pwm.pinmap = 0;
+    b->pins[26].pwm.parent_id = 3;
+    b->pins[26].pwm.mux_total = 0;
+    b->pins[26].pwm.pinmap = 0;
 
     //b->aio_count = MRAA_TINKER2_AIO_COUNT;
     //b->adc_raw = 10;
     //b->adc_supported = 10;
     //b->aio_dev[0].pin = 26;
     //b->aio_non_seq = 1;
-syslog(LOG_ERR, "mraa_tinkerboard 8=================");
     mraa_tinkerboard_pininfo(b, 0,   -1, (mraa_pincapabilities_t){0,0,0,0,0,0,0,0}, "INVALID");
     mraa_tinkerboard_pininfo(b, 1,   -1, (mraa_pincapabilities_t){1,0,0,0,0,0,0,0}, "3V3");
     mraa_tinkerboard_pininfo(b, 2,   -1, (mraa_pincapabilities_t){1,0,0,0,0,0,0,0}, "5V");

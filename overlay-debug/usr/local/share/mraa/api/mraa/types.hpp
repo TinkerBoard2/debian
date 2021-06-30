@@ -202,7 +202,7 @@ typedef enum {
 } RaspberryWiring;
 
 /**
-* ASUS Tinker Board compatible numbering enum
+* ASUS Tinker Board series compatible numbering enum
 */
 typedef enum {
     TINKERBOARD_PIN3 = 3,
@@ -234,6 +234,25 @@ typedef enum {
     TINKERBOARD_PIN38 = 38,
     TINKERBOARD_PIN40 = 40
 } TinkerBoard;
+
+/**
+* ASUS Tinker Board 2 compatible numbering enum
+*/
+
+typedef enum {
+    TINKERBOARD_2_I2C6 = 0,
+    TINKERBOARD_2_I2C7 = 1
+} TinkerBoard2I2C;
+
+typedef enum {
+    TINKERBOARD_2_UART0 = 0,
+    TINKERBOARD_2_UART4 = 1
+} TinkerBoard2UART;
+
+typedef enum {
+    TINKERBOARD_2_SPI1 = 0,
+    TINKERBOARD_2_SPI5 = 1
+} TinkerBoard2SPI;
 
 /**
  * MRAA return codes
