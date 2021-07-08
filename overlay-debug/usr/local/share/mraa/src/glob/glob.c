@@ -181,6 +181,8 @@ static int	 match(const Char *, const Char *, const Char *);
 static void	 qprintf(const char *, Char *);
 #endif
 
+#define __UNCONST(a)	((void *)(unsigned long)(const void *)(a))
+
 int
 glob(const char * __restrict pattern, int flags, int (*errfunc)(const char *,
     int), glob_t * __restrict pglob)

@@ -30,10 +30,10 @@ set (MRAA_BOTH_WARNING_FLAGS
 )
 
 # Warning flags for the C compiler only
-set (MRAA_C_WARNING_FLAGS
-  -Werror=implicit
-  -Werror=missing-parameter-type
-)
+#set (MRAA_C_WARNING_FLAGS
+#  -Werror=implicit
+#  -Werror=missing-parameter-type
+#)
 
 include (CheckCCompilerFlag)
 if (BUILDCPP)

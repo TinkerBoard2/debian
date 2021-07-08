@@ -6,6 +6,10 @@ if (PERIPHERALMAN)
   set(JAVA_INCLUDE_PATH "${ANDROID_SYSROOT}/usr/include")
 endif()
 
+if (ANDROID_BUILD)
+	set(JAVA_INCLUDE_PATH "$ENV{NDK_HOME}/sysroot/usr/include/")
+endif()
+
 include_directories (
   ${JAVA_INCLUDE_PATH}
   ${JAVA_INCLUDE_PATH2}
@@ -32,6 +36,9 @@ else ()
   set (JAVAC $ENV{JAVA_HOME_NATIVE}/bin/javac)
   set (JAR $ENV{JAVA_HOME_NATIVE}/bin/jar)
 endif ()
+
+message (STATUS "INFO - JAVA_INCLUDE_PATH is ${JAVA_INCLUDE_PATH}")
+message (STATUS "INFO - JAVA_INCLUDE_PATH2 is ${JAVA_INCLUDE_PATH2}")
 
 if (CMAKE_VERSION VERSION_LESS "3.8")
   swig_add_module (mraajava java mraajava.i mraajni.c)

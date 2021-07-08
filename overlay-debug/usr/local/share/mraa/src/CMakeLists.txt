@@ -2,6 +2,7 @@ set (mraa_LIB_INCLUDE_DIRS
   ${PROJECT_SOURCE_DIR}/api
   ${PROJECT_SOURCE_DIR}/api/mraa
   ${PROJECT_SOURCE_DIR}/include
+  ${PROJECT_SOURCE_DIR}/src/glob/
 )
 
 add_subdirectory (grovepi)
@@ -21,6 +22,7 @@ include_directories(
 )
 
 set (mraa_LIB_SRCS_NOAUTO
+  ${PROJECT_SOURCE_DIR}/src/glob/glob.c
   ${PROJECT_SOURCE_DIR}/src/mraa.c
   ${PROJECT_SOURCE_DIR}/src/gpio/gpio.c
   ${PROJECT_SOURCE_DIR}/src/gpio/gpio_chardev.c
