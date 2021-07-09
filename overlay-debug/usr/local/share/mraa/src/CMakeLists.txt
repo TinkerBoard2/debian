@@ -2,7 +2,6 @@ set (mraa_LIB_INCLUDE_DIRS
   ${PROJECT_SOURCE_DIR}/api
   ${PROJECT_SOURCE_DIR}/api/mraa
   ${PROJECT_SOURCE_DIR}/include
-  ${PROJECT_SOURCE_DIR}/src/glob/
 )
 
 add_subdirectory (grovepi)
@@ -17,12 +16,18 @@ if (ONEWIRE)
   add_subdirectory (uart_ow)
 endif ()
 
+if (ANDROID_BUILD_API_LEVEL EQUAL 24)
+  set (mraa_LIB_INCLUDE_DIRS
+    ${mraa_LIB_INCLUDE_DIRS}
+    ${PROJECT_SOURCE_DIR}/src/glob/
+  )
+endif ()
+
 include_directories(
   ${mraa_LIB_INCLUDE_DIRS}
 )
 
 set (mraa_LIB_SRCS_NOAUTO
-  ${PROJECT_SOURCE_DIR}/src/glob/glob.c
   ${PROJECT_SOURCE_DIR}/src/mraa.c
   ${PROJECT_SOURCE_DIR}/src/gpio/gpio.c
   ${PROJECT_SOURCE_DIR}/src/gpio/gpio_chardev.c
@@ -35,6 +40,13 @@ set (mraa_LIB_SRCS_NOAUTO
   ${PROJECT_SOURCE_DIR}/src/initio/initio.c
   ${mraa_LIB_SRCS_NOAUTO}
 )
+
+if (ANDROID_BUILD_API_LEVEL EQUAL 24)
+  set (mraa_LIB_SRCS_NOAUTO
+    ${mraa_LIB_SRCS_NOAUTO}
+    ${PROJECT_SOURCE_DIR}/src/glob/glob.c
+  )
+endif ()
 
 if (NOT PERIPHERALMAN)
   set (mraa_LIB_SRCS_NOAUTO
@@ -167,6 +179,10 @@ if (MOCKPLAT)
     set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -DMSYS=1")
   endif ()
 endif()
+
+if (ANDROID_BUILD_API_LEVEL EQUAL 24)
+  set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -DANDROID_BUILD_API_LEVEL=24")
+endif ()
 
 if (PERIPHERALMAN)
   set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -DPERIPHERALMAN=1")

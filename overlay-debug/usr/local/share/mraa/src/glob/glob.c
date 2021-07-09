@@ -181,7 +181,9 @@ static int	 match(const Char *, const Char *, const Char *);
 static void	 qprintf(const char *, Char *);
 #endif
 
+#if (ANDROID_BUILD_API_LEVEL == 24)
 #define __UNCONST(a)	((void *)(unsigned long)(const void *)(a))
+#endif
 
 int
 glob(const char * __restrict pattern, int flags, int (*errfunc)(const char *,

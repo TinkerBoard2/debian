@@ -30,10 +30,12 @@ set (MRAA_BOTH_WARNING_FLAGS
 )
 
 # Warning flags for the C compiler only
-#set (MRAA_C_WARNING_FLAGS
-#  -Werror=implicit
-#  -Werror=missing-parameter-type
-#)
+if (ANDROID_BUILD_API_LEVEL EQUAL 24)
+  set (MRAA_C_WARNING_FLAGS
+    -Werror=implicit
+    -Werror=missing-parameter-type
+  )
+endif ()
 
 include (CheckCCompilerFlag)
 if (BUILDCPP)
