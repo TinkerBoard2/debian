@@ -90,6 +90,16 @@ elif [ "$ARCH" == "arm64" ] && [ "$VERSION" == "debug" ]; then
 	sudo cp overlay-debug/usr/local/share/glmark2/aarch64/bin/glmark2-es2 $TARGET_ROOTFS_DIR/usr/local/bin/glmark2-es2
 fi
 
+# gpio library
+sudo rm -rf $TARGET_ROOTFS_DIR/usr/local/share/gpio_lib_c_rk3399
+sudo rm -rf $TARGET_ROOTFS_DIR/usr/local/share/gpio_lib_python_rk3399
+sudo cp -rf overlay-debug/usr/local/share/gpio_lib_c_rk3399 $TARGET_ROOTFS_DIR/usr/local/share/gpio_lib_c_rk3399
+sudo cp -rf overlay-debug/usr/local/share/gpio_lib_python_rk3399 $TARGET_ROOTFS_DIR/usr/local/share/gpio_lib_python_rk3399
+
+# mraa library
+sudo rm -rf $TARGET_ROOTFS_DIR/usr/local/share/mraa
+sudo cp -rf overlay-debug/usr/local/share/mraa $TARGET_ROOTFS_DIR/usr/local/share/mraa
+
 echo -e "\033[36m Change root.....................\033[0m"
 if [ "$ARCH" == "armhf" ]; then
 	sudo cp /usr/bin/qemu-arm-static $TARGET_ROOTFS_DIR/usr/bin/
@@ -209,6 +219,16 @@ cd /usr/local/share/gpio_lib_c_rk3399
 # For gpio python library
 cd /usr/local/share/gpio_lib_python_rk3399/
 python setup.py install
+cd /
+
+#---------------mraa library --------------
+chmod a+x /usr/local/share/mraa
+cd /usr/local/share/mraa
+mkdir build
+cd build
+cmake -DCMAKE_INSTALL_PREFIX:PATH=/usr --BUILDARCH=aarch64 -DBUILDSWIGPYTHON=ON ..
+make
+make install
 cd /
 
 #-------------plymouth--------------
