@@ -219,6 +219,7 @@ cd /usr/local/share/gpio_lib_c_rk3399
 # For gpio python library
 cd /usr/local/share/gpio_lib_python_rk3399/
 python setup.py install
+python3 setup.py install
 cd /
 
 #---------------mraa library --------------
