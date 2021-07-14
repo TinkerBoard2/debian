@@ -184,6 +184,9 @@ apt-get install -f -y
 apt-get install -y chromium
 apt-get install -f -y /packages/chromium/*.deb
 
+#---------modem manager---------
+apt-get install -y modemmanager libqmi-utils libmbim-utils ppp
+
 #------------------libdrm------------
 echo -e "\033[36m Install libdrm.................... \033[0m"
 dpkg -i  /packages/libdrm/*.deb
