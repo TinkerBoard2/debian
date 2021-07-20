@@ -21,6 +21,14 @@ extern "C" {
 #define MRAA_TINKER2_AIO_COUNT  0
 #define MRAA_TINKER2_PIN_COUNT  40
 
+#define MRAA_TINKERS_GPIO_COUNT 28
+#define MRAA_TINKERS_I2C_COUNT  2
+#define MRAA_TINKERS_SPI_COUNT  2
+#define MRAA_TINKERS_UART_COUNT 4
+#define MRAA_TINKERS_PWM_COUNT  2
+#define MRAA_TINKERS_AIO_COUNT  0
+#define MRAA_TINKERS_PIN_COUNT  40
+
 mraa_board_t *
         mraa_tinkerboard();
 

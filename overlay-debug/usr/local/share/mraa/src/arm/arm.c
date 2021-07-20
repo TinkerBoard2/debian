@@ -99,7 +99,8 @@ mraa_arm_platform()
             platform_type = MRAA_RASPBERRY_PI;
         else if (mraa_file_contains("/proc/device-tree/model", "ADLINK ARM, LEC-PX30"))
             platform_type = MRAA_ADLINK_IPI;
-        else if (mraa_file_contains("/proc/device-tree/model", "Tinker Board 2"))
+        else if (mraa_file_contains("/proc/device-tree/model", "Tinker Board 2") ||
+                    mraa_file_contains("/proc/device-tree/model", "Tinker Board (S)"))
             platform_type = MRAA_TINKERBOARD;
     }
 
