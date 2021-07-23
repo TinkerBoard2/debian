@@ -255,6 +255,24 @@ typedef enum {
 } TinkerBoard2SPI;
 
 /**
+* ASUS Tinker Edge T compatible numbering enum
+*/
+
+typedef enum {
+    TINKEREDGE_T_I2C2 = 0,
+    TINKEREDGE_T_I2C3 = 1
+} TinkerEdgeTI2C;
+
+typedef enum {
+    TINKEREDGE_T_UART1 = 0,
+    TINKEREDGE_T_UART3 = 1
+} TinkerEdgeTUART;
+
+typedef enum {
+    TINKEREDGE_T_SPI1 = 0
+} TinkerEdgeTSPI;
+
+/**
  * MRAA return codes
  */
 typedef enum {

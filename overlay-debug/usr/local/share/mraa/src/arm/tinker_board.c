@@ -23,11 +23,14 @@
 */
 #define PLATFORM_NAME_TINKER_BOARD_2 "Tinker Board 2"
 #define PLATFORM_NAME_TINKER_BOARD_S "Tinker Board (S)"
+#define PLATFORM_NAME_TINKER_EDGE_T "Tinker Edge T"
 #define MAX_SIZE 64
 
 const char* tinkerboard2_serialdev[MRAA_TINKER2_UART_COUNT] = { "/dev/ttyS0", "/dev/ttyS4" };
 
 const char* tinkerboards_serialdev[MRAA_TINKERS_UART_COUNT] = { "/dev/ttyS1", "/dev/ttyS2", "/dev/ttyS3", "/dev/ttyS4" };
+
+const char* tinkeredget_serialdev[MRAA_TINKEREDGET_UART_COUNT] = { "/dev/ttymxc0", "/dev/ttymxc2" };
 
 void
 mraa_tinkerboard_pininfo(mraa_board_t* board, int index, int sysfs_pin, mraa_pincapabilities_t pincapabilities_t, char* fmt, ...)
@@ -256,6 +259,95 @@ mraa_tinkerboard()
             mraa_tinkerboard_pininfo(b, 38, 187, (mraa_pincapabilities_t){1,1,0,0,0,0,0,0}, "GPIO6A3");
             mraa_tinkerboard_pininfo(b, 39,  -1, (mraa_pincapabilities_t){1,0,0,0,0,0,0,0}, "GND");
             mraa_tinkerboard_pininfo(b, 40, 188, (mraa_pincapabilities_t){1,1,0,0,0,0,0,0}, "GPIO6A4");
+        }
+        else if (mraa_file_contains(DT_BASE "/model", PLATFORM_NAME_TINKER_EDGE_T)) {
+            b->phy_pin_count = MRAA_TINKERS_PIN_COUNT + 1;
+            b->platform_name = PLATFORM_NAME_TINKER_EDGE_T;
+            b->uart_dev[0].device_path = (char*) tinkeredget_serialdev[0];
+            b->uart_dev[1].device_path = (char*) tinkeredget_serialdev[1];
+            b->chardev_capable = 1;
+
+            // UART
+            b->uart_dev_count = MRAA_TINKEREDGET_UART_COUNT;
+            b->def_uart_dev = 0;
+            b->uart_dev[0].index = 0;
+            b->uart_dev[1].index = 2;
+
+            // I2C
+            if (strncmp(b->platform_name, PLATFORM_NAME_TINKER_EDGE_T, MAX_SIZE) == 0) {
+                b->i2c_bus_count = MRAA_TINKEREDGET_I2C_COUNT;
+                b->def_i2c_bus = 0;
+                b->i2c_bus[0].bus_id = 1;
+                b->i2c_bus[1].bus_id = 2;
+            }
+
+            // SPI
+            b->spi_bus_count = MRAA_TINKEREDGET_SPI_COUNT;
+            b->def_spi_bus = 0;
+            b->spi_bus[0].bus_id = 0;
+
+            // PWM
+            b->pwm_dev_count = MRAA_TINKEREDGET_PWM_COUNT;
+            b->pwm_default_period = 500;
+            b->pwm_max_period = 2147483;
+            b->pwm_min_period = 1;
+            b->pins = (mraa_pininfo_t*) malloc(sizeof(mraa_pininfo_t) * b->phy_pin_count);
+            if (b->pins == NULL) {
+                free(b->adv_func);
+                free(b);
+                return NULL;
+            }
+            b->pins[32].pwm.parent_id = 0;
+            b->pins[32].pwm.mux_total = 0;
+            b->pins[32].pwm.pinmap = 0;
+            b->pins[33].pwm.parent_id = 1;
+            b->pins[33].pwm.mux_total = 0;
+            b->pins[33].pwm.pinmap = 0;
+            b->pins[15].pwm.parent_id = 2;
+            b->pins[15].pwm.mux_total = 0;
+            b->pins[15].pwm.pinmap = 0;
+
+            mraa_tinkerboard_pininfo(b, 0,   -1, (mraa_pincapabilities_t){0,0,0,0,0,0,0,0}, "INVALID");
+            mraa_tinkerboard_pininfo(b, 1,   -1, (mraa_pincapabilities_t){1,0,0,0,0,0,0,0}, "3V3");
+            mraa_tinkerboard_pininfo(b, 2,   -1, (mraa_pincapabilities_t){1,0,0,0,0,0,0,0}, "5V");
+            mraa_tinkerboard_pininfo(b, 3,  145, (mraa_pincapabilities_t){1,1,0,0,0,1,0,0}, "GPIO5IO17:I2C2SDA", -1, 4, 17);
+            mraa_tinkerboard_pininfo(b, 4,   -1, (mraa_pincapabilities_t){1,0,0,0,0,0,0,0}, "5V");
+            mraa_tinkerboard_pininfo(b, 5,  144, (mraa_pincapabilities_t){1,1,0,0,0,1,0,0}, "GPIO5IO16:I2C2SCL", -1, 4, 16);
+            mraa_tinkerboard_pininfo(b, 6,   -1, (mraa_pincapabilities_t){1,0,0,0,0,0,0,0}, "GND");
+            mraa_tinkerboard_pininfo(b, 7,  155, (mraa_pincapabilities_t){1,1,0,0,0,0,0,1}, "GPIO5IO27:UART3TX", -1, 4, 27);
+            mraa_tinkerboard_pininfo(b, 8,  151, (mraa_pincapabilities_t){1,1,0,0,0,0,0,1}, "GPIO5IO23:UART1TX", -1, 4, 23);
+            mraa_tinkerboard_pininfo(b, 9,   -1, (mraa_pincapabilities_t){1,0,0,0,0,0,0,0}, "GND");
+            mraa_tinkerboard_pininfo(b, 10, 150, (mraa_pincapabilities_t){1,1,0,0,0,0,0,1}, "GPIO5IO22:UART1RX", -1, 4, 22);
+            mraa_tinkerboard_pininfo(b, 11, 154, (mraa_pincapabilities_t){1,1,0,0,0,0,0,1}, "GPIO5IO26:UART3RX", -1, 4, 26);
+            mraa_tinkerboard_pininfo(b, 12, 107, (mraa_pincapabilities_t){1,1,0,0,0,0,0,0}, "GPIO4IO11:SAI1TXC", -1, 3, 11);
+            mraa_tinkerboard_pininfo(b, 13,   6, (mraa_pincapabilities_t){1,1,0,0,1,0,0,1}, "GPIO1IO06", -1, 0, 6);
+            mraa_tinkerboard_pininfo(b, 14,  -1, (mraa_pincapabilities_t){1,0,0,0,0,0,0,0}, "GND");
+            mraa_tinkerboard_pininfo(b, 15, 130, (mraa_pincapabilities_t){1,1,1,0,0,0,0,0}, "GPIO5IO02:PWM4", -1, 4, 2);
+            mraa_tinkerboard_pininfo(b, 16,  73, (mraa_pincapabilities_t){1,1,0,0,0,0,0,0}, "GPIO3IO09", -1, 2, 9);
+            mraa_tinkerboard_pininfo(b, 17,  -1, (mraa_pincapabilities_t){1,0,0,0,0,0,0,0}, "3V3");
+            mraa_tinkerboard_pininfo(b, 18, 138, (mraa_pincapabilities_t){1,1,0,0,0,0,0,0}, "GPIO5IO10", -1, 4, 10);
+            mraa_tinkerboard_pininfo(b, 19, 135, (mraa_pincapabilities_t){1,1,0,0,1,0,0,0}, "GPIO5IO07:SPI1MOSI", -1, 4, 7);
+            mraa_tinkerboard_pininfo(b, 20,  -1, (mraa_pincapabilities_t){1,0,0,0,0,0,0,0}, "GND");
+            mraa_tinkerboard_pininfo(b, 21, 136, (mraa_pincapabilities_t){1,1,0,0,1,0,0,0}, "GPIO5IO08:SPI1MISO", -1, 4, 8);
+            mraa_tinkerboard_pininfo(b, 22, 140, (mraa_pincapabilities_t){1,1,0,0,0,0,0,0}, "GPIO5IO12", -1, 4 ,12);
+            mraa_tinkerboard_pininfo(b, 23, 134, (mraa_pincapabilities_t){1,1,0,0,1,0,0,0}, "GPIO5IO06:SPI1SCLK", -1, 4, 6);
+            mraa_tinkerboard_pininfo(b, 24, 137, (mraa_pincapabilities_t){1,1,0,0,1,0,0,0}, "GPIO5IO09:SPI1SS0", -1, 4, 9);
+            mraa_tinkerboard_pininfo(b, 25,  -1, (mraa_pincapabilities_t){1,0,0,0,0,0,0,0}, "GND");
+            mraa_tinkerboard_pininfo(b, 26,  66, (mraa_pincapabilities_t){1,1,0,0,1,0,0,0}, "GPIO3IO02:SPI1SS1", -1, 2, 2);
+            mraa_tinkerboard_pininfo(b, 27, 147, (mraa_pincapabilities_t){1,1,0,0,0,1,0,0}, "GPIO5IO19:I2C3SDA", -1, 4, 19);
+            mraa_tinkerboard_pininfo(b, 28, 146, (mraa_pincapabilities_t){1,1,0,0,0,1,0,0}, "GPIO5IO18:I2C3SCL", -1, 4, 18);
+            mraa_tinkerboard_pininfo(b, 29,   7, (mraa_pincapabilities_t){1,1,0,0,0,0,0,0}, "GPIO1IO07", -1, 0, 7);
+            mraa_tinkerboard_pininfo(b, 30,  -1, (mraa_pincapabilities_t){1,0,0,0,0,0,0,0}, "GND");
+            mraa_tinkerboard_pininfo(b, 31,   8, (mraa_pincapabilities_t){1,1,0,0,0,0,0,0}, "GPIO1IO08", -1, 0, 8);
+            mraa_tinkerboard_pininfo(b, 32,   1, (mraa_pincapabilities_t){1,1,1,0,0,0,0,0}, "GPIO1IO01:PWM1", -1, 0, 1);
+            mraa_tinkerboard_pininfo(b, 33,  13, (mraa_pincapabilities_t){1,1,1,0,0,0,0,0}, "GPIO1IO13:PWM2", -1, 0, 13);
+            mraa_tinkerboard_pininfo(b, 34,  -1, (mraa_pincapabilities_t){1,0,0,0,0,0,0,0}, "GND");
+            mraa_tinkerboard_pininfo(b, 35, 106, (mraa_pincapabilities_t){1,1,0,0,0,0,0,0}, "GPIO4IO10:SAI1TXFS", -1, 3, 10);
+            mraa_tinkerboard_pininfo(b, 36, 141, (mraa_pincapabilities_t){1,1,0,0,0,0,0,0}, "GPIO5IO13", -1, 4, 13);
+            mraa_tinkerboard_pininfo(b, 37,  77, (mraa_pincapabilities_t){1,1,0,0,0,0,0,0}, "GPIO3IO13", -1, 2, 13);
+            mraa_tinkerboard_pininfo(b, 38,  98, (mraa_pincapabilities_t){1,1,0,0,0,0,0,0}, "GPIO4IO02:SAI1RXD0", -1, 3, 2);
+            mraa_tinkerboard_pininfo(b, 39,  -1, (mraa_pincapabilities_t){1,0,0,0,0,0,0,0}, "GND");
+            mraa_tinkerboard_pininfo(b, 40, 108, (mraa_pincapabilities_t){1,1,0,0,0,0,0,0}, "GPIO4IO12:SAI1TXD0", -1, 3, 12);
         }
     }
     syslog(LOG_ERR, "mraa_tinkerboard : %s ---", b->platform_name);

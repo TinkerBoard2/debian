@@ -261,7 +261,25 @@ typedef enum {
 typedef enum {
     MRAA_TINKERBOARD_2_SPI1 = 0,
     MRAA_TINKERBOARD_2_SPI5 = 1
-} mraa_tinkerboard_spi_t;
+} mraa_tinkerboard_2_spi_t;
+
+/**
+* ASUS Tinker Edge T compatible numbering enum
+*/
+
+typedef enum {
+    MRAA_TINKEREDGE_T_I2C2 = 0,
+    MRAA_TINKEREDGE_T_I2C3 = 1
+} mraa_tinkeredge_t_i2c_t;
+
+typedef enum {
+    MRAA_TINKEREDGE_T_UART1 = 0,
+    MRAA_TINKEREDGE_T_UART3 = 1
+} mraa_tinkeredge_t_uart_t;
+
+typedef enum {
+    MRAA_TINKEREDGE_T_SPI1 = 0
+} mraa_tinkeredge_t_spi_t;
 
 /**
  * MRAA return codes
