@@ -49,6 +49,7 @@ mraa_pwm_write_period(mraa_pwm_context dev, int period)
     }
     char bu[MAX_SIZE];
     snprintf(bu, MAX_SIZE, "/sys/class/pwm/pwmchip%d/pwm%d/period", dev->chipid, dev->pin);
+    syslog(LOG_ERR, "mraa_pwm_write_period bu : %s\n", bu);
 
     int period_f = open(bu, O_RDWR);
     if (period_f == -1) {
@@ -198,6 +199,8 @@ mraa_pwm_init_internal(mraa_adv_func_t* func_table, int chipin, int pin)
 mraa_pwm_context
 mraa_pwm_init(int pin)
 {
+    syslog(LOG_ERR, "mraa_pwm_init pin : %d\n", pin);
+
     mraa_board_t* board = plat;
     if (board == NULL) {
         syslog(LOG_ERR, "pwm_init: Platform Not Initialised");
@@ -280,6 +283,8 @@ mraa_pwm_init_raw(int chipin, int pin)
 
     char directory[MAX_SIZE];
     snprintf(directory, MAX_SIZE, SYSFS_PWM "/pwmchip%d/pwm%d", dev->chipid, dev->pin);
+    syslog(LOG_ERR, "mraa_pwm_init_raw directory : %s\n", directory);
+
     struct stat dir;
     if (stat(directory, &dir) == 0 && S_ISDIR(dir.st_mode)) {
         syslog(LOG_NOTICE, "pwm_init: pwm%i already exported, continuing", pin);

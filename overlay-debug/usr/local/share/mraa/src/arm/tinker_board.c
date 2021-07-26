@@ -28,7 +28,7 @@
 
 const char* tinkerboard2_serialdev[MRAA_TINKER2_UART_COUNT] = { "/dev/ttyS0", "/dev/ttyS4" };
 
-const char* tinkerboards_serialdev[MRAA_TINKERS_UART_COUNT] = { "/dev/ttyS1", "/dev/ttyS2", "/dev/ttyS3", "/dev/ttyS4" };
+const char* tinkerboards_serialdev[MRAA_TINKERS_UART_COUNT] = { "/dev/ttyS1", "/dev/ttyS2", "/dev/ttyS4" };
 
 const char* tinkeredget_serialdev[MRAA_TINKEREDGET_UART_COUNT] = { "/dev/ttymxc0", "/dev/ttymxc2" };
 
@@ -102,7 +102,7 @@ mraa_tinkerboard()
             b->spi_bus[0].bus_id = 1;
             b->spi_bus[1].bus_id = 5;
 
-             // PWM
+            // PWM
             b->pwm_dev_count = MRAA_TINKER2_PWM_COUNT;
             b->pwm_default_period = 500;
             b->pwm_max_period = 2147483;
@@ -176,15 +176,13 @@ mraa_tinkerboard()
             b->uart_dev[0].device_path = (char*) tinkerboards_serialdev[0];
             b->uart_dev[1].device_path = (char*) tinkerboards_serialdev[1];
             b->uart_dev[2].device_path = (char*) tinkerboards_serialdev[2];
-            b->uart_dev[3].device_path = (char*) tinkerboards_serialdev[3];
 
             // UART
             b->uart_dev_count = MRAA_TINKERS_UART_COUNT;
             b->def_uart_dev = 0;
             b->uart_dev[0].index = 1;
             b->uart_dev[1].index = 2;
-            b->uart_dev[2].index = 3;
-            b->uart_dev[3].index = 4;
+            b->uart_dev[2].index = 4;
 
             // I2C
             if (strncmp(b->platform_name, PLATFORM_NAME_TINKER_BOARD_S, MAX_SIZE) == 0) {
