@@ -101,7 +101,8 @@ mraa_arm_platform()
             platform_type = MRAA_ADLINK_IPI;
         else if (mraa_file_contains("/proc/device-tree/model", "Tinker Board 2") ||
                     mraa_file_contains("/proc/device-tree/model", "Tinker Board (S)") ||
-		    mraa_file_contains("/proc/device-tree/model", "Tinker Edge T"))
+                    mraa_file_contains("/proc/device-tree/model", "Tinker Edge T") ||
+		    mraa_file_contains("/proc/device-tree/model", "Tinker Edge R"))
             platform_type = MRAA_TINKERBOARD;
     }
 
