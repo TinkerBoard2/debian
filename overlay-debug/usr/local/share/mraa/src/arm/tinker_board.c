@@ -21,10 +21,10 @@
 * "ASUS Tinker Board 2" is used on Radxa 4.4 kernel
 * so we search for the string below by ignoring case
 */
-#define PLATFORM_NAME_TINKER_BOARD_2 "Tinker Board 2"
-#define PLATFORM_NAME_TINKER_BOARD_S "Tinker Board (S)"
-#define PLATFORM_NAME_TINKER_EDGE_T "Tinker Edge T"
-#define PLATFORM_NAME_TINKER_EDGE_R "Tinker Edge R"
+#define PLATFORM_NAME_TINKER_BOARD_2 "ASUS Tinker Board 2/2S"
+#define PLATFORM_NAME_TINKER_BOARD_S "ASUS Tinker Board (S)"
+#define PLATFORM_NAME_TINKER_EDGE_T "ASUS Tinker Edge T"
+#define PLATFORM_NAME_TINKER_EDGE_R "ASUS Tinker Edge R"
 #define MAX_SIZE 64
 
 const char* tinkerboard2_serialdev[MRAA_TINKER2_UART_COUNT] = { "/dev/ttyS0", "/dev/ttyS4" };

@@ -99,10 +99,10 @@ mraa_arm_platform()
             platform_type = MRAA_RASPBERRY_PI;
         else if (mraa_file_contains("/proc/device-tree/model", "ADLINK ARM, LEC-PX30"))
             platform_type = MRAA_ADLINK_IPI;
-        else if (mraa_file_contains("/proc/device-tree/model", "Tinker Board 2") ||
-                    mraa_file_contains("/proc/device-tree/model", "Tinker Board (S)") ||
-                    mraa_file_contains("/proc/device-tree/model", "Tinker Edge T") ||
-		    mraa_file_contains("/proc/device-tree/model", "Tinker Edge R"))
+        else if (mraa_file_contains("/proc/device-tree/model", "ASUS Tinker Board 2/2S") ||
+                    mraa_file_contains("/proc/device-tree/model", "ASUS Tinker Board (S)") ||
+                    mraa_file_contains("/proc/device-tree/model", "ASUS Tinker Edge T") ||
+		    mraa_file_contains("/proc/device-tree/model", "ASUS Tinker Edge R"))
             platform_type = MRAA_TINKERBOARD;
     }
 
