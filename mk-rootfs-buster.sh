@@ -226,11 +226,12 @@ python3 setup.py install
 cd /
 
 #---------------mraa library --------------
+apt-get install -y swig3.0
 chmod a+x /usr/local/share/mraa
 cd /usr/local/share/mraa
 mkdir build
 cd build
-cmake -DCMAKE_INSTALL_PREFIX:PATH=/usr --BUILDARCH=aarch64 -DBUILDSWIGPYTHON=ON ..
+cmake -DCMAKE_INSTALL_PREFIX:PATH=/usr --BUILDARCH=aarch64 ..
 make
 make install
 cd /
