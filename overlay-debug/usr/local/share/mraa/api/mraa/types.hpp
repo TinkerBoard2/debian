@@ -60,7 +60,13 @@ typedef enum {
     MTK_LINKIT = 17,           /**< Mediatek MT7688 based Linkit boards */
     MTK_OMEGA2 = 18,           /**< MT7688 based Onion Omega2 board */
     IEI_TANK = 19,             /**< IEI Tank System*/
-    INTEL_UPXTREME = 24,        /**< The UPXTREME Board */
+    ROCKPI4 = 20,              /**< Radxa ROCK PI 4 Models A/B/C */
+    ADLINK_IPI = 21,           /**< Adlink Industrial PI */
+    ADLINK_LEC_AL = 22,        /**< Adlink LEC-AL*/
+    ADLINK_LEC_AL_AI = 23,     /**< Adlink LEC-AL*/
+    INTEL_UPXTREME = 24,       /**< The UPXTREME Board */
+    INTEL_ILK = 25,            /**< Intel Learning Kit */
+    TINKERBOARD = 26,          /**< The ASUS TINKER BOARD*/
 
     FTDI_FT4222 = 256,         /**< FTDI FT4222 USB to i2c bridge */
 
