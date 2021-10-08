@@ -236,6 +236,18 @@ make
 make install
 cd /
 
+#---------------40 pin permission for user --------------
+groupadd gpiouser
+adduser linaro gpiouser
+groupadd i2cuser
+adduser linaro i2cuser
+groupadd spidevuser
+adduser linaro spidevuser
+groupadd uartuser
+adduser linaro uartuser
+groupadd pwmuser
+adduser linaro pwmuser
+
 #-------------plymouth--------------
 plymouth-set-default-theme script
 
