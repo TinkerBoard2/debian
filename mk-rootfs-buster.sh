@@ -137,6 +137,9 @@ dpkg -i  /packages/gst-rkmpp/*.deb
 #apt-mark hold gstreamer1.0-x
 apt-get install -f -y
 
+#---------Audio---------
+chmod 755 /etc/audio/update_device_description.sh
+
 #---------Camera---------
 echo -e "\033[36m Install camera.................... \033[0m"
 apt-get install cheese v4l-utils -y
