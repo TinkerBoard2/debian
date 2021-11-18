@@ -157,7 +157,7 @@ mraa_tinkerboard()
             mraa_tinkerboard_pininfo(b, 23,  41, (mraa_pincapabilities_t){1,1,0,0,1,0,0,0}, "SPI1CLK");
             mraa_tinkerboard_pininfo(b, 24,  42, (mraa_pincapabilities_t){1,1,0,0,1,0,0,0}, "SPI1CS0");
             mraa_tinkerboard_pininfo(b, 25,  -1, (mraa_pincapabilities_t){1,0,0,0,0,0,0,0}, "GND");
-            mraa_tinkerboard_pininfo(b, 26,   6, (mraa_pincapabilities_t){1,0,1,0,0,0,0,0}, "PWM3A");
+            mraa_tinkerboard_pininfo(b, 26,   6, (mraa_pincapabilities_t){1,1,1,0,0,0,0,0}, "PWM3A");
             mraa_tinkerboard_pininfo(b, 27,  71, (mraa_pincapabilities_t){1,1,0,0,0,1,0,0}, "SDA7");
             mraa_tinkerboard_pininfo(b, 28,  72, (mraa_pincapabilities_t){1,1,0,0,0,1,0,0}, "SCL7");
             mraa_tinkerboard_pininfo(b, 29, 126, (mraa_pincapabilities_t){1,1,0,0,0,0,0,0}, "I2S0_SDO1");
@@ -424,7 +424,7 @@ mraa_tinkerboard()
             mraa_tinkerboard_pininfo(b, 23,  41, (mraa_pincapabilities_t){1,1,0,0,1,0,0,0}, "GPIO1B1:SPI1CLK");
             mraa_tinkerboard_pininfo(b, 24,  42, (mraa_pincapabilities_t){1,1,0,0,1,0,0,0}, "GPIO1B2:SPI1CSN0");
             mraa_tinkerboard_pininfo(b, 25,  -1, (mraa_pincapabilities_t){1,0,0,0,0,0,0,0}, "GND");
-            mraa_tinkerboard_pininfo(b, 26,   6, (mraa_pincapabilities_t){1,0,1,0,0,0,0,0}, "GPIO0A6:PWM3A");
+            mraa_tinkerboard_pininfo(b, 26,   6, (mraa_pincapabilities_t){1,1,1,0,0,0,0,0}, "GPIO0A6:PWM3A");
             mraa_tinkerboard_pininfo(b, 27,  71, (mraa_pincapabilities_t){1,1,0,0,0,1,0,0}, "GPIO2A7:I2C7SDA");
             mraa_tinkerboard_pininfo(b, 28,  72, (mraa_pincapabilities_t){1,1,0,0,0,1,0,0}, "GPIO2B0:I2C7SCL");
             mraa_tinkerboard_pininfo(b, 29, 126, (mraa_pincapabilities_t){1,1,0,0,0,0,0,0}, "GPIO3D6:I2S0SDO1");
