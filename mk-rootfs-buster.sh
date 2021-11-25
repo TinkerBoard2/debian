@@ -125,16 +125,15 @@ bc cpio parted dosfstools mtools libssl-dev dpkg-dev isc-dhcp-client-ddns
 apt-get install -f -y
 
 #---------------Rga--------------
-dpkg -i /packages/rga/*.deb
+apt-get install -fy /packages/rga/*.deb
 
 echo -e "\033[36m Setup Video.................... \033[0m"
 apt-get install -y gstreamer1.0-plugins-bad gstreamer1.0-plugins-base gstreamer1.0-tools gstreamer1.0-alsa \
 gstreamer1.0-plugins-base-apps qtmultimedia5-examples
 apt-get install -f -y
 
-dpkg -i  /packages/mpp/*
-dpkg -i  /packages/gst-rkmpp/*.deb
-apt-get install -f -y
+apt-get install -fy /packages/mpp/*
+apt-get install -fy /packages/gst-rkmpp/*.deb
 
 #---------Audio---------
 chmod 755 /etc/audio/update_device_description.sh
@@ -142,8 +141,8 @@ chmod 755 /etc/audio/update_device_description.sh
 #---------Camera---------
 echo -e "\033[36m Install camera.................... \033[0m"
 apt-get install cheese v4l-utils -y
-dpkg -i  /packages/rkisp/*.deb
-dpkg -i  /packages/libv4l/*.deb
+apt-get install -fy /packages/rkisp/*.deb
+apt-get install -fy /packages/libv4l/*.deb
 cp /packages/rkisp/librkisp.so /usr/lib/
 
 #---------Xserver---------
@@ -154,20 +153,15 @@ libpciaccess-dev libpng-dev libpng-tools libxfont-dev libxkbfile-dev linux-libc-
 libdmx1 libpixman-1-dev libxcb-xf86dri0 libxcb-xv0
 apt-get install -f -y
 
-dpkg -i /packages/xserver/*.deb
-apt-get install -f -y
+apt-get install -fy /packages/xserver/*.deb
 
 #---------------Openbox--------------
 echo -e "\033[36m Install openbox.................... \033[0m"
-apt-get install -y openbox
-dpkg -i  /packages/openbox/*.deb
-apt-get install -f -y
+apt-get install -fy /packages/openbox/*.deb
 
 #------------------pcmanfm------------
 echo -e "\033[36m Install pcmanfm.................... \033[0m"
-apt-get install -y pcmanfm
-dpkg -i  /packages/pcmanfm/*.deb
-apt-get install -f -y
+apt-get install -fy /packages/pcmanfm/*.deb
 
 #------------------ffmpeg------------
 echo -e "\033[36m Install ffmpeg.................... \033[0m"
@@ -182,16 +176,14 @@ apt-get install -f -y
 #apt-get install -f -y
 
 #---------update chromium-----
-apt-get install -y chromium
-apt-get install -f -y /packages/chromium/*.deb
+apt-get install -fy /packages/chromium/*.deb
 
 #---------modem manager---------
 apt-get install -y modemmanager libqmi-utils libmbim-utils ppp
 
 #------------------libdrm------------
 echo -e "\033[36m Install libdrm.................... \033[0m"
-dpkg -i  /packages/libdrm/*.deb
-apt-get install -f -y
+apt-get install -fy /packages/libdrm/*.deb
 
 #---------------tinker-power-management--------------
 cd /usr/local/share/tinker-power-management
