@@ -108,7 +108,7 @@ chmod +x /etc/rc.local
 export APT_INSTALL="apt-get install -fy --allow-downgrades"
 
 #---------------power management --------------
-${APT_INSTALL} busybox pm-utils triggerhappy
+\${APT_INSTALL} busybox pm-utils triggerhappy
 cp /etc/Powermanager/triggerhappy.service  /lib/systemd/system/triggerhappy.service
 
 #---------------system--------------
@@ -117,24 +117,24 @@ bc cpio parted dosfstools mtools libssl-dev dpkg-dev isc-dhcp-client-ddns
 apt-get install -f -y
 
 #---------------Rga--------------
-${APT_INSTALL} /packages/rga/*.deb
+\${APT_INSTALL} /packages/rga/*.deb
 
 echo -e "\033[36m Setup Video.................... \033[0m"
-${APT_INSTALL} gstreamer1.0-plugins-bad gstreamer1.0-plugins-base gstreamer1.0-tools gstreamer1.0-alsa \
+\${APT_INSTALL} gstreamer1.0-plugins-bad gstreamer1.0-plugins-base gstreamer1.0-tools gstreamer1.0-alsa \
 gstreamer1.0-plugins-base-apps qtmultimedia5-examples
 apt-get install -f -y
 
-${APT_INSTALL} /packages/mpp/*
-${APT_INSTALL} /packages/gst-rkmpp/*.deb
+\${APT_INSTALL} /packages/mpp/*
+\${APT_INSTALL} /packages/gst-rkmpp/*.deb
 
 #---------Audio---------
 chmod 755 /etc/audio/update_device_description.sh
 
 #---------Camera---------
 echo -e "\033[36m Install camera.................... \033[0m"
-${APT_INSTALL} cheese v4l-utils
-${APT_INSTALL} /packages/rkisp/*.deb
-${APT_INSTALL} /packages/libv4l/*.deb
+\${APT_INSTALL} cheese v4l-utils
+\${APT_INSTALL} /packages/rkisp/*.deb
+\${APT_INSTALL} /packages/libv4l/*.deb
 cp /packages/rkisp/librkisp.so /usr/lib/
 
 #---------Xserver---------
@@ -145,20 +145,20 @@ libpciaccess-dev libpng-dev libpng-tools libxfont-dev libxkbfile-dev linux-libc-
 libdmx1 libpixman-1-dev libxcb-xf86dri0 libxcb-xv0
 apt-get install -f -y
 
-${APT_INSTALL} /packages/xserver/*.deb
+\${APT_INSTALL} /packages/xserver/*.deb
 
 #---------------Openbox--------------
 echo -e "\033[36m Install openbox.................... \033[0m"
-${APT_INSTALL} /packages/openbox/*.deb
+\${APT_INSTALL} /packages/openbox/*.deb
 
 #------------------pcmanfm------------
 echo -e "\033[36m Install pcmanfm.................... \033[0m"
-${APT_INSTALL} /packages/pcmanfm/*.deb
+\${APT_INSTALL} /packages/pcmanfm/*.deb
 
 if [ "$VERSION" == "debug" ]; then
 #------------------glmark2------------
 echo -e "\033[36m Install glmark2.................... \033[0m"
-${APT_INSTALL} /packages/glmark2/*.deb
+\${APT_INSTALL} /packages/glmark2/*.deb
 fi
 
 #------------------ffmpeg------------
@@ -174,14 +174,14 @@ apt-get install -f -y
 #apt-get install -f -y
 
 #---------update chromium-----
-${APT_INSTALL} /packages/chromium/*.deb
+\${APT_INSTALL} /packages/chromium/*.deb
 
 #---------modem manager---------
 apt-get install -y modemmanager libqmi-utils libmbim-utils ppp
 
 #------------------libdrm------------
 echo -e "\033[36m Install libdrm.................... \033[0m"
-${APT_INSTALL} /packages/libdrm/*.deb
+\${APT_INSTALL} /packages/libdrm/*.deb
 
 #---------------tinker-power-management--------------
 cd /usr/local/share/tinker-power-management
