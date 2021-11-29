@@ -80,17 +80,6 @@ elif [ "$ARCH" == "arm64"  ]; then
 	sudo cp -rf overlay-debug/usr/local/share/adb/adbd-64 $TARGET_ROOTFS_DIR/usr/local/bin/adbd
 fi
 
-# glmark2
-sudo rm -rf $TARGET_ROOTFS_DIR/usr/local/share/glmark2
-sudo mkdir -p $TARGET_ROOTFS_DIR/usr/local/share/glmark2
-if [ "$ARCH" == "armhf" ] && [ "$VERSION" == "debug" ]; then
-	sudo cp -rf overlay-debug/usr/local/share/glmark2/armhf/share/* $TARGET_ROOTFS_DIR/usr/local/share/glmark2
-	sudo cp overlay-debug/usr/local/share/glmark2/armhf/bin/glmark2-es2 $TARGET_ROOTFS_DIR/usr/local/bin/glmark2-es2
-elif [ "$ARCH" == "arm64" ] && [ "$VERSION" == "debug" ]; then
-	sudo cp -rf overlay-debug/usr/local/share/glmark2/aarch64/share/* $TARGET_ROOTFS_DIR/usr/local/share/glmark2
-	sudo cp overlay-debug/usr/local/share/glmark2/aarch64/bin/glmark2-es2 $TARGET_ROOTFS_DIR/usr/local/bin/glmark2-es2
-fi
-
 # gpio library
 sudo rm -rf $TARGET_ROOTFS_DIR/usr/local/share/gpio_lib_c_rk3399
 sudo rm -rf $TARGET_ROOTFS_DIR/usr/local/share/gpio_lib_python_rk3399
@@ -165,6 +154,12 @@ ${APT_INSTALL} /packages/openbox/*.deb
 #------------------pcmanfm------------
 echo -e "\033[36m Install pcmanfm.................... \033[0m"
 ${APT_INSTALL} /packages/pcmanfm/*.deb
+
+if [ "$VERSION" == "debug" ]; then
+#------------------glmark2------------
+echo -e "\033[36m Install glmark2.................... \033[0m"
+${APT_INSTALL} /packages/glmark2/*.deb
+fi
 
 #------------------ffmpeg------------
 echo -e "\033[36m Install ffmpeg.................... \033[0m"
