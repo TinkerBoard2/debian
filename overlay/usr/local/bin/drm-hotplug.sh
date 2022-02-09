@@ -27,102 +27,22 @@ for user in root $(users);do
 done
 [ $USER ] || exit 0
 
-HDMI="HDMI-1"
-DP="DP-1"
+# Find connected monitors
+MONITORS=$(sudo -u $user xrandr|grep -w connected|cut -d' ' -f1)
 
-HDMI_SYS="/sys/class/drm/card0-HDMI-A-1"
-DP_SYS="/sys/class/drm/card0-DP-1"
+# Make sure every connected monitors been enabled with a valid mode.
+for monitor in $MONITORS;do
+    # Unlike the drm driver, X11 modesetting drv uses HDMI for HDMI-A
+    CRTC=$(echo $monitor|sed "s/HDMI\(-[^B]\)/HDMI-A\1/")
 
-HDMI_XRANDR_CONFIG="/boot/display/hdmi/xrandr.cfg"
-DP_XRANDR_CONFIG="/boot/display/dp/xrandr.cfg"
+    SYS="/sys/class/drm/card*-$CRTC/"
 
-HDMI_HOTPLUG_CONFIG="/boot/display/hdmi/hdmi_plug_flag.cfg"
-DP_HOTPLUG_CONFIG="/boot/display/dp/dp_plug_flag.cfg"
+    # Already got a valid mode
+    grep -w "$(cat $SYS/mode)" $SYS/modes && continue
 
-
-HDMI_MODES_NODE="$HDMI_SYS/modes"
-DP_MODES_NODE="$DP_SYS/modes"
-
-HDMI_MODE_NODE="$HDMI_SYS/mode"
-DP_MODE_NODE="$DP_SYS/mode"
-
-hdmi_status=$(cat /sys/class/drm/card0-HDMI-A-1/status)
-dp_status=$(cat /sys/class/drm/card0-DP-1/status)
-
-#Save resolution if the external display is disconnected
-#HDMI
-if [ $hdmi_status = "disconnected" ]; then
-	if [ -f $HDMI_HOTPLUG_CONFIG ]; then
-		if [ "$(cat $HDMI_HOTPLUG_CONFIG)" != "Plug_Out" ]; then
-			if [ "$(cat $HDMI_MODE_NODE)" != "" ]; then
-				HDMI_SAVE_MODE="$(cat $HDMI_MODE_NODE |cut -d'p' -f1)"
-				su $user -c "echo $HDMI_SAVE_MODE" > $HDMI_XRANDR_CONFIG
-			fi
-		fi
-	fi
-	sudo -u $user xrandr --output $HDMI --off
-	su $user -c "echo Plug_Out" > $HDMI_HOTPLUG_CONFIG
-fi
-
-#DP
-if [ $dp_status = "disconnected" ]; then
-	if [ -f $DP_HOTPLUG_CONFIG ]; then
-		if [ "$(cat $DP_HOTPLUG_CONFIG)" != "Plug_Out" ]; then
-			if [ "$(cat $DP_MODE_NODE)" != "" ]; then
-				DP_SAVE_MODE="$(cat $DP_MODE_NODE |cut -d'p' -f1)"
-				su $user -c "echo $DP_SAVE_MODE" > $DP_XRANDR_CONFIG
-			fi
-		fi
-	fi
-	sudo -u $user xrandr --output $DP --off
-	su $user -c "echo Plug_Out" > $DP_HOTPLUG_CONFIG
-fi
-
-#Restore external display preview resolution
-#HDMI
-sudo -u $user xrandr
-if [ $hdmi_status = "connected" ]; then
-	if [ -f $HDMI_HOTPLUG_CONFIG ]; then
-		if [ "$(cat $HDMI_HOTPLUG_CONFIG)" = "Plug_Out" ]; then
-			if [ -f $HDMI_XRANDR_CONFIG ]; then
-				if grep -q $(cat $HDMI_XRANDR_CONFIG) $HDMI_MODES_NODE; then
-					sudo -u $user xrandr --output $HDMI --mode $(cat $HDMI_XRANDR_CONFIG)
-				else
-					sudo -u $user xrandr --output $HDMI --auto
-				fi
-			else
-				sudo -u $user xrandr --output $HDMI --auto
-			fi
-		else
-			if [ "$(cat $HDMI_MODE_NODE)" = "" ]; then
-				sudo -u $user xrandr --output $HDMI --auto
-			fi
-		fi
-	fi
-	su $user -c "echo Plug_In" > $HDMI_HOTPLUG_CONFIG
-fi
-
-#DP
-if [ $dp_status = "connected" ]; then
-	if [ -f $DP_HOTPLUG_CONFIG ]; then
-		if [ "$(cat $DP_HOTPLUG_CONFIG)" = "Plug_Out" ]; then
-			if [ -f $DP_XRANDR_CONFIG ]; then
-				if grep -q $(cat $DP_XRANDR_CONFIG) $DP_MODES_NODE; then
-					sudo -u $user xrandr --output $DP --mode $(cat $DP_XRANDR_CONFIG)
-				else
-					sudo -u $user xrandr --output $DP --auto
-				fi
-			else
-				sudo -u $user xrandr --output $DP --auto
-			fi
-		else
-			if [ "$(cat $DP_MODE_NODE)" = "" ]; then
-				sudo -u $user xrandr --output $DP --auto
-			fi
-		fi
-	fi
-	su $user -c "echo Plug_In" > $DP_HOTPLUG_CONFIG
-fi
+    # Ether disabled or wrongly configured
+    sudo -u $user xrandr --output $monitor --auto
+done
 
 # Audio : pulseaudio suspend/resume for HDMI and DP
 
