@@ -1,48 +1,78 @@
-#!/bin/sh -x
-
-# Try to figure out XAUTHORITY and DISPLAY
-for pid in $(pgrep X 2>/dev/null || ls /proc|grep -ow "[0-9]*"|sort -rn); do
-    PROC_DIR=/proc/$pid
-
-    # Filter out non-X processes
-    readlink $PROC_DIR/exe|grep -qwE "X$|Xorg$" || continue
-
-    # Parse auth file and display from cmd args
-    export XAUTHORITY=$(cat $PROC_DIR/cmdline|tr '\0' '\n'| \
-        grep -w "\-auth" -A 1|tail -1)
-    export DISPLAY=$(cat $PROC_DIR/cmdline|tr '\0' '\n'| \
-        grep -w "^:.*" || echo ":0")
-
-    echo Found auth: $XAUTHORITY for dpy: $DISPLAY
-    break
-done
+#!/bin/bash -x
 
 export DISPLAY=${DISPLAY:-:0}
 
-# Find an authorized user
-unset USER
-for user in root $(users);do
-    sudo -u $user xdpyinfo &>/dev/null && \
-        { USER=$user; break; }
+function prepare_env() {
+    # Try to figure out XAUTHORITY and DISPLAY
+    for pid in $(pgrep X 2>/dev/null || \
+        ls /proc|grep -ow "[0-9]*"|sort -rn); do
+        PROC_DIR=/proc/$pid
+
+        # Filter out non-X processes
+        readlink $PROC_DIR/exe|grep -qwE "X$|Xorg$" || continue
+
+        # Parse auth file and display from cmd args
+        export XAUTHORITY=$(cat $PROC_DIR/cmdline|tr '\0' '\n'| \
+            grep -w "\-auth" -A 1|tail -1)
+        export DISPLAY=$(cat $PROC_DIR/cmdline|tr '\0' '\n'| \
+            grep -w "^:.*" || echo ":0")
+
+        logger -t $0 "Found auth: $XAUTHORITY for dpy: $DISPLAY"
+        return
+    done
+}
+
+function xrandr_wrapper() {
+    xrandr --screen ${SCREEN:-0} $@
+}
+
+if ! xdpyinfo &>/dev/null; then
+    # Try to setup env
+    prepare_env
+
+    if ! xdpyinfo &>/dev/null; then
+        # Try to switch to an authorized user
+        for XUSER in root $(users);do
+            sudo -u $XUSER xdpyinfo &>/dev/null || continue
+
+            logger -t $0 "Switch to user: $XUSER"
+            sudo -u $XUSER $0; exit 0
+        done
+
+        logger -t $0 "Unable to contact Xserver!"
+        exit 0
+    fi
+fi
+
+TMP=$(mktemp)
+
+SCREENS=$(xdpyinfo|grep screens|cut -d':' -f2)
+for SCREEN in $(seq 0 ${SCREENS:-0}); do
+    # Get monitors and current mode info
+    xrandr_wrapper 2>&1|grep -oE "^.*connected|^.*\*"|tee $TMP
+
+    # Result:
+    # eDP-1 connected
+    #   1536x2048     59.99*
+    # DP-1 disconnected
+    # HDMI-1 connected
+    #   1920x1080     60.00*
+    #
+    # "*" means valid current mode.
+
+    # Make sure every connected monitors been enabled with a valid mode.
+    for MONITOR in $(grep -w connected $TMP|cut -d' ' -f1); do
+        # Find monitors without a valid current mode
+        if ! grep -w $MONITOR $TMP -A 1|grep "\*"; then
+            # Ether disabled or wrongly configured
+            xrandr_wrapper --output $MONITOR --auto
+
+            logger -t $0 "Output $MONITOR enabled."
+        fi
+    done
 done
-[ $USER ] || exit 0
 
-# Find connected monitors
-MONITORS=$(sudo -u $user xrandr|grep -w connected|cut -d' ' -f1)
-
-# Make sure every connected monitors been enabled with a valid mode.
-for monitor in $MONITORS;do
-    # Unlike the drm driver, X11 modesetting drv uses HDMI for HDMI-A
-    CRTC=$(echo $monitor|sed "s/HDMI\(-[^B]\)/HDMI-A\1/")
-
-    SYS="/sys/class/drm/card*-$CRTC/"
-
-    # Already got a valid mode
-    grep -w "$(cat $SYS/mode)" $SYS/modes && continue
-
-    # Ether disabled or wrongly configured
-    sudo -u $user xrandr --output $monitor --auto
-done
+rm -rf $TMP
 
 # Audio : pulseaudio suspend/resume for HDMI and DP
 
@@ -55,10 +85,5 @@ then
 	sudo -u linaro PULSE_RUNTIME_PATH=/run/user/1000/pulse pacmd suspend true
 	sudo -u linaro PULSE_RUNTIME_PATH=/run/user/1000/pulse pacmd suspend false
 fi
-
-# The DP needs reinit every time, so turn it off when disconnected
-SYS="/sys/class/drm/card*-DP-1/"
-grep -q dis $SYS/status && grep -q "" $SYS/mode && \
-    sudo -u $user xrandr --output DP-1 --off
 
 exit 0
