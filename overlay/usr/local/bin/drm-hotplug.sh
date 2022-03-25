@@ -124,16 +124,21 @@ if [ $dp_status = "connected" ]; then
 	su $user -c "echo Plug_In" > $DP_HOTPLUG_CONFIG
 fi
 
-# Audio : pulseaudio suspend/resume for HDMI and DP
+# Audio : switch audio output devices when HDMI or DP hot-plug
 
 hdmi_status=$(cat /sys/class/drm/card0-HDMI-A-1/status)
 dp_status=$(cat /sys/class/drm/card0-DP-1/status)
 
-if [ $hdmi_status = "connected" ] || [ $dp_status = "connected" ]
+echo "Hot-Plug : hdmi_status = $hdmi_status, dp_status = $dp_status"
+
+if [ $hdmi_status = "connected" ]
 then
-	echo "pulseaudio suspend and resume"
-	sudo -u linaro PULSE_RUNTIME_PATH=/run/user/1000/pulse pacmd suspend true
-	sudo -u linaro PULSE_RUNTIME_PATH=/run/user/1000/pulse pacmd suspend false
+	/etc/pulse/movesinks.sh "alsa_output.platform-hdmi-sound.stereo-fallback"
+elif [ $dp_status = "connected" ]
+then
+	/etc/pulse/movesinks.sh "alsa_output.platform-dp-sound.stereo-fallback"
+else
+	/etc/pulse/movesinks.sh "alsa_output.platform-hdmi-sound.stereo-fallback"
 fi
 
 # The DP needs reinit every time, so turn it off when disconnected
