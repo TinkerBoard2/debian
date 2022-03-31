@@ -6,13 +6,13 @@ now="$(date +'%Y%m%d_%H%M')"
 logfile="$1/$now"_sd.txt
 
 #Check SD card insert or not
-sd_mount_point=$(cat /proc/mounts | grep mmcblk0 | awk '{print $2}')
+sd_mount_point=$(cat /proc/mounts | grep mmcblk1 | awk '{print $2}')
 sd_mount_point=$(echo $sd_mount_point | awk '{print $1}')
 
 echo sd_mount_point = $sd_mount_point
 
 if [ -z $sd_mount_point ]; then
-	sd_blk=$(cat /proc/partitions | grep mmcblk0 | awk '{print $4}')
+	sd_blk=$(cat /proc/partitions | grep mmcblk1 | awk '{print $4}')
 	if [ -z $sd_blk ]; then
 		echo SD card not detect, exit test!! | tee $2 $logfile
 		exit
