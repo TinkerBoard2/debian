@@ -11,6 +11,7 @@ case $1 in
 	;;
 	resume)
 		echo "Audio : pulseaudio resume"
+		sleep 4.5
 		sudo -u linaro PULSE_RUNTIME_PATH=/run/user/1000/pulse pacmd suspend false
 	;;
 	*) exit $NA
