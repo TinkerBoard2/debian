@@ -19,7 +19,7 @@ if [ ! $VERSION ]; then
 	VERSION="debug"
 fi
 
-if [ ! -e linaro-buster-arm64.tar.gz ]; then
+if [ ! -e linaro-buster-$ARCH.tar.gz ]; then
 	echo -e "\033[36m Run mk-base-debian.sh first \033[0m"
 	exit -1
 fi
@@ -31,7 +31,7 @@ finish() {
 trap finish ERR
 
 echo -e "\033[36m Extract image \033[0m"
-sudo tar -xpf linaro-buster-arm64.tar.gz
+sudo tar -xpf linaro-buster-$ARCH.tar.gz
 
 # packages folder
 sudo mkdir -p $TARGET_ROOTFS_DIR/packages

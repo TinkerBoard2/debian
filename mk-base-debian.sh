@@ -26,8 +26,8 @@ if [ ! -e $ROOTFS_BASE_DIR ]; then
   ROOTFS_BASE_DIR="."
 fi
 
-if [ -e $ROOTFS_BASE_DIR/linaro-$RELEASE-alip-*.tar.gz ]; then
-	rm $ROOTFS_BASE_DIR/linaro-$RELEASE-alip-*.tar.gz
+if [ -e $ROOTFS_BASE_DIR/linaro-$RELEASE-alip-$ARCH-*.tar.gz ]; then
+	rm $ROOTFS_BASE_DIR/linaro-$RELEASE-alip-$ARCH-*.tar.gz
 fi
 
 cd ubuntu-build-service/$RELEASE-$TARGET-$ARCH
@@ -40,9 +40,9 @@ make clean
 
 make
 
-if [ -e linaro-$RELEASE-alip-*.tar.gz ]; then
-	sudo chmod 0666 linaro-$RELEASE-alip-*.tar.gz
-	mv linaro-$RELEASE-alip-*.tar.gz ../../$ROOTFS_BASE_DIR/
+if [ -e linaro-$RELEASE-alip-$ARCH-*.tar.gz ]; then
+	sudo chmod 0666 linaro-$RELEASE-alip-$ARCH-*.tar.gz
+	mv linaro-$RELEASE-alip-$ARCH-*.tar.gz ../../$ROOTFS_BASE_DIR/
 else
 	echo -e "\e[31m Failed to run livebuild, please check your network connection. \e[0m"
 fi
